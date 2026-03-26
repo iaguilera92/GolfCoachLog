@@ -57,9 +57,9 @@ function Areas() {
                 width: "100%",
                 textAlign: "center",
                 fontSize: {
-                  xs: index === 1 ? "2.8rem" : "3.4rem",
-                  sm: index === 1 ? "4.2rem" : "4.6rem",
-                  md: index === 1 ? "5.2rem" : "5.8rem",
+                  xs: "2.8rem",
+                  sm: "4.2rem",
+                  md: "5.2rem",
                 },
                 fontWeight: 900,
                 fontFamily: "Roboto-BoldCondensed, sans-serif",

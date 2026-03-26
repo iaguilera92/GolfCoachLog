@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, useMediaQuery, useTheme } from '@mui/material';
 import { motion } from 'framer-motion';
 import "./css/Cargando.css";
+import golfCoachLogLogo from "../../logo-golfcoachlog.png";
 
 const Cargando = () => {
     const [glow, setGlow] = useState(false);
@@ -99,7 +100,7 @@ const Cargando = () => {
                 muted
                 loop
                 playsInline
-                src="/video-inicio.mp4"
+                src="/video-golf.mp4"
                 sx={{
                     position: 'absolute',
                     inset: 0,
@@ -137,7 +138,7 @@ const Cargando = () => {
                     }}
                 >
                     <motion.img
-                        src="/logo-golfcoachlog.png"
+                        src={golfCoachLogLogo}
                         alt="Golf Coach Log"
                         initial={{ y: 20, opacity: 0 }}
                         animate={showImage ? { y: 0, opacity: 1 } : {}}

@@ -435,7 +435,7 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
                         letterSpacing: 0.3,
                       }}
                     >
-                      Bienvenid@ a ingsnt.cl
+                      Bienvenid@ a GolfCoachLog
                     </Typography>
                   </Box>
 
