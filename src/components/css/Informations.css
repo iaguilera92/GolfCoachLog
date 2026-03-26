@@ -1,0 +1,478 @@
+.tournament-block {
+  position: relative;
+  padding: 6px 0 64px;
+  margin-top: -48px;
+  background: #ffffff;
+}
+
+.tournament-block__container {
+  position: relative;
+}
+
+.tournament-block__container--premium {
+  width: 100%;
+  max-width: none !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+}
+
+.tournament-block__panel {
+  min-height: 360px;
+  display: flex;
+  align-items: center;
+  border-radius: 0;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(7, 18, 28, 0.72), rgba(7, 18, 28, 0.48)),
+    url("/fondo-7.jpg") center/cover no-repeat;
+  box-shadow: none;
+}
+
+.tournament-block__panel--full {
+  width: 100%;
+}
+
+.tournament-block__copy {
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 56px 38px;
+  text-align: center;
+}
+
+.tournament-block__title {
+  margin: 0 0 12px;
+  color: #ffffff;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  line-height: 1.14;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.tournament-block__description {
+  margin: 0;
+  max-width: 520px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.tournament-block__panel .tournament-block__button.MuiButton-root {
+  display: inline-flex;
+}
+
+.tournament-block__button.MuiButton-root {
+  margin-top: 22px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #1fbf75 0%, #148a58 100%);
+  color: #fff;
+  text-transform: none;
+  font-size: 0.95rem;
+  font-weight: 700;
+  box-shadow: 0 14px 28px rgba(20, 138, 88, 0.24);
+}
+
+.tournament-block__button.MuiButton-root:hover {
+  background: linear-gradient(135deg, #28cf82 0%, #19a565 100%);
+}
+
+.tournament-block__community {
+  margin-top: 34px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 14px 30px;
+  border-radius: 0;
+  background: #ffffff;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.tournament-block__community-image-wrap {
+  flex: 0 0 min(100%, 320px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+}
+
+.tournament-block__community-image {
+  display: block;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 0 rgba(34, 167, 182, 0.32);
+  animation: tournamentPulse 2.2s ease-in-out infinite;
+}
+
+.tournament-block__community-copy {
+  flex: 1 1 auto;
+  text-align: left;
+  background: #ffffff;
+}
+
+@media (min-width: 901px) {
+  .tournament-block__community-image {
+    width: 350px;
+    height: 350px;
+  }
+
+  .tournament-block__community-copy {
+    margin-left: 18px;
+  }
+}
+
+.tournament-block__community-title {
+  margin: 0 0 12px;
+  color: #09161d;
+  font-size: clamp(2.25rem, 4.6vw, 3.35rem);
+  font-weight: 1000;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.tournament-block__community-description {
+  margin: 0;
+  max-width: 520px;
+  color: #66757c;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.tournament-block__premium {
+  position: relative;
+  margin-top: 34px;
+  min-height: 280px;
+  padding: 56px 0;
+  border-radius: 0;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.42)),
+    url("/fondo-17.jpg") center/cover no-repeat;
+  box-shadow: none;
+}
+
+.tournament-block__premium--full {
+  width: 100%;
+}
+
+.tournament-block__premium-inner {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.tournament-block__premium-copy,
+.tournament-block__premium-action {
+  position: relative;
+  z-index: 1;
+}
+
+.tournament-block__premium-copy {
+  flex: 1 1 auto;
+  max-width: 520px;
+  margin: 0;
+  color: #ffffff;
+  text-align: left;
+}
+
+.tournament-block__premium-title {
+  margin: 0 0 8px;
+  color: #ffffff;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 1000;
+  line-height: 1.06;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.tournament-block__premium-description {
+  margin: 0;
+  max-width: 520px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.96rem;
+  line-height: 1.7;
+}
+
+.tournament-block__premium-action {
+  margin-top: 0;
+  margin-left: auto;
+  text-align: right;
+}
+
+.tournament-block__app {
+  margin-top: 34px;
+  padding: 42px 28px 76px;
+  border-radius: 0;
+  background: #ffffff;
+  box-shadow: none;
+  text-align: center;
+}
+
+.tournament-block__app-layout {
+  display: grid;
+  grid-template-columns: 340px minmax(320px, 420px) 350px;
+  align-items: center;
+  gap: 60px;
+}
+
+.tournament-block__app-copy {
+  width: 340px;
+  padding-right: 28px;
+}
+
+.tournament-block__app-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 14px;
+  min-height: 290px;
+  margin-bottom: 0;
+  width: 100%;
+  min-width: 0;
+  margin-left: 0;
+  margin-right: 0;
+  justify-self: center;
+  transform: translateX(-10px);
+}
+
+.tournament-block__app-phone {
+  width: min(100%, 180px);
+  height: auto;
+  filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.2));
+}
+
+.tournament-block__app-phone--left,
+.tournament-block__app-phone--right {
+  width: min(100%, 150px);
+  opacity: 0.95;
+}
+
+.tournament-block__app-title {
+  margin: 0 0 22px;
+  color: #09161d;
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  font-weight: 1000;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.tournament-block__app-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  flex-wrap: nowrap;
+  margin-top: 0;
+  transform: scale(0.82);
+  transform-origin: right center;
+  width: 390px;
+  padding-left: 24px;
+}
+
+.tournament-block__store-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 194px;
+  padding: 8px 12px;
+  border-radius: 18px;
+  background: rgba(8, 20, 30, 0.94);
+  color: #fff;
+  text-decoration: none;
+  transition: transform 180ms ease, background 180ms ease;
+}
+
+.tournament-block__store-badge:hover {
+  transform: translateY(-2px);
+  background: rgba(8, 20, 30, 0.86);
+}
+
+.tournament-block__store-icon {
+  font-size: 2.7rem !important;
+  flex: 0 0 auto;
+}
+
+.tournament-block__store-icon--play {
+  width: 2.44rem;
+  height: 2.44rem;
+}
+
+.tournament-block__store-small,
+.tournament-block__store-name {
+  display: block;
+  margin: 0;
+  text-align: left;
+}
+
+.tournament-block__store-small {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.54rem;
+  line-height: 1.1;
+}
+
+.tournament-block__store-name {
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+@keyframes tournamentPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(34, 167, 182, 0.32);
+  }
+
+  70% {
+    transform: scale(1.02);
+    box-shadow: 0 0 0 20px rgba(34, 167, 182, 0);
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(34, 167, 182, 0);
+  }
+}
+
+@media (max-width: 900px) {
+  .tournament-block {
+    padding: 10px 0 52px;
+  }
+
+  .tournament-block__panel {
+    min-height: 300px;
+    border-radius: 0;
+  }
+
+  .tournament-block__copy {
+    padding: 30px 22px;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .tournament-block__description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .tournament-block__community {
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 24px;
+    padding: 28px 20px;
+    border-radius: 0;
+  }
+
+  .tournament-block__community-image-wrap {
+    flex-basis: auto;
+    width: min(100%, 320px);
+  }
+
+  .tournament-block__community-image {
+    width: 220px;
+    height: 220px;
+  }
+
+  .tournament-block__community-copy {
+    text-align: center;
+  }
+
+  .tournament-block__premium-inner {
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .tournament-block__premium-copy {
+    max-width: 620px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .tournament-block__premium-action {
+    margin-left: 0;
+    text-align: center;
+  }
+
+  .tournament-block__community-description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .tournament-block__premium {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 22px;
+    margin-top: 24px;
+    min-height: 0;
+    padding: 34px 20px;
+    border-radius: 0;
+  }
+
+  .tournament-block__premium-action {
+    margin-left: 0;
+  }
+
+  .tournament-block__app {
+    margin-top: 24px;
+    padding: 30px 18px 52px;
+    border-radius: 0;
+  }
+
+  .tournament-block__app-layout {
+    flex-direction: column;
+    gap: 0;
+    display: flex;
+  }
+
+  .tournament-block__app-copy {
+    flex-basis: auto;
+    width: auto;
+  }
+
+  .tournament-block__app-visual {
+    min-height: 200px;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .tournament-block__app-phone {
+    width: min(100%, 110px);
+  }
+
+  .tournament-block__app-phone--left,
+  .tournament-block__app-phone--right {
+    width: min(100%, 92px);
+  }
+
+  .tournament-block__app-actions {
+    justify-content: center;
+    gap: 10px;
+    margin-top: 18px;
+    transform: scale(0.8);
+    transform-origin: center top;
+    flex-basis: auto;
+    width: auto;
+  }
+
+  .tournament-block__store-badge {
+    min-width: 0;
+    width: calc(50% - 4px);
+    max-width: 220px;
+    padding: 12px 10px;
+    gap: 6px;
+  }
+
+  .tournament-block__store-name {
+    font-size: 0.82rem;
+  }
+
+  .tournament-block__store-small {
+    font-size: 0.62rem;
+  }
+}

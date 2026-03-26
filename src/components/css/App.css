@@ -1,0 +1,212 @@
+.no-scroll {
+    overflow: hidden !important;
+    height: 100vh !important;
+    width: 100vw !important;
+    position: fixed !important;
+}
+
+.app-stats {
+    padding: 0 0 56px;
+    background: #f7f9fb;
+    position: relative;
+    z-index: 1;
+}
+
+.app-stats__container {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    background: linear-gradient(180deg, #3a95ea 0%, #338ee3 100%);
+    border-radius: 0;
+    padding: 34px 18px;
+}
+
+.app-stats__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 250px;
+    padding: 20px 12px;
+    background: transparent;
+    text-align: center;
+    position: relative;
+}
+
+.app-stats__item:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 22%;
+    right: 0;
+    width: 1px;
+    height: 56%;
+    background: rgba(255, 255, 255, 0.45);
+}
+
+.app-stats__value {
+    margin: 0;
+    color: #ffffff;
+    font-size: clamp(6.6rem, 14vw, 10.8rem);
+    line-height: 0.72;
+    font-weight: 1000;
+    letter-spacing: -0.08em;
+    text-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.app-stats__value span {
+    color: #4fd8e8;
+}
+
+.app-stats__label {
+    margin-top: 10px;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 1.15;
+    text-transform: none;
+}
+
+.app-stats__label-line {
+    display: block;
+}
+
+.app-reviews {
+    margin-top: 0;
+}
+
+.app-reviews__panel {
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 48px 24px 32px;
+    border-radius: 0;
+    background: #ffffff;
+    box-shadow: none;
+}
+
+.app-reviews__slider {
+    position: relative;
+    width: min(100%, 860px);
+    min-height: 240px;
+    margin: 0 auto;
+}
+
+.app-reviews__quote {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 220ms ease, transform 220ms ease;
+    text-align: center;
+    pointer-events: none;
+}
+
+.app-reviews__quote.is-active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.app-reviews__text {
+    margin: 0 0 24px !important;
+    color: #11212a;
+    font-size: clamp(1.35rem, 3vw, 2.2rem) !important;
+    line-height: 1.35 !important;
+    font-weight: 500 !important;
+}
+
+.app-reviews__author {
+    color: #5f6f76;
+    font-size: 1rem;
+    font-style: normal;
+}
+
+.app-reviews__dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.app-reviews__dot {
+    width: 10px;
+    height: 10px;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(17, 115, 124, 0.22);
+    cursor: pointer;
+    transition: transform 180ms ease, background 180ms ease;
+}
+
+.app-reviews__dot.is-active {
+    transform: scale(1.15);
+    background: #11737c;
+}
+
+.app-reviews__cta-wrap {
+    margin-top: 28px;
+    text-align: center;
+}
+
+.app-reviews__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 22px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #1fbf75 0%, #148a58 100%);
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 700;
+    box-shadow: 0 14px 28px rgba(20, 138, 88, 0.24);
+}
+
+@media (min-width: 900px) {
+    .app-reviews {
+        position: relative;
+        z-index: 2;
+        margin-top: -44px;
+    }
+}
+
+@media (max-width: 900px) {
+    .app-stats {
+        padding: 0 0 44px;
+    }
+
+    .app-stats__item {
+        min-height: 170px;
+        padding: 16px 8px;
+    }
+
+    .app-stats__container {
+        padding: 20px 8px;
+    }
+
+    .app-stats__value {
+        font-size: clamp(4.2rem, 15vw, 6.4rem);
+    }
+
+    .app-stats__label {
+        font-size: 0.68rem;
+    }
+
+    .app-stats__item:not(:last-child)::after {
+        top: 24%;
+        height: 52%;
+    }
+
+    .app-reviews {
+        margin-top: 0;
+    }
+
+    .app-reviews__panel {
+        padding: 32px 18px 24px;
+        border-radius: 0;
+    }
+
+    .app-reviews__slider {
+        min-height: 300px;
+    }
+}
