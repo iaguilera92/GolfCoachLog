@@ -65,6 +65,10 @@
   list-style: none;
 }
 
+.footer-modern__social-list {
+  margin-top: 18px;
+}
+
 .footer-modern__social-list a {
   display: flex;
   align-items: center;

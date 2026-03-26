@@ -1,9 +1,7 @@
 import { Box, Container, Typography } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
-import XIcon from "@mui/icons-material/X";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import "./css/Footer.css";
 
 const companyLinks = [
@@ -37,10 +35,8 @@ const legalLinks = [
 
 const socials = [
   { href: "https://www.facebook.com/18birdies", label: "Facebook", Icon: FacebookIcon },
-  { href: "https://www.twitter.com/18BirdiesApp", label: "X", Icon: XIcon },
   { href: "https://www.youtube.com/18birdies", label: "YouTube", Icon: YouTubeIcon },
   { href: "https://www.instagram.com/18BirdiesApp", label: "Instagram", Icon: InstagramIcon },
-  { href: "https://www.linkedin.com/company/18birdies", label: "LinkedIn", Icon: LinkedInIcon },
 ];
 
 function FooterColumn({ title, links }) {

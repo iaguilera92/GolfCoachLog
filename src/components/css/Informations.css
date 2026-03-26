@@ -206,7 +206,7 @@
 
 .tournament-block__app {
   margin-top: 34px;
-  padding: 42px 28px 76px;
+  padding: 18px 28px 30px;
   border-radius: 0;
   background: #ffffff;
   box-shadow: none;
@@ -420,7 +420,7 @@
 
   .tournament-block__app {
     margin-top: 24px;
-    padding: 30px 18px 52px;
+    padding: 14px 18px 24px;
     border-radius: 0;
   }
 
@@ -452,19 +452,20 @@
 
   .tournament-block__app-actions {
     justify-content: center;
-    gap: 10px;
+    gap: 14px;
     margin-top: 18px;
-    transform: scale(0.8);
-    transform-origin: center top;
     flex-basis: auto;
-    width: auto;
+    width: min(100%, 420px);
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .tournament-block__store-badge {
-    min-width: 0;
-    width: calc(50% - 4px);
-    max-width: 220px;
-    padding: 12px 10px;
+    min-width: 160px;
+    width: calc(50% - 7px);
+    max-width: 203px;
+    flex: 0 0 calc(50% - 7px);
+    padding: 14px 18px;
     gap: 6px;
   }
 
