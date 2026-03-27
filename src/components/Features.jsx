@@ -228,6 +228,7 @@ function Features() {
               src="/Coaches.jpg"
               alt="Golf courses preview"
               className="features-showcase__secondary-image features-showcase__secondary-image--full"
+              style={{ transform: "translateY(-18px)" }}
             />
           </Box>
 

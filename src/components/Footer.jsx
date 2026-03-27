@@ -1,7 +1,9 @@
-import { Box, Container, Typography } from "@mui/material";
+import { useState } from "react";
+import { Alert, Box, Container, Snackbar, Typography } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import InstagramIcon from "@mui/icons-material/Instagram";
+import ConstructionRoundedIcon from "@mui/icons-material/ConstructionRounded";
 import "./css/Footer.css";
 
 const companyLinks = [
@@ -57,14 +59,55 @@ function FooterColumn({ title, links }) {
 }
 
 function Footer() {
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const handleComingSoon = (event) => {
+    event.preventDefault();
+    setOpenSnackbar(true);
+  };
+
   return (
     <Box component="footer" className="footer-modern">
       <Container maxWidth="lg" className="footer-modern__container">
         <Box className="footer-modern__top">
           <nav className="footer-modern__nav" aria-label="Footer navigation">
-            <FooterColumn title="Company" links={companyLinks} />
-            <FooterColumn title="Features" links={featureLinks} />
-            <FooterColumn title="Resources" links={resourceLinks} />
+            <ul className="footer-modern__links">
+              <li>
+                <Typography component="h3" className="footer-modern__heading">
+                  Company
+                </Typography>
+              </li>
+              {companyLinks.map((link) => (
+                <li key={link.label}>
+                  <a href={link.href} onClick={handleComingSoon}>{link.label}</a>
+                </li>
+              ))}
+            </ul>
+
+            <ul className="footer-modern__links">
+              <li>
+                <Typography component="h3" className="footer-modern__heading">
+                  Features
+                </Typography>
+              </li>
+              {featureLinks.map((link) => (
+                <li key={link.label}>
+                  <a href={link.href} onClick={handleComingSoon}>{link.label}</a>
+                </li>
+              ))}
+            </ul>
+
+            <ul className="footer-modern__links">
+              <li>
+                <Typography component="h3" className="footer-modern__heading">
+                  Resources
+                </Typography>
+              </li>
+              {resourceLinks.map((link) => (
+                <li key={link.label}>
+                  <a href={link.href} onClick={handleComingSoon}>{link.label}</a>
+                </li>
+              ))}
+            </ul>
           </nav>
 
           <Box className="footer-modern__social">
@@ -92,7 +135,7 @@ function Footer() {
             <ul className="footer-modern__legal">
               {legalLinks.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href}>{link.label}</a>
+                  <a href={link.href} onClick={handleComingSoon}>{link.label}</a>
                 </li>
               ))}
             </ul>
@@ -112,6 +155,26 @@ function Footer() {
           </Typography>
         </Box>
       </Container>
+
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={2200}
+        onClose={() => setOpenSnackbar(false)}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert
+          onClose={() => setOpenSnackbar(false)}
+          severity="warning"
+          icon={<ConstructionRoundedIcon fontSize="inherit" />}
+          sx={{
+            alignItems: "center",
+            fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+            fontWeight: 700,
+          }}
+        >
+          Under Construction
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }
