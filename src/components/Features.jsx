@@ -221,6 +221,7 @@ function Features() {
           ref={(el) => { sectionRefs.current[2] = el; }}
           data-feature-index="2"
           className={`features-showcase__secondary features-showcase__secondary--reverse ${visibleSections[2] ? "features-showcase__reveal is-visible from-left" : "features-showcase__reveal from-left"}`}
+          sx={{ pb: { xs: "10px", md: 0 } }}
         >
           <Box className="features-showcase__secondary-image-wrap">
             <img

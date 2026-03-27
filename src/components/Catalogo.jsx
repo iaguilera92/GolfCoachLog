@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
   Container,
@@ -50,8 +50,8 @@ const Catalogo = () => {
 
   const GetProducto = (id, precio, img, stock = 1, descuento = false) => ({
     IdProducto: id,
-    NombreProducto: `Producto ${id}`,
-    Descripcion: 'Esta es una descripción del producto en stock, click para agregar al carrito.',
+    NombreProducto: `Product ${id}`,
+    Descripcion: 'This is an in-stock product description. Tap to add it to your cart.',
     Valor: precio,
     Stock: stock,
     ImageUrl: ImgUrlAleatorio(img),
@@ -100,7 +100,7 @@ const Catalogo = () => {
         if (cargados === totalRecursos.length) {
           setTimeout(() => {
             setIsLoaded(true);
-          }, 1500); // opcional: para una transición más suave
+          }, 1500); // opcional: para una transiciÃ³n mÃ¡s suave
         }
       };
 
@@ -143,7 +143,7 @@ const Catalogo = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    setProductoActivo({ 0: 0 }); // ← activa claramente el primer producto (grupo 0, índice 0)
+    setProductoActivo({ 0: 0 }); // â† activa claramente el primer producto (grupo 0, Ã­ndice 0)
   }, []);
 
   useEffect(() => {
@@ -157,14 +157,14 @@ const Catalogo = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setAnimarFlecha(false);
-    }, 3000); // ⏱️ dura aprox. 3 segundos para mostrar 2 movimientos
+    }, 3000); // â±ï¸ dura aprox. 3 segundos para mostrar 2 movimientos
 
     return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
     if ('scrollRestoration' in window.history) {
-      window.history.scrollRestoration = 'manual'; // ← impide la restauración automática
+      window.history.scrollRestoration = 'manual'; // â† impide la restauraciÃ³n automÃ¡tica
     }
 
     window.scrollTo(0, 0); // fuerza el inicio al tope
@@ -179,7 +179,7 @@ const Catalogo = () => {
           sx={{
             overflowX: 'hidden',
             minHeight: '100vh',
-            width: '100%', // ✅ CAMBIO AQUÍ
+            width: '100%', // âœ… CAMBIO AQUÃ
             py: 14,
             px: 1.2, // Puedes mantener esto ahora sin problema
             position: 'relative',
@@ -211,7 +211,7 @@ const Catalogo = () => {
                       height: 40,
                     }}
                   >
-                    {/* Título con ícono estilo reels */}
+                    {/* TÃ­tulo con Ã­cono estilo reels */}
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.8, ml: 1 }}>
                       <Box
                         component="img"
@@ -233,7 +233,7 @@ const Catalogo = () => {
                           fontFamily: '"Segoe UI", sans-serif',
                         }}
                       >
-                        {grupoIndex === 0 ? 'Explora el catálogo' : 'Más productos..'}
+                        {grupoIndex === 0 ? 'Explore the catalog' : 'More products..'}
                       </Box>
                     </Box>
 
@@ -278,7 +278,7 @@ const Catalogo = () => {
 
 
                   <Swiper
-                    modules={[Virtual]} // ✅ Solo usa los módulos que realmente ocupas
+                    modules={[Virtual]} // âœ… Solo usa los mÃ³dulos que realmente ocupas
                     lazy={true}
                     watchSlidesProgress
                     spaceBetween={12}
@@ -299,7 +299,7 @@ const Catalogo = () => {
                         <SwiperSlide
                           key={producto.IdProducto}
                           style={{
-                            width: '60vw', // 👉 Ocupa dos tercios del ancho
+                            width: '60vw', // ðŸ‘‰ Ocupa dos tercios del ancho
                             maxWidth: '320px',
                             scrollSnapAlign: 'start',
                           }}
@@ -434,13 +434,13 @@ const Catalogo = () => {
                   boxShadow: '0px 4px 12px rgba(0,0,0,0.4)'
                 }}
                 onClick={() => {
-                  const mensaje = `Me interesó el ${videoFullScreenProducto.NombreProducto}, ¿sigue disponible?`;
+                  const mensaje = `I’m interested in ${videoFullScreenProducto.NombreProducto}. Is it still available?`;
                   const telefono = '56999440746';
                   const urlWhatsapp = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
                   window.open(urlWhatsapp, '_blank');
                 }}
               >
-                Me interesa!
+                I'm interested!
               </Button>
 
               <Button
@@ -451,7 +451,7 @@ const Catalogo = () => {
                   textTransform: 'none'
                 }}
               >
-                Cerrar
+                Close
               </Button>
             </Box>
           )}
@@ -464,3 +464,5 @@ const Catalogo = () => {
 };
 
 export default Catalogo;
+
+

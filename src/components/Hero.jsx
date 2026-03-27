@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Box, Button, Container, Typography } from "@mui/material";
 import AppleIcon from "@mui/icons-material/Apple";
+import { motion } from "framer-motion";
 import "./css/Hero.css";
 
 const slides = [
@@ -30,9 +31,41 @@ const slides = [
   },
 ];
 
+function TypingText({ text, active }) {
+  return (
+    <Box component="span" sx={{ whiteSpace: "pre-wrap", display: "inline-block" }}>
+      {text.split("").map((char, index) => (
+        <Box
+          key={`${text}-${index}-${char === " " ? "space" : char}`}
+          component={motion.span}
+          initial={{ opacity: 0, y: -26 }}
+          animate={active ? { opacity: 1, y: 0 } : { opacity: 0, y: -26 }}
+          transition={{
+            delay: active ? index * 0.045 : 0,
+            duration: 0.34,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          sx={{
+            display: "inline-block",
+            color: "inherit",
+            font: "inherit",
+            lineHeight: "inherit",
+            letterSpacing: "inherit",
+            textShadow: "inherit",
+            whiteSpace: "pre",
+          }}
+        >
+          {char === " " ? "\u00A0" : char}
+        </Box>
+      ))}
+    </Box>
+  );
+}
+
 function Hero({ informationsRef, setVideoReady }) {
   const [activeSlide, setActiveSlide] = useState(0);
   const [heroReveal, setHeroReveal] = useState(false);
+  const [mobileSecondLineReveal, setMobileSecondLineReveal] = useState(false);
 
   useEffect(() => {
     if (setVideoReady) {
@@ -56,6 +89,20 @@ function Hero({ informationsRef, setVideoReady }) {
     return () => window.clearTimeout(revealTimer);
   }, []);
 
+  useEffect(() => {
+    if (!heroReveal) {
+      setMobileSecondLineReveal(false);
+      return undefined;
+    }
+
+    const mobileDelay = window.innerWidth < 640 ? 620 : 0;
+    const secondLineTimer = window.setTimeout(() => {
+      setMobileSecondLineReveal(true);
+    }, mobileDelay);
+
+    return () => window.clearTimeout(secondLineTimer);
+  }, [heroReveal]);
+
   const handleScrollToServices = () => {
     if (!informationsRef?.current) {
       return;
@@ -67,6 +114,10 @@ function Hero({ informationsRef, setVideoReady }) {
     window.scrollTo({ top: y, behavior: "smooth" });
   };
 
+  const handleNextSlide = () => {
+    setActiveSlide((prev) => (prev + 1) % slides.length);
+  };
+
   const currentSlide = slides[activeSlide];
 
   return (
@@ -74,7 +125,7 @@ function Hero({ informationsRef, setVideoReady }) {
       className="hero-landing"
       sx={{
         backgroundImage: "linear-gradient(90deg, rgba(5, 18, 28, 0.54), rgba(7, 31, 46, 0.3)), url('/fondo-7.jpg')",
-        pt: { xs: "148px", md: 0 },
+        pt: { xs: "136px", md: 0 },
         pb: { xs: "48px", md: 0 },
         minHeight: { xs: "auto", md: "768px" },
         height: { xs: "auto", md: "100vh" },
@@ -85,7 +136,7 @@ function Hero({ informationsRef, setVideoReady }) {
       <Container
         maxWidth="lg"
         className="hero-landing__container"
-        sx={{ mt: { xs: "18px", md: 0 }, maxWidth: { md: "980px !important" } }}
+        sx={{ mt: { xs: "10px", md: 0 }, maxWidth: { md: "980px !important" } }}
       >
         <Box
           className="hero-landing__content"
@@ -120,16 +171,16 @@ function Hero({ informationsRef, setVideoReady }) {
                 fontWeight: 900,
                 fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
                 lineHeight: { xs: 0.92, md: 0.95 },
-                mt: { xs: "24px", md: 0 },
+                mt: { xs: "10px", md: 0 },
               }}
             >
               <span className="hero-landing__title-desktop">
-                PLAY BETTER GOLF
+                <TypingText text="PLAY BETTER GOLF" active={heroReveal} />
               </span>
               <span className="hero-landing__title-mobile">
-                PLAY BETTER
+                <TypingText text="PLAY BETTER" active={heroReveal} />
                 <br />
-                GOLF
+                <TypingText text="GOLF" active={mobileSecondLineReveal} />
               </span>
             </Typography>
 
@@ -175,7 +226,11 @@ function Hero({ informationsRef, setVideoReady }) {
                 sx={{ width: { md: "210px" }, height: { md: "385px" } }}
               >
                 <Box key={currentSlide.title} className="hero-landing__screen is-active">
-                  <Box className="hero-landing__phone-frame">
+                  <Box
+                    className="hero-landing__phone-frame"
+                    onClick={handleNextSlide}
+                    sx={{ cursor: "pointer" }}
+                  >
                     <Box className="hero-landing__screen-media">
                       <img
                         src={currentSlide.image}
@@ -199,7 +254,7 @@ function Hero({ informationsRef, setVideoReady }) {
         <Box
           className={`hero-landing__bottom ${heroReveal ? "hero-landing__bottom--revealed" : ""}`}
           sx={{
-            mt: { xs: "14px", md: "14px" },
+            mt: { xs: "8px", md: "14px" },
             mx: "auto",
             transform: { md: "translateY(28px)" },
             width: { xs: "100%", md: "750px" },

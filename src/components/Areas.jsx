@@ -29,6 +29,7 @@ const featureSlides = [
 
 function Areas() {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [touchStartX, setTouchStartX] = useState(null);
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.4,
@@ -55,8 +56,42 @@ function Areas() {
     }
   }, [inView]);
 
+  const goToNextSlide = () => {
+    setActiveSlide((prev) => (prev + 1) % featureSlides.length);
+  };
+
+  const goToPrevSlide = () => {
+    setActiveSlide((prev) => (prev - 1 + featureSlides.length) % featureSlides.length);
+  };
+
+  const handleTouchStart = (event) => {
+    setTouchStartX(event.touches[0]?.clientX ?? null);
+  };
+
+  const handleTouchEnd = (event) => {
+    if (touchStartX === null) return;
+
+    const endX = event.changedTouches[0]?.clientX ?? touchStartX;
+    const deltaX = endX - touchStartX;
+
+    if (Math.abs(deltaX) > 45) {
+      if (deltaX < 0) {
+        goToNextSlide();
+      } else {
+        goToPrevSlide();
+      }
+    }
+
+    setTouchStartX(null);
+  };
+
   return (
-    <Box className="app-stats">
+    <Box
+      className="app-stats"
+      sx={{
+        background: 'url("/fondo-18.png") center/cover no-repeat',
+      }}
+    >
       <Container
         maxWidth={false}
         className="app-stats__container"
@@ -137,17 +172,29 @@ function Areas() {
       <Container
         maxWidth={false}
         className={`app-reviews app-section-reveal app-section-reveal--up ${reviewsInView ? "is-visible" : ""}`}
-        sx={{ px: { xs: 2, md: 6, lg: 10 } }}
+        sx={{
+          px: { xs: 2, md: 6, lg: 10 },
+          mt: { xs: 0, md: "-56px" },
+          mb: 0,
+          position: "relative",
+          zIndex: 2,
+        }}
         ref={reviewsRef}
       >
         <Box
           className="app-reviews__panel"
           sx={{
             pt: { xs: "18px", md: "64px" },
-            pb: { xs: "24px", md: "22px" },
+            pb: { xs: "10px", md: "10px" },
+            backgroundColor: "#ffffff",
           }}
         >
-          <Box className="app-reviews__slider">
+          <Box
+            className="app-reviews__slider"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            sx={{ touchAction: "pan-y", userSelect: "none" }}
+          >
             {featureSlides.map((slide, index) => (
               <blockquote
                 key={slide.title}

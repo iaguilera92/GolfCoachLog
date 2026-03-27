@@ -42,8 +42,8 @@
   justify-self: end;
   padding-right: 8px;
   opacity: 0;
-  transform: translate3d(-48px, 34px, 0) scale(0.94);
-  filter: blur(14px);
+  transform: none;
+  filter: none;
 }
 
 .hero-landing__copy--revealed {
@@ -71,6 +71,11 @@
 .hero-landing__title-desktop,
 .hero-landing__title-mobile {
   display: block;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  text-shadow: inherit;
 }
 
 .hero-landing__title-mobile {
@@ -163,8 +168,8 @@
   justify-self: start;
   margin-left: -18px;
   opacity: 0;
-  transform: translate3d(54px, 42px, 0) scale(0.86) rotate(-8deg);
-  filter: blur(14px);
+  transform: none;
+  filter: none;
 }
 
 .hero-landing__visual--revealed {
@@ -372,31 +377,26 @@
 @keyframes heroCopyReveal {
   0% {
     opacity: 0;
-    transform: translate3d(-34px, 24px, 0) scale(0.97);
-    filter: blur(10px);
+    transform: none;
+    filter: none;
   }
   100% {
     opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
-    filter: blur(0);
+    transform: none;
+    filter: none;
   }
 }
 
 @keyframes heroPhoneReveal {
   0% {
     opacity: 0;
-    transform: translate3d(38px, 34px, 0) scale(0.9) rotate(-6deg);
-    filter: blur(10px);
-  }
-  65% {
-    opacity: 1;
-    transform: translate3d(0, -6px, 0) scale(1.03) rotate(1.5deg);
-    filter: blur(0);
+    transform: none;
+    filter: none;
   }
   100% {
     opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
-    filter: blur(0);
+    transform: none;
+    filter: none;
   }
 }
 
