@@ -1,45 +1,59 @@
 import React, { useEffect, useState } from "react";
+import CountUp from "react-countup";
 import { Box, Container, Typography } from "@mui/material";
+import { useInView } from "react-intersection-observer";
 
 const stats = [
-  { value: "9", suffix: "M", label: "Global\nUsers" },
-  { value: "120", suffix: "M", label: "Rounds\nScored" },
-  { value: "46K", suffix: "", label: "Courses\nWorldwide" },
+  { value: 5, suffix: "M", label: "Global\nUsers" },
+  { value: 94, suffix: "M", label: "Rounds\nScored" },
+  { value: 38, suffix: "K", label: "Courses\nWorldwide" },
 ];
 
-const reviews = [
+const featureSlides = [
   {
-    quote:
-      "I've tried a few GPS apps and this is my favorite. Great shot planning, easy score tracking, and clear round insights from start to finish.",
-    author: "Luke MacDonald",
+    title: "GAME-CHANGING VIDEO ANALYSIS",
+    description:
+      "Analyze swings with precision using lines, angles, and frame-by-frame control. Compare progress over time and easily save or assign videos to players for smarter coaching.",
   },
   {
-    quote:
-      "This golf app has all the tools I need to play my best. The interface is intuitive and keeps me focused while tracking the full round.",
-    author: "Jim Coffing",
+    title: "Clinics",
+    description:
+      "Create and sell group golf clinics with ease. Set pricing, manage capacity, and offer simple sign-ups while tracking attendance and participation.",
   },
   {
-    quote:
-      "Best app on the market. The free version is phenomenal and makes it easy to track my shots, rounds, and progress as a golfer.",
-    author: "Weston Willard",
-  },
-  {
-    quote:
-      "Who needs a range finder when the app does it for you? I love seeing it match expensive devices and still keep everything simple.",
-    author: "Julio Aluiso",
+    title: "Programs",
+    description:
+      "Organize camps and training programs effortlessly. Customize pricing, control group size, and streamline player registration with built-in tracking.",
   },
 ];
 
 function Areas() {
-  const [activeReview, setActiveReview] = useState(0);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.4,
+    rootMargin: "0px 0px -8% 0px",
+  });
+  const { ref: reviewsRef, inView: reviewsInView } = useInView({
+    triggerOnce: true,
+    threshold: 0.22,
+    rootMargin: "0px 0px -6% 0px",
+  });
+  const [countStarted, setCountStarted] = useState(false);
 
   useEffect(() => {
     const interval = window.setInterval(() => {
-      setActiveReview((prev) => (prev + 1) % reviews.length);
+      setActiveSlide((prev) => (prev + 1) % featureSlides.length);
     }, 5000);
 
     return () => window.clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (inView) {
+      setCountStarted(true);
+    }
+  }, [inView]);
 
   return (
     <Box className="app-stats">
@@ -47,6 +61,7 @@ function Areas() {
         maxWidth={false}
         className="app-stats__container"
         sx={{ px: { xs: 2, md: 6, lg: 10 } }}
+        ref={ref}
       >
         {stats.map((stat, index) => (
           <Box key={stat.label} className="app-stats__item">
@@ -73,11 +88,27 @@ function Areas() {
             >
               {stat.suffix ? (
                 <>
-                  <span>{stat.value}</span>
+                  <span>
+                    {countStarted ? (
+                      <CountUp
+                        key={`count-${stat.label}`}
+                        start={0}
+                        end={stat.value}
+                        duration={3.2}
+                      />
+                    ) : 0}
+                  </span>
                   {stat.suffix}
                 </>
               ) : (
-                stat.value
+                countStarted ? (
+                  <CountUp
+                    key={`count-${stat.label}`}
+                    start={0}
+                    end={stat.value}
+                    duration={3.2}
+                  />
+                ) : 0
               )}
             </Typography>
 
@@ -105,57 +136,63 @@ function Areas() {
 
       <Container
         maxWidth={false}
-        className="app-reviews"
+        className={`app-reviews app-section-reveal app-section-reveal--up ${reviewsInView ? "is-visible" : ""}`}
         sx={{ px: { xs: 2, md: 6, lg: 10 } }}
+        ref={reviewsRef}
       >
-        <Box className="app-reviews__panel">
+        <Box
+          className="app-reviews__panel"
+          sx={{
+            pt: { xs: "18px", md: "64px" },
+            pb: { xs: "24px", md: "22px" },
+          }}
+        >
           <Box className="app-reviews__slider">
-            {reviews.map((review, index) => (
+            {featureSlides.map((slide, index) => (
               <blockquote
-                key={review.author}
-                className={`app-reviews__quote ${index === activeReview ? "is-active" : ""}`}
+                key={slide.title}
+                className={`app-reviews__quote ${index === activeSlide ? "is-active" : ""}`}
               >
+                <Typography
+                  component="h3"
+                  sx={{
+                    margin: "0 0 18px",
+                    textAlign: "center",
+                    fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+                    fontWeight: 900,
+                    fontSize: { xs: "1.85rem", md: "2.35rem" },
+                    lineHeight: 1,
+                    color: "#11212a",
+                  }}
+                >
+                  {slide.title}
+                </Typography>
                 <Typography component="p" className="app-reviews__text">
                   <Box
                     component="span"
                     sx={{
                       display: "block",
-                      maxWidth: { xs: "100%", md: "520px" },
+                      maxWidth: { xs: "100%", md: "700px" },
                       mx: "auto",
                     }}
                   >
-                    {review.quote}
+                    {slide.description}
                   </Box>
-                </Typography>
-                <Typography component="cite" className="app-reviews__author">
-                  {review.author}
                 </Typography>
               </blockquote>
             ))}
           </Box>
 
-          <Box className="app-reviews__dots" aria-label="Review pagination">
-            {reviews.map((review, index) => (
+          <Box className="app-reviews__dots" aria-label="Feature pagination">
+            {featureSlides.map((slide, index) => (
               <button
-                key={review.author}
+                key={slide.title}
                 type="button"
-                className={`app-reviews__dot ${index === activeReview ? "is-active" : ""}`}
-                onClick={() => setActiveReview(index)}
-                aria-label={`Show review ${index + 1}`}
+                className={`app-reviews__dot ${index === activeSlide ? "is-active" : ""}`}
+                onClick={() => setActiveSlide(index)}
+                aria-label={`Show ${slide.title}`}
               />
             ))}
-          </Box>
-
-          <Box className="app-reviews__cta-wrap">
-            <a
-              className="app-reviews__cta"
-              href="https://apps.apple.com/us/app/18birdies-golf-gps-scorecard/id892700751"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ marginTop: "18px" }}
-            >
-              See More Reviews
-            </a>
           </Box>
         </Box>
       </Container>

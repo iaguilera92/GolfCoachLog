@@ -1,14 +1,66 @@
-import React from "react";
-import { Box, Button, Container, Typography } from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
+import { Alert, Box, Button, Container, Snackbar, Typography } from "@mui/material";
 import AppleIcon from "@mui/icons-material/Apple";
+import ConstructionRoundedIcon from "@mui/icons-material/ConstructionRounded";
+import { useInView } from "react-intersection-observer";
 import "./css/Informations.css";
 
 function Informations() {
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const sectionOneRef = useRef(null);
+  const { ref: sectionTwoRef, inView: sectionTwoInView } = useInView({
+    triggerOnce: true,
+    threshold: 0.22,
+    rootMargin: "0px 0px -8% 0px",
+  });
+  const sectionThreeRef = useRef(null);
+  const { ref: sectionFourRef, inView: sectionFourInView } = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+    rootMargin: "0px 0px -6% 0px",
+  });
+  const [sectionOneInView, setSectionOneInView] = useState(false);
+  const [sectionThreeInView, setSectionThreeInView] = useState(false);
+  const handleComingSoon = () => {
+    setOpenSnackbar(true);
+  };
+
+  useEffect(() => {
+    const handleScrollReveal = () => {
+      if (!sectionOneInView && sectionOneRef.current) {
+        const rect = sectionOneRef.current.getBoundingClientRect();
+        if (rect.top <= window.innerHeight * 0.72 && rect.bottom >= window.innerHeight * 0.22) {
+          setSectionOneInView(true);
+        }
+      }
+
+      if (!sectionThreeInView && sectionThreeRef.current) {
+        const rect = sectionThreeRef.current.getBoundingClientRect();
+        if (rect.top <= window.innerHeight * 0.72 && rect.bottom >= window.innerHeight * 0.22) {
+          setSectionThreeInView(true);
+        }
+      }
+    };
+
+    handleScrollReveal();
+    window.addEventListener("scroll", handleScrollReveal, { passive: true });
+    return () => window.removeEventListener("scroll", handleScrollReveal);
+  }, [sectionOneInView, sectionThreeInView]);
+
   return (
     <Box className="tournament-block">
-      <Box className="tournament-block__panel tournament-block__panel--full">
-        <Container maxWidth="lg" className="tournament-block__container">
-          <Box className="tournament-block__copy">
+      <Box
+        className="tournament-block__panel tournament-block__panel--full"
+        ref={sectionOneRef}
+      >
+        <Container
+          maxWidth="lg"
+          className="tournament-block__container"
+          sx={{ pt: { xs: "18px", md: 0 } }}
+        >
+          <Box
+            className={`tournament-block__copy app-section-reveal app-section-reveal--right ${sectionOneInView ? "is-visible" : ""}`}
+          >
             <Typography
               component="h2"
               className="tournament-block__title"
@@ -20,10 +72,10 @@ function Informations() {
               }}
             >
               <Box component="span" sx={{ display: { xs: "inline", md: "block" } }}>
-                HOST A
+                TOURNAMENTS &amp;
               </Box>
               <Box component="span" sx={{ display: { xs: "inline", md: "block" } }}>
-                TOURNAMENT
+                COMPETITION
               </Box>
             </Typography>
 
@@ -32,16 +84,16 @@ function Informations() {
               className="tournament-block__description"
               sx={{ textAlign: "center", mx: "auto" }}
             >
-              We&apos;ve made it easier than ever to run your own tournament with
-              registration, live scoring, and more.
+              Create internal tournaments, track leaderboards and rankings, and
+              build a competitive environment that motivates players to improve
+              and stay engaged.
             </Typography>
 
             <Button
-              component="a"
-              href="/tournaments"
               variant="contained"
               className="tournament-block__button"
               sx={{ mt: "32px" }}
+              onClick={handleComingSoon}
             >
               Learn More
             </Button>
@@ -50,7 +102,10 @@ function Informations() {
       </Box>
 
       <Container maxWidth="lg" className="tournament-block__container">
-        <Box className="tournament-block__community">
+        <Box
+          className={`tournament-block__community app-section-reveal app-section-reveal--left ${sectionTwoInView ? "is-visible" : ""}`}
+          ref={sectionTwoRef}
+        >
           <Box className="tournament-block__community-image-wrap">
             <img
               src="/informations.png"
@@ -69,19 +124,19 @@ function Informations() {
                 fontSize: { xs: "2rem", sm: "2.25rem", md: "2.7rem" },
               }}
             >
-              JOIN THE COMMUNITY
+              PERFORMANCE TRACKING
             </Typography>
 
             <Typography component="p" className="tournament-block__community-description">
-              Connect with other golfers, compare stats, and compete in
-              tournaments no matter where you are in the world.
+              Track putting, short game, and swing performance, monitor
+              progress over time, and achieve measurable improvement with clear
+              insights.
             </Typography>
 
             <Button
-              component="a"
-              href="/#"
               variant="contained"
               className="tournament-block__button"
+              onClick={handleComingSoon}
             >
               See More
             </Button>
@@ -89,14 +144,17 @@ function Informations() {
         </Box>
       </Container>
 
-      <Box className="tournament-block__premium tournament-block__premium--full">
+      <Box
+        className="tournament-block__premium tournament-block__premium--full"
+        ref={sectionThreeRef}
+      >
         <Container
           maxWidth={false}
           className="tournament-block__container tournament-block__container--premium"
           sx={{ px: { xs: 3, md: 6, lg: 10 } }}
         >
           <Box
-            className="tournament-block__premium-inner"
+            className={`tournament-block__premium-inner app-section-reveal app-section-reveal--right ${sectionThreeInView ? "is-visible" : ""}`}
             sx={{ px: { xs: 1, md: 10, lg: 14 } }}
           >
             <Box className="tournament-block__premium-copy">
@@ -113,7 +171,7 @@ function Informations() {
                   mb: "8px",
                 }}
               >
-                Play With Confidence
+                COACH-PLAYER COMMUNICATION
               </Typography>
 
               <Typography
@@ -121,8 +179,9 @@ function Informations() {
                 className="tournament-block__premium-description"
                 sx={{ textAlign: { xs: "center", md: "left" }, mx: { xs: "auto", md: 0 } }}
               >
-                Get personalized insights and powerful tools to shoot lower scores
-                and hit your personal best every round.
+                Enable direct messaging, send feedback instantly, and share
+                drills, tips, and notes to keep players connected and
+                improving.
               </Typography>
             </Box>
 
@@ -131,10 +190,9 @@ function Informations() {
               sx={{ pr: { md: "56px", lg: "84px" }, pl: { md: "56px", lg: "84px" } }}
             >
               <Button
-                component="a"
-                href="/premium/"
                 variant="contained"
                 className="tournament-block__button"
+                onClick={handleComingSoon}
               >
                 Explore Premium
               </Button>
@@ -144,7 +202,10 @@ function Informations() {
       </Box>
 
       <Container maxWidth="lg" className="tournament-block__container">
-        <Box className="tournament-block__app">
+        <Box
+          className={`tournament-block__app tournament-block__app--reveal ${sectionFourInView ? "is-visible" : ""}`}
+          ref={sectionFourRef}
+        >
           <Box
             className="tournament-block__app-layout"
             sx={{
@@ -195,21 +256,48 @@ function Informations() {
                 alignSelf: { xs: "center", md: "auto" },
               }}
             >
-              <img
-                src="/hero-0.png"
-                alt="Golf app preview 1"
-                className="tournament-block__app-phone tournament-block__app-phone--left"
-              />
-              <img
-                src="/hero-1.png"
-                alt="Golf app preview 2"
-                className="tournament-block__app-phone tournament-block__app-phone--center"
-              />
-              <img
-                src="/hero-2.png"
-                alt="Golf app preview 3"
-                className="tournament-block__app-phone tournament-block__app-phone--right"
-              />
+              <Box className="tournament-block__app-phone-shell tournament-block__app-phone-shell--left">
+                <Box className="tournament-block__app-phone-media">
+                  <img
+                    src="/hero-0.jpeg"
+                    alt="Golf app preview 1"
+                    className="tournament-block__app-phone tournament-block__app-phone--left"
+                  />
+                </Box>
+                <img
+                  src="/mobile.png"
+                  alt="Mobile frame"
+                  className="tournament-block__app-frame"
+                />
+              </Box>
+              <Box className="tournament-block__app-phone-shell tournament-block__app-phone-shell--center">
+                <Box className="tournament-block__app-phone-media">
+                  <img
+                    src="/app-1.png"
+                    alt="Golf app preview 2"
+                    className="tournament-block__app-phone tournament-block__app-phone--center"
+                  />
+                </Box>
+                <img
+                  src="/mobile.png"
+                  alt="Mobile frame"
+                  className="tournament-block__app-frame"
+                />
+              </Box>
+              <Box className="tournament-block__app-phone-shell tournament-block__app-phone-shell--right">
+                <Box className="tournament-block__app-phone-media">
+                  <img
+                    src="/hero-2.jpeg"
+                    alt="Golf app preview 3"
+                    className="tournament-block__app-phone tournament-block__app-phone--right"
+                  />
+                </Box>
+                <img
+                  src="/mobile.png"
+                  alt="Mobile frame"
+                  className="tournament-block__app-frame"
+                />
+              </Box>
             </Box>
 
             <Box
@@ -218,14 +306,13 @@ function Informations() {
                 display: "flex",
                 width: { xs: "fit-content", md: "auto" },
                 maxWidth: { xs: "none", md: "none" },
-                ml: { xs: 0, md: "auto" },
                 mr: { xs: "auto", md: "-90px" },
                 justifyContent: { xs: "flex-start", md: "flex-end" },
                 gap: { xs: "12px", md: "16px" },
                 flexWrap: "nowrap",
                 alignSelf: { xs: "flex-start", md: "auto" },
                 position: "relative",
-                ml: { xs: "-110px", md: 0 },
+                ml: { xs: "-110px", md: "auto" },
                 right: { xs: 0, md: "auto" },
               }}
             >
@@ -289,6 +376,26 @@ function Informations() {
           </Box>
         </Box>
       </Container>
+
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={2200}
+        onClose={() => setOpenSnackbar(false)}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert
+          onClose={() => setOpenSnackbar(false)}
+          severity="warning"
+          icon={<ConstructionRoundedIcon fontSize="inherit" />}
+          sx={{
+            alignItems: "center",
+            fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+            fontWeight: 700,
+          }}
+        >
+          Under Construction
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

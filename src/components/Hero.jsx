@@ -7,19 +7,19 @@ const slides = [
   {
     eyebrow: "Golf Coaches",
     title: "Train with coaches and track progress",
-    image: "/hero-0.png",
+    image: "/hero-0.jpeg",
     alt: "Entrenamiento con golf coach",
   },
   {
     eyebrow: "Torneos",
     title: "Run tournaments with live results",
-    image: "/hero-1.png",
+    image: "/hero-1.jpeg",
     alt: "Gestión de torneos de golf",
   },
   {
     eyebrow: "Scorecard",
     title: "Keep every round on one scorecard",
-    image: "/hero-2.png",
+    image: "/hero-2.jpeg",
     alt: "Scorecard digital de golf",
   },
   {
@@ -32,6 +32,7 @@ const slides = [
 
 function Hero({ informationsRef, setVideoReady }) {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [heroReveal, setHeroReveal] = useState(false);
 
   useEffect(() => {
     if (setVideoReady) {
@@ -45,6 +46,14 @@ function Hero({ informationsRef, setVideoReady }) {
     }, 5000);
 
     return () => window.clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const revealTimer = window.setTimeout(() => {
+      setHeroReveal(true);
+    }, 4600);
+
+    return () => window.clearTimeout(revealTimer);
   }, []);
 
   const handleScrollToServices = () => {
@@ -65,7 +74,7 @@ function Hero({ informationsRef, setVideoReady }) {
       className="hero-landing"
       sx={{
         backgroundImage: "linear-gradient(90deg, rgba(5, 18, 28, 0.54), rgba(7, 31, 46, 0.3)), url('/fondo-7.jpg')",
-        pt: { xs: "172px", md: 0 },
+        pt: { xs: "148px", md: 0 },
         pb: { xs: "48px", md: 0 },
         minHeight: { xs: "auto", md: "768px" },
         height: { xs: "auto", md: "100vh" },
@@ -76,7 +85,7 @@ function Hero({ informationsRef, setVideoReady }) {
       <Container
         maxWidth="lg"
         className="hero-landing__container"
-        sx={{ mt: { xs: "42px", md: 0 }, maxWidth: { md: "980px !important" } }}
+        sx={{ mt: { xs: "18px", md: 0 }, maxWidth: { md: "980px !important" } }}
       >
         <Box
           className="hero-landing__content"
@@ -90,7 +99,7 @@ function Hero({ informationsRef, setVideoReady }) {
           }}
         >
           <Box
-            className="hero-landing__copy"
+            className={`hero-landing__copy ${heroReveal ? "hero-landing__copy--revealed" : ""}`}
             sx={{
               pt: { xs: 0, sm: 0 },
               justifySelf: { xs: "stretch", md: "center" },
@@ -160,17 +169,27 @@ function Hero({ informationsRef, setVideoReady }) {
           </Box>
 
           <Box className="hero-landing__aside" sx={{ ml: { md: "0" }, maxWidth: { md: "260px" }, justifySelf: { md: "center" } }}>
-            <Box className="hero-landing__visual">
+            <Box className={`hero-landing__visual ${heroReveal ? "hero-landing__visual--revealed" : ""}`}>
               <Box
                 className="hero-landing__screens"
                 sx={{ width: { md: "210px" }, height: { md: "385px" } }}
               >
                 <Box key={currentSlide.title} className="hero-landing__screen is-active">
-                  <img
-                    src={currentSlide.image}
-                    alt={currentSlide.alt}
-                    className="hero-landing__screen-image"
-                  />
+                  <Box className="hero-landing__phone-frame">
+                    <Box className="hero-landing__screen-media">
+                      <img
+                        src={currentSlide.image}
+                        alt={currentSlide.alt}
+                        className="hero-landing__screen-image"
+                      />
+                    </Box>
+                    <Box
+                      component="img"
+                      src="/mobile.png"
+                      alt="Mobile frame"
+                      className="hero-landing__phone-overlay"
+                    />
+                  </Box>
                 </Box>
               </Box>
             </Box>
@@ -178,7 +197,7 @@ function Hero({ informationsRef, setVideoReady }) {
         </Box>
 
         <Box
-          className="hero-landing__bottom"
+          className={`hero-landing__bottom ${heroReveal ? "hero-landing__bottom--revealed" : ""}`}
           sx={{
             mt: { xs: "14px", md: "14px" },
             mx: "auto",
@@ -292,7 +311,7 @@ function Hero({ informationsRef, setVideoReady }) {
           </Box>
         </Box>
 
-        <Box className="hero-landing__nav" aria-label="Navegación del hero">
+        <Box className={`hero-landing__nav ${heroReveal ? "hero-landing__nav--revealed" : ""}`} aria-label="Navegación del hero">
           {slides.map((slide, index) => (
             <button
               key={slide.title}

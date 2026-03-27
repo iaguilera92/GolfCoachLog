@@ -115,6 +115,25 @@
   font-size: 0.86rem;
 }
 
+.footer-modern__credits {
+  padding: 0 0 28px;
+  text-align: center;
+}
+
+.footer-modern__credits-text {
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 0.78rem;
+}
+
+.footer-modern__credits-text a {
+  color: rgba(255, 255, 255, 0.68);
+  text-decoration: none;
+}
+
+.footer-modern__credits-text a:hover {
+  color: #ffffff;
+}
+
 @media (max-width: 900px) {
   .footer-modern__container {
     padding-top: 48px;
@@ -143,5 +162,10 @@
   .footer-modern__legal {
     margin-left: 0;
     gap: 12px;
+  }
+
+  .footer-modern__credits {
+    padding: 0 0 24px;
+    text-align: left;
   }
 }

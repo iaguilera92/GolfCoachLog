@@ -85,14 +85,7 @@ function Footer() {
 
         <Box className="footer-modern__bottom">
           <Typography component="div" className="footer-modern__copyright">
-            © GolfCoachLog. All Rights Reserved. Designed by{" "}
-            <a
-              href="https://www.plataformas-web.cl"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              www.plataformas-web.cl
-            </a>
+            © GolfCoachLog. All Rights Reserved.
           </Typography>
 
           <nav aria-label="Legal navigation">
@@ -104,6 +97,19 @@ function Footer() {
               ))}
             </ul>
           </nav>
+        </Box>
+
+        <Box className="footer-modern__credits">
+          <Typography component="div" className="footer-modern__credits-text">
+            Designed by{" "}
+            <a
+              href="https://www.plataformas-web.cl"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              www.plataformas-web.cl
+            </a>
+          </Typography>
         </Box>
       </Container>
     </Box>

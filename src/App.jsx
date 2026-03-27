@@ -341,7 +341,7 @@ function App() {
                 }}
                 onClick={() => setOpenBubble(false)}
               >
-                Puedes escribirnos al wsp!
+                Message us on WhatsApp!
               </Box>
             )}
           </Box>

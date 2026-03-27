@@ -1,11 +1,24 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Box, Typography } from "@mui/material";
-import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, Marker, useMap, useMapEvent } from "react-leaflet";
 import L from "leaflet";
 
-const finalPosition = [25.7617, -80.1918];
+const finalPosition = [25.800856992558753, -80.13726365854272];
+const mapMarkerIcon = L.divIcon({
+  className: "golf-map-marker",
+  html: `
+    <div style="position:relative;width:88px;height:88px;display:flex;align-items:center;justify-content:center;">
+      <div style="position:absolute;width:88px;height:88px;border-radius:999px;background:radial-gradient(circle, rgba(31,191,117,0.30) 0%, rgba(31,191,117,0.12) 40%, rgba(31,191,117,0) 72%);animation:golfMarkerPulse 2.2s ease-in-out infinite;"></div>
+      <div style="position:absolute;width:60px;height:60px;border-radius:999px;background:radial-gradient(circle, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.08) 42%, rgba(255,255,255,0.02) 70%, rgba(255,255,255,0) 100%);box-shadow:0 12px 24px rgba(0,0,0,0.18);display:flex;align-items:center;justify-content:center;">
+        <img src="/icon-golf.png" alt="Golf marker" style="width:48px;height:48px;object-fit:contain;display:block;filter:drop-shadow(0 6px 12px rgba(0,0,0,0.22));" />
+      </div>
+    </div>
+  `,
+  iconSize: [88, 88],
+  iconAnchor: [44, 44],
+  popupAnchor: [0, -44],
+});
 
 function Contacto() {
   const sectionRef = useRef(null);
@@ -42,21 +55,31 @@ function Contacto() {
       }}
     >
       <Box
+        component="style"
+        dangerouslySetInnerHTML={{
+          __html: `
+            @keyframes golfMarkerPulse {
+              0%, 100% { transform: scale(0.9); opacity: 0.55; }
+              50% { transform: scale(1.12); opacity: 1; }
+            }
+          `,
+        }}
+      />
+      <Box
         sx={{
           position: "absolute",
           top: { xs: 12, md: 18 },
           left: "50%",
           transform: "translateX(-50%)",
           zIndex: 1000,
-          background: "rgba(0, 0, 0, 0.55)",
-          border: "1px solid rgba(255,255,255,0.22)",
-          borderRadius: "999px",
-          px: { xs: 1.8, md: 2.8 },
-          py: { xs: 0.45, md: 0.6 },
-          backdropFilter: "blur(6px)",
-          display: "flex",
-          alignItems: "center",
-          gap: { xs: 0.6, md: 0.8 },
+          background: "rgba(5, 12, 18, 0.58)",
+          border: "1px solid rgba(255,255,255,0.18)",
+          borderRadius: "18px",
+          px: { xs: 1.7, md: 2.3 },
+          py: { xs: 0.7, md: 0.9 },
+          backdropFilter: "blur(10px)",
+          boxShadow: "0 14px 28px rgba(0,0,0,0.18)",
+          textAlign: "center",
         }}
       >
         <Typography
@@ -65,27 +88,44 @@ function Contacto() {
             color: "#ffffff",
             fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
             fontWeight: 900,
-            fontSize: { xs: "1.08rem", md: "1.52rem" },
-            letterSpacing: "0.04em",
+            fontSize: { xs: "1.02rem", md: "1.38rem" },
+            letterSpacing: "0.08em",
             textTransform: "uppercase",
             textShadow: "0 4px 18px rgba(0,0,0,0.65)",
             textAlign: "center",
             lineHeight: 1,
           }}
         >
-          Location
+          Visit Us
         </Typography>
-        <LocationOnOutlinedIcon
+        <Typography
+          component="p"
           sx={{
-            color: "#ffffff",
-            fontSize: { xs: "1rem", md: "1.35rem" },
-            filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.5))",
+            margin: "4px 0 0",
+            color: "rgba(255,255,255,0.72)",
+            fontSize: { xs: "0.62rem", md: "0.7rem" },
+            fontWeight: 600,
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+            lineHeight: 1.1,
           }}
-        />
+        >
+          Miami Beach
+        </Typography>
       </Box>
+      <Box
+        sx={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 999,
+          pointerEvents: "none",
+          background:
+            "linear-gradient(180deg, rgba(4,10,16,0.28) 0%, rgba(4,10,16,0.06) 18%, rgba(4,10,16,0) 36%, rgba(4,10,16,0) 64%, rgba(4,10,16,0.08) 82%, rgba(4,10,16,0.26) 100%)",
+        }}
+      />
       <MapContainer
         center={finalPosition}
-        zoom={12}
+        zoom={10}
         style={{ width: "100%", height: "100%" }}
         scrollWheelZoom={false}
         dragging={false}
@@ -102,12 +142,7 @@ function Contacto() {
         />
         <Marker
           position={finalPosition}
-          icon={new L.Icon({
-            iconUrl: "/logo-mapa.png",
-            iconSize: [160, 160],
-            iconAnchor: [80, 80],
-            popupAnchor: [0, -80],
-          })}
+          icon={mapMarkerIcon}
         />
         <MapZoomController active={shouldZoom} />
         <MapClickHandler />
@@ -122,8 +157,8 @@ const MapZoomController = ({ active }) => {
   useEffect(() => {
     if (!active) return;
     map.flyTo(finalPosition, 16, {
-      duration: 1.6,
-      easeLinearity: 0.35,
+      duration: 2.4,
+      easeLinearity: 0.22,
     });
   }, [active, map]);
 

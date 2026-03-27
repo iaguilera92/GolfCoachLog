@@ -15,6 +15,7 @@ import {
   useMediaQuery, Dialog, DialogTitle, DialogContent
 } from "@mui/material";
 import { Menu as MenuIcon, Home, Mail, Close } from "@mui/icons-material"; // Agregamos Close para la "X"
+import StorefrontIcon from "@mui/icons-material/Storefront";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -86,8 +87,10 @@ const SocialButton = ({ href, Icon, bgColor, hoverStyles }) => (
 
 const menuItems = [
   { name: "Home", icon: <Home /> }, { name: "Services", icon: <ViewListIcon /> },
-  { name: "About", icon: <GroupsIcon /> }, { name: "Contact", icon: <Mail /> }
+  { name: "About", icon: <GroupsIcon /> }, { name: "Pro Shop", icon: <StorefrontIcon /> }, { name: "Contact", icon: <Mail /> }
 ];
+
+const blockedMenuItems = new Set(["Services", "About"]);
 
 function Navbar({ contactoRef, informationsRef, videoReady }) {
   const [open, setOpen] = useState(false), [isScrolled, setIsScrolled] = useState(false), [openPDF, setOpenPDF] = useState(false);
@@ -113,12 +116,18 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
   const handleClosePDF = () => setOpenPDF(false);
 
   const handleClick = (item) => {
+    if (blockedMenuItems.has(item.name)) {
+      setOpen(false);
+      return;
+    }
+
     setOpen(false);
     const actions = {
       Contact: () => scrollToRef(contactoRef),
       Home: () => location.pathname !== "/" ? navigate("/") : scrollToTop(),
       Services: () => navigate("/servicios"),
       About: () => navigate("/nosotros"),
+      "Pro Shop": () => navigate("/catalogo"),
       Presentation: handleOpenPDF
     };
     actions[item.name]?.();
@@ -134,7 +143,7 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
 
   return (
     <>
-      {isMobile && (
+      {isMobile && !isScrolled && (
         <Box
           sx={{
             position: "fixed",
@@ -142,28 +151,69 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
             left: 0,
             width: "100%",
             px: 1.5,
-            py: 0.75,
-            backgroundColor: "rgba(15, 15, 15, 0.96)",
+            py: 0.35,
+            background:
+              "linear-gradient(180deg, rgba(8,10,12,0.98) 0%, rgba(18,22,26,0.94) 100%)",
             display: "flex",
             alignItems: "center",
+            gap: 0.75,
             zIndex: 1200,
-            backdropFilter: "blur(8px)",
+            backdropFilter: "blur(10px)",
+            borderBottom: "1px solid rgba(255,255,255,0.08)",
           }}
         >
           <Box
-            component="img"
-            src="/icon-golf.png"
-            alt="GolfCoachLog App"
             sx={{
-              width: 46,
-              height: 46,
-              objectFit: "contain",
+              width: 34,
+              height: 34,
+              borderRadius: "9px",
+              background:
+                "linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 100%)",
+              border: "1px solid rgba(255,255,255,0.12)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
               flexShrink: 0,
+              overflow: "hidden",
             }}
-          />
+          >
+            <Box
+              component="img"
+              src="/icon-golf.png"
+              alt="GolfCoachLog App"
+              sx={{
+                width: 36,
+                height: 36,
+                objectFit: "cover",
+                display: "block",
+              }}
+            />
+          </Box>
 
-          <Box sx={{ ml: 1.2, color: "white", fontSize: "0.72rem", lineHeight: 1.15 }}>
-            <Box>Best Golf App</Box>
+          <Box sx={{ color: "white", lineHeight: 0.92, minWidth: 0 }}>
+            <Typography
+              sx={{
+                fontSize: "0.76rem",
+                fontWeight: 800,
+                color: "#ffffff",
+                fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+                whiteSpace: "nowrap",
+                lineHeight: 0.95,
+              }}
+            >
+              GolfCoachLog App
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: "0.58rem",
+                color: "rgba(255,255,255,0.7)",
+                mt: 0,
+                whiteSpace: "nowrap",
+                lineHeight: 0.95,
+              }}
+            >
+              Book, train and improve faster
+            </Typography>
           </Box>
 
           <Button
@@ -172,15 +222,17 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
             sx={{
               ml: "auto",
               minWidth: 0,
-              px: 1.6,
-              py: 0.9,
+              px: 1.3,
+              py: 0.5,
               borderRadius: "999px",
-              backgroundColor: "#1f6ff0",
+              background: "linear-gradient(135deg, #1fbf75 0%, #148a58 100%)",
               color: "#fff",
-              fontSize: "0.72rem",
-              fontWeight: 700,
+              fontSize: "0.6rem",
+              fontWeight: 800,
               textTransform: "none",
-              "&:hover": { backgroundColor: "#2f7cf7" },
+              whiteSpace: "nowrap",
+              boxShadow: "0 8px 18px rgba(20,138,88,0.28)",
+              "&:hover": { background: "linear-gradient(135deg, #2bd385 0%, #179764 100%)" },
             }}
           >
             Try for Free
@@ -197,7 +249,8 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
           zIndex: 1100,
           borderRadius: "50px",
           overflow: "hidden",
-          marginTop: { xs: "72px", md: "15px" },
+          marginTop: { xs: isScrolled ? "8px" : "52px", md: "15px" },
+          transition: "margin-top 0.28s ease",
         }}
       >
         <AppBar
@@ -212,7 +265,15 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
           }}
         >
           <Container>
-            <Toolbar>
+            <Toolbar
+              sx={{
+                minHeight: { xs: "52px", md: "64px" },
+                py: { xs: 0, md: 0 },
+                display: "flex",
+                alignItems: "center",
+                transform: "none",
+              }}
+            >
               <Box
                 sx={{
                   position: "absolute",
@@ -242,7 +303,7 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
                         initial={{ scale: 1 }}
                         animate={{ scale: isScrolled ? 0.8 : 1 }}
                         transition={{ duration: 0.3, ease: "easeOut" }}
-                        style={{ height: "45px", marginTop: "10px", cursor: "pointer" }}
+                        style={{ height: "45px", marginTop: "6px", cursor: "pointer" }}
                       />
                     </motion.div>
                   )}
@@ -264,13 +325,31 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
                     animate="visible"
                     variants={menuItemVariants}
                     onClick={() => handleClick(item)}
-                    sx={{
-                      color: "white",
-                      fontFamily: "Poppins, sans-serif",
-                      padding: "10px 14px",
-                      background: "transparent",
+                    disabled={blockedMenuItems.has(item.name)}
+                      sx={{
+                        fontFamily: "Poppins, sans-serif",
+                        padding: "10px 14px",
+                        background: item.name === "Pro Shop"
+                        ? "linear-gradient(160deg, #FFE082 0%, #FFC43D 38%, #FFB300 62%, #E68A00 100%)"
+                        : "transparent",
                       border: "none",
-                      "&:hover": { backgroundColor: "rgba(255, 255, 255, 0.1)" }
+                      borderRadius: item.name === "Pro Shop" ? "999px" : 0,
+                      fontWeight: item.name === "Pro Shop" ? 800 : 500,
+                      color: item.name === "Pro Shop" ? "#ffffff" : "white",
+                      textShadow: item.name === "Pro Shop" ? "0 1px 2px rgba(0,0,0,0.35)" : "none",
+                      boxShadow: item.name === "Pro Shop"
+                        ? "0 0 18px rgba(255, 195, 45, 0.52), 0 8px 20px rgba(120, 72, 0, 0.32)"
+                        : "none",
+                      opacity: blockedMenuItems.has(item.name) ? 0.38 : 1,
+                      "&:hover": {
+                        backgroundColor: blockedMenuItems.has(item.name)
+                          ? "transparent"
+                          : item.name === "Pro Shop"
+                            ? undefined
+                            : "rgba(255, 255, 255, 0.1)",
+                        transform: item.name === "Pro Shop" ? "scale(1.04)" : "none",
+                        filter: item.name === "Pro Shop" ? "brightness(1.08)" : "none",
+                      }
                     }}
                   >
                     {item.name}
@@ -308,9 +387,9 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
             maxWidth: '700px',
             minWidth: '300px',
             background: `
-        linear-gradient(135deg, rgba(56,142,172,0.9), rgba(20,40,50,0.95)),
-        radial-gradient(circle at 25% 20%, rgba(120,200,255,0.25) 0%, transparent 40%),
-        radial-gradient(circle at 80% 80%, rgba(0,255,255,0.1) 0%, transparent 50%)`,
+        linear-gradient(180deg, rgba(8,8,8,0.82), rgba(18,18,18,0.76)),
+        radial-gradient(circle at 20% 18%, rgba(255,255,255,0.045) 0%, transparent 34%),
+        radial-gradient(circle at 82% 80%, rgba(255,255,255,0.035) 0%, transparent 40%)`,
             backdropFilter: 'blur(20px)',
             WebkitBackdropFilter: 'blur(20px)',
             color: '#ffffff',
@@ -354,24 +433,97 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
                   >
                     <ListItemButton
                       onClick={() => handleClick(item)}
+                      disabled={blockedMenuItems.has(item.name)}
                       sx={{
                         px: 2,
                         py: 0.5,
                         borderBottom: "1px solid rgba(255,255,255,0.1)",
                         borderTop: index === 0 ? "1px solid rgba(255,255,255,0.2)" : "none",
-                        "&:hover": { backgroundColor: "rgba(255,255,255,0.05)" },
+                        ...(item.name === "Pro Shop" && {
+                          fontWeight: 800,
+                          borderRadius: 2,
+                          mx: 1,
+                          my: 0.5,
+                          position: "relative",
+                          overflow: "hidden",
+                          color: "#fff",
+                          textShadow: "0 1px 2px rgba(0,0,0,0.45)",
+                          border: "2px solid rgba(255, 230, 120, 0.95)",
+                          background:
+                            "linear-gradient(160deg, #FFE082 0%, #FFC43D 38%, #FFB300 62%, #E68A00 100%)",
+                          boxShadow:
+                            "0 0 18px rgba(255, 195, 45, 0.72), 0 8px 20px rgba(120, 72, 0, 0.42), inset 0 2px 6px rgba(255,255,255,0.35), inset 0 -7px 12px rgba(130,80,0,0.28)",
+                          "&::before": {
+                            content: '""',
+                            position: "absolute",
+                            top: -28,
+                            left: -60,
+                            width: 64,
+                            height: "165%",
+                            background:
+                              "linear-gradient(110deg, rgba(255,255,255,0) 0%, rgba(255,247,210,0.75) 52%, rgba(255,255,255,0) 100%)",
+                            transform: "skewX(-12deg)",
+                            animation: "goldSweep 3.1s cubic-bezier(.4,0,.2,1) infinite",
+                          },
+                          "&::after": {
+                            content: '""',
+                            position: "absolute",
+                            inset: 0,
+                            borderRadius: "inherit",
+                            background:
+                              "radial-gradient(circle at 22% 25%, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 44%)",
+                            animation: "goldPulse 2.4s ease-in-out infinite",
+                            pointerEvents: "none",
+                          },
+                          "&:hover": {
+                            transform: "scale(1.04)",
+                            filter: "brightness(1.1)",
+                            background:
+                              "linear-gradient(160deg, #FFE79A 0%, #FFC94F 35%, #FFB623 62%, #F58B00 100%)",
+                            boxShadow:
+                              "0 0 26px rgba(255, 210, 85, 0.92), 0 10px 24px rgba(120,72,0,0.54)",
+                          },
+                        }),
+                        opacity: blockedMenuItems.has(item.name) ? 0.38 : 1,
+                        "&:hover": {
+                          backgroundColor:
+                            item.name === "Pro Shop"
+                              ? undefined
+                              : blockedMenuItems.has(item.name)
+                                ? "transparent"
+                                : "rgba(255,255,255,0.05)",
+                        },
+                        "@keyframes goldSweep": {
+                          "0%": { left: "-70%", opacity: 0 },
+                          "28%": { opacity: 0.85 },
+                          "55%": { opacity: 0.55 },
+                          "100%": { left: "135%", opacity: 0 },
+                        },
+                        "@keyframes goldPulse": {
+                          "0%": { opacity: 0.3 },
+                          "50%": { opacity: 0.58 },
+                          "100%": { opacity: 0.3 },
+                        },
                       }}
                     >
                       <ListItemText
                         primary={
                           <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                            <Box sx={{ color: "#a3eaff", fontSize: "1.7rem", marginBottom: "-5px" }}>
+                            <Box sx={{ color: "#ffffff", fontSize: "1.7rem", marginBottom: "-5px" }}>
 
                               {item.icon}
                             </Box>
-                            <span style={{ color: "#fff", fontWeight: "500", fontSize: "1.05rem" }}>
-                              {item.name}
-                            </span>
+                            <Box sx={{ display: "flex", alignItems: "baseline", gap: "6px" }}>
+                              <span
+                                style={{
+                                  color: "#fff",
+                                  fontWeight: item.name === "Pro Shop" ? "700" : "500",
+                                  fontSize: "1.05rem",
+                                }}
+                              >
+                                {item.name}
+                              </span>
+                            </Box>
                           </Box>
                         }
                       />
@@ -435,7 +587,7 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
                         letterSpacing: 0.3,
                       }}
                     >
-                      Bienvenid@ a GolfCoachLog
+                      Welcome to GolfCoachLog
                     </Typography>
                   </Box>
 
@@ -447,8 +599,8 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
                       mb: 1.1,
                       fontFamily: 'Poppins, sans-serif',
                     }}
-                  >
-                    Conecta con nuestro equipo y trabaja con nosotros.
+                    >
+                    Connect with our team and start improving with us.
                   </Typography>
 
 
@@ -495,12 +647,68 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
                       },
                     }}
                   >
-                    Empezar ahora
+                    Get Started
                   </Button>
 
                 </Box>
               </motion.div>
 
+            )}
+          </AnimatePresence>
+
+          <AnimatePresence mode="wait">
+            {open && (
+              <motion.div
+                variants={bienvenidaVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+              >
+                <Box
+                  onClick={() => {
+                    navigate("/administracion");
+                    setOpen(false);
+                  }}
+                  sx={{
+                    background: `
+          radial-gradient(circle at top left, rgba(144,202,249,0.1), transparent 70%),
+          linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))
+        `,
+                    borderRadius: 3,
+                    px: 2,
+                    py: 2,
+                    mx: 2,
+                    mt: 1,
+                    color: "#ffffff",
+                    backdropFilter: "blur(8px)",
+                    border: "1px solid rgba(255,255,255,0.1)",
+                    boxShadow: "0 0 12px rgba(255,255,255,0.05)",
+                    cursor: "pointer",
+                    transition: "all 0.3s ease",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    maxHeight: 45,
+                    "&:hover": {
+                      backgroundColor: "rgba(255,255,255,0.05)",
+                      boxShadow: "0 0 16px rgba(144,202,249,0.2)",
+                    },
+                  }}
+                >
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontFamily: "Poppins, sans-serif",
+                      fontWeight: 600,
+                      fontSize: "1rem",
+                      letterSpacing: 0.5,
+                      textAlign: "center",
+                    }}
+                  >
+                    ⚙️ Administration
+                  </Typography>
+                </Box>
+              </motion.div>
             )}
           </AnimatePresence>
 
