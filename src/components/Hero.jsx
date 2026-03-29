@@ -223,7 +223,10 @@ function Hero({ informationsRef, setVideoReady }) {
             <Box className={`hero-landing__visual ${heroReveal ? "hero-landing__visual--revealed" : ""}`}>
               <Box
                 className="hero-landing__screens"
-                sx={{ width: { md: "232px" }, height: { md: "420px" } }}
+                sx={{
+                  width: { xs: "378px", md: "310px" },
+                  height: { xs: "676px", md: "560px" },
+                }}
               >
                 <Box key={currentSlide.title} className="hero-landing__screen is-active">
                   <Box
