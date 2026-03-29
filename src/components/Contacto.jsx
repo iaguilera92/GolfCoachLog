@@ -21,6 +21,8 @@ const mapMarkerIcon = L.divIcon({
 });
 
 function Contacto() {
+  return null;
+
   const sectionRef = useRef(null);
   const [shouldZoom, setShouldZoom] = useState(false);
 

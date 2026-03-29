@@ -167,8 +167,7 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
               width: 34,
               height: 34,
               borderRadius: "9px",
-              background:
-                "linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 100%)",
+              background: "#ffffff",
               border: "1px solid rgba(255,255,255,0.12)",
               display: "flex",
               alignItems: "center",
@@ -201,7 +200,7 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
                 lineHeight: 0.95,
               }}
             >
-              GolfCoachLog App
+              The most complete Golf Coaching App
             </Typography>
             <Typography
               sx={{
@@ -326,10 +325,10 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
                     variants={menuItemVariants}
                     onClick={() => handleClick(item)}
                     disabled={blockedMenuItems.has(item.name)}
-                      sx={{
-                        fontFamily: "Poppins, sans-serif",
-                        padding: "10px 14px",
-                        background: item.name === "Pro Shop"
+                    sx={{
+                      fontFamily: "Poppins, sans-serif",
+                      padding: "10px 14px",
+                      background: item.name === "Pro Shop"
                         ? "linear-gradient(160deg, #FFE082 0%, #FFC43D 38%, #FFB300 62%, #E68A00 100%)"
                         : "transparent",
                       border: "none",

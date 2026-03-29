@@ -1,46 +1,34 @@
 import React, { useEffect, useState } from "react";
-import CountUp from "react-countup";
 import { Box, Container, Typography } from "@mui/material";
 import { useInView } from "react-intersection-observer";
-
-const stats = [
-  { value: 5, suffix: "M", label: "Global\nUsers" },
-  { value: 94, suffix: "M", label: "Rounds\nScored" },
-  { value: 38, suffix: "K", label: "Courses\nWorldwide" },
-];
+import golfCoachLogLogo from "../../logo-golfcoachlog.png";
 
 const featureSlides = [
   {
-    title: "GAME-CHANGING VIDEO ANALYSIS",
+    title: "VIDEO & SWING ANALYSIS",
     description:
-      "Analyze swings with precision using lines, angles, and frame-by-frame control. Compare progress over time and easily save or assign videos to players for smarter coaching.",
+      "Centralize all your lesson videos and swing feedback in one organized platform. Track your clients’ progress over time and build a visual history of their development. With integrated analysis tools, you can deliver precise, easy-to-understand feedback, turning every video into a powerful coaching moment.",
   },
   {
-    title: "Clinics",
+    title: "COACH NOTES & TASK MANAGEMENT",
     description:
-      "Create and sell group golf clinics with ease. Set pricing, manage capacity, and offer simple sign-ups while tracking attendance and participation.",
+      "Centralize your notes, tasks, and client communication in a single platform designed for coaches. No more switching between apps, everything you need to run your coaching business is in one place. Create and share notes, assign tasks, and stay fully organized, so you can focus on delivering better coaching.",
   },
   {
-    title: "Programs",
+    title: "GOLF CLINICS",
     description:
-      "Organize camps and training programs effortlessly. Customize pricing, control group size, and streamline player registration with built-in tracking.",
+      "Design and run high-quality golf clinics for players of all levels. Easily invite clients, manage group sessions, and streamline the entire registration process. Deliver engaging, structured learning experiences that help your clients improve, while you grow your coaching business with efficiency and professionalism.",
   },
 ];
 
 function Areas() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [touchStartX, setTouchStartX] = useState(null);
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.4,
-    rootMargin: "0px 0px -8% 0px",
-  });
   const { ref: reviewsRef, inView: reviewsInView } = useInView({
     triggerOnce: true,
     threshold: 0.22,
     rootMargin: "0px 0px -6% 0px",
   });
-  const [countStarted, setCountStarted] = useState(false);
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -49,12 +37,6 @@ function Areas() {
 
     return () => window.clearInterval(interval);
   }, []);
-
-  useEffect(() => {
-    if (inView) {
-      setCountStarted(true);
-    }
-  }, [inView]);
 
   const goToNextSlide = () => {
     setActiveSlide((prev) => (prev + 1) % featureSlides.length);
@@ -95,78 +77,43 @@ function Areas() {
       <Container
         maxWidth={false}
         className="app-stats__container"
-        sx={{ px: { xs: 2, md: 6, lg: 10 } }}
-        ref={ref}
+        sx={{
+          px: { xs: 2, md: 6, lg: 10 },
+          py: { xs: "10px !important", md: "16px !important" },
+          display: "flex !important",
+          alignItems: "center",
+          justifyContent: "center",
+          gridTemplateColumns: "none !important",
+          gap: 0,
+        }}
       >
-        {stats.map((stat, index) => (
-          <Box key={stat.label} className="app-stats__item">
-            <Typography
-              component="h2"
-              className="app-stats__value"
-              sx={{
-                width: "100%",
-                textAlign: "center",
-                fontSize: {
-                  xs: "2.8rem",
-                  sm: "4.2rem",
-                  md: "5.2rem",
-                },
-                fontWeight: 900,
-                fontFamily: "Roboto-BoldCondensed, sans-serif",
-                lineHeight: 0.78,
-                letterSpacing: index === 1 ? "-0.05em" : "-0.08em",
-                color: "#ffffff",
-                "& span": {
-                  color: "#ffffff",
-                },
-              }}
-            >
-              {stat.suffix ? (
-                <>
-                  <span>
-                    {countStarted ? (
-                      <CountUp
-                        key={`count-${stat.label}`}
-                        start={0}
-                        end={stat.value}
-                        duration={3.2}
-                      />
-                    ) : 0}
-                  </span>
-                  {stat.suffix}
-                </>
-              ) : (
-                countStarted ? (
-                  <CountUp
-                    key={`count-${stat.label}`}
-                    start={0}
-                    end={stat.value}
-                    duration={3.2}
-                  />
-                ) : 0
-              )}
-            </Typography>
-
-            <Typography
-              component="small"
-              className="app-stats__label"
-              sx={{
-                display: "block",
-                marginTop: { xs: "16px", md: "20px" },
-                fontSize: { xs: "0.68rem", sm: "0.8rem", md: "0.9rem" },
-                fontWeight: 700,
-                fontFamily: "Roboto-BoldCondensed, sans-serif",
-                lineHeight: 1.1,
-              }}
-            >
-              {stat.label.split("\n").map((line) => (
-                <span key={line} className="app-stats__label-line">
-                  {line}
-                </span>
-              ))}
-            </Typography>
-          </Box>
-        ))}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            minHeight: { xs: "150px", md: "190px" },
+            py: { xs: 0, md: 1 },
+            width: "100%",
+            flex: "1 1 auto",
+            textAlign: "center",
+          }}
+        >
+          <Box
+            component="img"
+            src={golfCoachLogLogo}
+            alt="Golf Coach Log"
+            sx={{
+              display: "block",
+              width: { xs: "285px", sm: "340px", md: "420px" },
+              maxWidth: "100%",
+              height: "auto",
+              objectFit: "contain",
+              mx: "auto",
+              filter: "drop-shadow(0 18px 32px rgba(0,0,0,0.18))",
+            }}
+          />
+        </Box>
       </Container>
 
       <Container
@@ -174,7 +121,7 @@ function Areas() {
         className={`app-reviews app-section-reveal app-section-reveal--up ${reviewsInView ? "is-visible" : ""}`}
         sx={{
           px: { xs: 2, md: 6, lg: 10 },
-          mt: { xs: 0, md: "-56px" },
+          mt: { xs: "28px", md: "-28px" },
           mb: 0,
           position: "relative",
           zIndex: 2,

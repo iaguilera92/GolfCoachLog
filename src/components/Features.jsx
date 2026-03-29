@@ -47,14 +47,17 @@ function Features() {
         >
           <Box
             component="img"
-            src="/calendar.webp"
+            src="/feature-1.jpeg"
             alt="Smart scheduling preview"
             sx={{
               display: "block",
-              width: { xs: "88px", sm: "112px", md: "88px" },
+              width: { xs: "min(100%, 360px)", md: "520px" },
+              maxWidth: "100%",
               height: "auto",
               mx: "auto",
               mb: { xs: 2, md: 2.5 },
+              borderRadius: "24px",
+              objectFit: "contain",
               filter: "drop-shadow(0 18px 28px rgba(0,0,0,0.16))",
             }}
           />
@@ -88,9 +91,15 @@ function Features() {
             className="features-showcase__description"
             sx={{ textAlign: "center", mx: "auto", lineHeight: 1.95 }}
           >
-            Book lessons instantly, avoid back-and-forth messages, and manage
-            everything with a fully integrated calendar in one seamless
-            experience.
+            Effortlessly manage your schedule with an intelligent booking
+            system designed for modern golf coaches. Clients can check
+            real-time availability, book sessions instantly, and prepay for
+            lessons or packages all in one place. Seamlessly synced with your
+            personal calendar, it keeps your availability always up to date,
+            avoids conflicts, and ensures clear, reliable scheduling for both
+            you and your clients. Built-in prepayment options, partial or full,
+            ensure commitment, protecting your time and reducing no-shows so
+            you can focus on coaching with confidence.
           </Typography>
 
           <Button
@@ -184,7 +193,11 @@ function Features() {
           className={`features-showcase__secondary features-showcase__secondary--boxed ${visibleSections[1] ? "features-showcase__reveal is-visible from-right" : "features-showcase__reveal from-right"}`}
         >
           <Box className="features-showcase__secondary-image-wrap">
-            <Box className="features-showcase__image-frame features-showcase__image-frame--secondary" />
+            <img
+              src="/feature-2.jpeg"
+              alt="Golf lesson management preview"
+              className="features-showcase__secondary-image features-showcase__secondary-image--full"
+            />
           </Box>
 
           <Box className="features-showcase__secondary-copy">
@@ -198,13 +211,17 @@ function Features() {
                 lineHeight: 1.08,
               }}
             >
-              PRO SHOP
+              CLIENT MANAGEMENT & COMMUNICATION
             </Typography>
 
             <Typography component="p" className="features-showcase__secondary-description">
-              Sell directly from your academy with an online store. Offer
-              apparel, equipment, and your own brand while managing inventory
-              and orders with a simple checkout experience.
+              Stay connected with your clients through a centralized platform
+              designed for seamless communication and better coaching
+              relationships. Monitor their activity, track practice progress,
+              and keep everything organized in one place. By maintaining
+              direct and structured communication, you can guide your clients
+              more effectively, keep them engaged, and continuously motivate
+              them to improve.
             </Typography>
 
           <Button
@@ -212,7 +229,7 @@ function Features() {
             variant="contained"
             onClick={handleComingSoon}
           >
-            Go to Shop
+            Manage Clients
           </Button>
           </Box>
         </Box>
@@ -225,7 +242,7 @@ function Features() {
         >
           <Box className="features-showcase__secondary-image-wrap">
             <img
-              src="/Coaches.jpg"
+              src="/feature-3.jpeg"
               alt="Golf courses preview"
               className="features-showcase__secondary-image features-showcase__secondary-image--full"
               style={{ transform: "translateY(-18px)" }}
@@ -243,21 +260,16 @@ function Features() {
                 lineHeight: 1.08,
               }}
             >
-              <Box component="span" sx={{ display: "block" }}>
-                ADVANCED
-              </Box>
-              <Box component="span" sx={{ display: "block" }}>
-                PERFORMANCE
-              </Box>
-              <Box component="span" sx={{ display: "block" }}>
-                TRACKING
-              </Box>
+              GOLF LESSON MANAGEMENT
             </Typography>
 
             <Typography component="p" className="features-showcase__secondary-description">
-              Track every aspect of your game from putting and short game to
-              full swings, monitor progress over time, and measure real
-              improvement with clear, data-driven insights.
+              Plan, structure, and track your lessons across all areas of the
+              game, including swing, fundamentals, short game, putting, and
+              course management. Create personalized coaching plans, keep
+              detailed session records, and follow each client&apos;s progress,
+              ensuring a more organized, consistent, and effective coaching
+              experience.
             </Typography>
 
             <Button

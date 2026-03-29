@@ -75,7 +75,7 @@ function Informations() {
                 TOURNAMENTS &amp;
               </Box>
               <Box component="span" sx={{ display: { xs: "inline", md: "block" } }}>
-                COMPETITION
+                COMPETITIONS
               </Box>
             </Typography>
 
@@ -84,9 +84,11 @@ function Informations() {
               className="tournament-block__description"
               sx={{ textAlign: "center", mx: "auto" }}
             >
-              Create internal tournaments, track leaderboards and rankings, and
-              build a competitive environment that motivates players to improve
-              and stay engaged.
+              Create, manage, and track tournaments effortlessly while
+              delivering a competitive experience your clients will love. From
+              custom formats to rankings and point systems, you can turn every
+              event into a powerful motivation tool, encouraging consistency,
+              performance, and long-term engagement.
             </Typography>
 
             <Button
@@ -124,13 +126,16 @@ function Informations() {
                 fontSize: { xs: "2rem", sm: "2.25rem", md: "2.7rem" },
               }}
             >
-              PERFORMANCE TRACKING
+              PRACTICE LOG
             </Typography>
 
             <Typography component="p" className="tournament-block__community-description">
-              Track putting, short game, and swing performance, monitor
-              progress over time, and achieve measurable improvement with clear
-              insights.
+              Empower your clients to take ownership of their improvement with
+              a dynamic practice tracking system. Record sessions, track key
+              stats, and build consistency through structured training.
+              Transform practice into progress, creating a motivating
+              experience that keeps your clients engaged, accountable, and
+              continuously improving.
             </Typography>
 
             <Button
@@ -171,7 +176,7 @@ function Informations() {
                   mb: "8px",
                 }}
               >
-                COACH-PLAYER COMMUNICATION
+                PAYMENTS & REVENUE MANAGEMENT
               </Typography>
 
               <Typography
@@ -179,9 +184,13 @@ function Informations() {
                 className="tournament-block__premium-description"
                 sx={{ textAlign: { xs: "center", md: "left" }, mx: { xs: "auto", md: 0 } }}
               >
-                Enable direct messaging, send feedback instantly, and share
-                drills, tips, and notes to keep players connected and
-                improving.
+                Take full control of your coaching business with a complete
+                payment and revenue system. Track income from lessons,
+                packages, clinics, tournaments, and pro shop sales all
+                seamlessly connected to your clients and sessions. Everything
+                is organized, recorded, and easy to manage, so you can focus
+                on growing your business without the complexity. Being a coach
+                and an entrepreneur has never been this simple.
               </Typography>
             </Box>
 
@@ -205,19 +214,21 @@ function Informations() {
         <Box
           className={`tournament-block__app tournament-block__app--reveal ${sectionFourInView ? "is-visible" : ""}`}
           ref={sectionFourRef}
+          sx={{ pb: { md: "12px" } }}
         >
-          <Box
-            className="tournament-block__app-layout"
-            sx={{
-              width: "100%",
-              display: { xs: "flex", md: "grid" },
-              flexDirection: { xs: "column", md: "unset" },
-              alignItems: { xs: "center !important", md: "center" },
-              justifyContent: { xs: "center !important", md: "center" },
-              textAlign: { xs: "center", md: "left" },
-              mx: "auto",
-            }}
-          >
+            <Box
+              className="tournament-block__app-layout"
+              sx={{
+                width: "100%",
+                display: { xs: "flex", md: "grid" },
+                flexDirection: { xs: "column", md: "unset" },
+                alignItems: { xs: "center !important", md: "center" },
+                justifyContent: { xs: "center !important", md: "center" },
+                textAlign: { xs: "center", md: "left" },
+                mx: "auto",
+                gridTemplateColumns: { md: "280px minmax(520px, 640px) 320px" },
+              }}
+            >
             <Box
               className="tournament-block__app-copy"
               sx={{
@@ -225,21 +236,35 @@ function Informations() {
                 maxWidth: { xs: "100%", md: "340px" },
                 mx: { xs: "auto", md: 0 },
                 alignSelf: { xs: "center", md: "auto" },
+                textAlign: { xs: "center", md: "left" },
+                display: "flex",
+                justifyContent: { xs: "center", md: "flex-start" },
+                pl: { xs: "18px", md: 0 },
               }}
             >
-              <Typography component="h2" className="tournament-block__app-title" sx={{ textAlign: { xs: "center", md: "left" } }}>
+              <Typography
+                component="h2"
+                className="tournament-block__app-title"
+                sx={{
+                  textAlign: { xs: "center !important", md: "left" },
+                  width: "100%",
+                  mx: "auto",
+                }}
+              >
                 <Box
                   component="span"
                   sx={{
-                    display: "inline-block",
+                    display: { xs: "block", md: "inline-block" },
                     fontSize: { xs: "2.25rem", sm: "2.8rem", md: "2.7rem" },
                     fontWeight: 900,
                     fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
                     lineHeight: 1,
                     letterSpacing: "0.04em",
                     textTransform: "uppercase",
-                    paddingBottom: { xs: "10px", md: "16px" },
+                    paddingBottom: { xs: "22px", md: "16px" },
                     whiteSpace: { md: "nowrap" },
+                    textAlign: { xs: "center", md: "left" },
+                    mx: { xs: "auto", md: 0 },
                   }}
                 >
                   Get The App
@@ -252,68 +277,52 @@ function Informations() {
               sx={{
                 mx: { xs: "auto", md: 0 },
                 justifyContent: { xs: "center", md: "center" },
-                width: { xs: "100%", md: "auto" },
+                width: { xs: "100%", md: "560px" },
+                maxWidth: { xs: "100%", md: "560px" },
                 alignSelf: { xs: "center", md: "auto" },
+                display: "flex",
+                pl: { xs: "18px", md: 0 },
               }}
             >
-              <Box className="tournament-block__app-phone-shell tournament-block__app-phone-shell--left">
-                <Box className="tournament-block__app-phone-media">
-                  <img
-                    src="/hero-0.jpeg"
-                    alt="Golf app preview 1"
-                    className="tournament-block__app-phone tournament-block__app-phone--left"
-                  />
-                </Box>
-                <img
-                  src="/mobile.png"
-                  alt="Mobile frame"
-                  className="tournament-block__app-frame"
-                />
-              </Box>
-              <Box className="tournament-block__app-phone-shell tournament-block__app-phone-shell--center">
-                <Box className="tournament-block__app-phone-media">
-                  <img
-                    src="/app-1.png"
-                    alt="Golf app preview 2"
-                    className="tournament-block__app-phone tournament-block__app-phone--center"
-                  />
-                </Box>
-                <img
-                  src="/mobile.png"
-                  alt="Mobile frame"
-                  className="tournament-block__app-frame"
-                />
-              </Box>
-              <Box className="tournament-block__app-phone-shell tournament-block__app-phone-shell--right">
-                <Box className="tournament-block__app-phone-media">
-                  <img
-                    src="/hero-2.jpeg"
-                    alt="Golf app preview 3"
-                    className="tournament-block__app-phone tournament-block__app-phone--right"
-                  />
-                </Box>
-                <img
-                  src="/mobile.png"
-                  alt="Mobile frame"
-                  className="tournament-block__app-frame"
-                />
-              </Box>
+              <Box
+                component="img"
+                src="/get-the-app.webp"
+                alt="Get the app preview"
+                sx={{
+                  display: "block",
+                  width: { xs: "min(100vw - 2px, 740px)", md: "660px" },
+                  maxWidth: "100%",
+                  height: "auto",
+                  mx: "auto",
+                  objectFit: "contain",
+                  filter: "drop-shadow(0 18px 36px rgba(0,0,0,0.16))",
+                }}
+              />
             </Box>
 
             <Box
               className="tournament-block__app-actions"
-              sx={{
-                display: "flex",
-                width: { xs: "fit-content", md: "auto" },
-                maxWidth: { xs: "none", md: "none" },
-                mr: { xs: "auto", md: "-90px" },
-                justifyContent: { xs: "flex-start", md: "flex-end" },
-                gap: { xs: "12px", md: "16px" },
+                sx={{
+                  display: "flex",
+                  width: { xs: "332px", md: "auto" },
+                  maxWidth: { xs: "none", md: "none" },
+                  mr: { xs: 0, md: 0 },
+                  justifyContent: { xs: "center", md: "flex-end" },
+                gap: { xs: "14px", sm: "12px", md: "16px" },
+                flexDirection: "row",
                 flexWrap: "nowrap",
-                alignSelf: { xs: "flex-start", md: "auto" },
-                position: "relative",
-                ml: { xs: "-110px", md: "auto" },
-                right: { xs: 0, md: "auto" },
+                alignSelf: { xs: "center", md: "auto" },
+                position: { xs: "relative", md: "relative" },
+                ml: { xs: 0, md: "auto" },
+                mx: { xs: "auto", md: 0 },
+                pl: { xs: 0, sm: 0, md: 0 },
+                left: { xs: "auto", md: "auto" },
+                  transform: {
+                    xs: "translateX(-6px) !important",
+                    md: "translateX(18px) scale(0.82) !important",
+                  },
+                justifySelf: { md: "end" },
+                pr: { md: 0 },
               }}
             >
               <Box
@@ -324,9 +333,12 @@ function Informations() {
                 className="tournament-block__store-badge"
                 aria-label="Get it on Google Play"
                 sx={{
-                  width: { xs: "218px", md: "auto" },
-                  minWidth: { xs: "218px", md: "194px" },
-                  maxWidth: { xs: "none", md: "none" },
+                  width: { xs: "159px", sm: "218px", md: "auto" },
+                  minWidth: { xs: "159px", sm: "218px", md: "194px" },
+                  maxWidth: { xs: "159px", md: "none" },
+                  px: { xs: "10px", md: undefined },
+                  py: { xs: "12px", md: undefined },
+                  mx: 0,
                 }}
               >
                 <svg
@@ -340,10 +352,18 @@ function Informations() {
                   <path fill="#FF3A44" d="M3.76 37.43 21.58 20l7.22 5.9-20.98 11.89a3.3 3.3 0 0 1-4.06-.36Z" />
                 </svg>
                 <Box>
-                  <Typography component="span" className="tournament-block__store-small">
+                  <Typography
+                    component="span"
+                    className="tournament-block__store-small"
+                    sx={{ fontSize: { xs: "0.68rem", md: undefined } }}
+                  >
                     GET IT ON
                   </Typography>
-                  <Typography component="span" className="tournament-block__store-name">
+                  <Typography
+                    component="span"
+                    className="tournament-block__store-name"
+                    sx={{ fontSize: { xs: "0.96rem", md: undefined } }}
+                  >
                     Google Play
                   </Typography>
                 </Box>
@@ -357,17 +377,28 @@ function Informations() {
                 className="tournament-block__store-badge"
                 aria-label="Download on the App Store"
                 sx={{
-                  width: { xs: "218px", md: "auto" },
-                  minWidth: { xs: "218px", md: "194px" },
-                  maxWidth: { xs: "none", md: "none" },
+                  width: { xs: "159px", sm: "218px", md: "auto" },
+                  minWidth: { xs: "159px", sm: "218px", md: "194px" },
+                  maxWidth: { xs: "159px", md: "none" },
+                  px: { xs: "10px", md: undefined },
+                  py: { xs: "12px", md: undefined },
+                  mx: 0,
                 }}
               >
                 <AppleIcon className="tournament-block__store-icon" />
                 <Box>
-                  <Typography component="span" className="tournament-block__store-small">
+                  <Typography
+                    component="span"
+                    className="tournament-block__store-small"
+                    sx={{ fontSize: { xs: "0.68rem", md: undefined } }}
+                  >
                     Download on the
                   </Typography>
-                  <Typography component="span" className="tournament-block__store-name">
+                  <Typography
+                    component="span"
+                    className="tournament-block__store-name"
+                    sx={{ fontSize: { xs: "0.96rem", md: undefined } }}
+                  >
                     App Store
                   </Typography>
                 </Box>

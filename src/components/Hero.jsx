@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { Box, Button, Container, Typography } from "@mui/material";
 import AppleIcon from "@mui/icons-material/Apple";
 import { motion } from "framer-motion";
@@ -8,26 +8,26 @@ const slides = [
   {
     eyebrow: "Golf Coaches",
     title: "Train with coaches and track progress",
-    image: "/hero-0.jpeg",
-    alt: "Entrenamiento con golf coach",
+    image: "/mobile-hero-1.avif",
+    alt: "Golf coach training",
   },
   {
-    eyebrow: "Torneos",
+    eyebrow: "Tournaments",
     title: "Run tournaments with live results",
-    image: "/hero-1.jpeg",
-    alt: "Gestión de torneos de golf",
+    image: "/mobile-hero-2.avif",
+    alt: "Golf tournaments",
   },
   {
     eyebrow: "Scorecard",
     title: "Keep every round on one scorecard",
-    image: "/hero-2.jpeg",
-    alt: "Scorecard digital de golf",
+    image: "/mobile-hero-3.avif",
+    alt: "Digital golf scorecard",
   },
   {
     eyebrow: "Performance",
-    title: "Turn stats into better decisions",
+    title: "Measure progress with smarter coaching insights",
     image: "/hero-3.png",
-    alt: "Análisis de rendimiento en golf",
+    alt: "Golf coaching performance insights",
   },
 ];
 
@@ -175,12 +175,12 @@ function Hero({ informationsRef, setVideoReady }) {
               }}
             >
               <span className="hero-landing__title-desktop">
-                <TypingText text="PLAY BETTER GOLF" active={heroReveal} />
+                <TypingText text="All in one Golf Coaching System" active={heroReveal} />
               </span>
               <span className="hero-landing__title-mobile">
-                <TypingText text="PLAY BETTER" active={heroReveal} />
+                <TypingText text="All in one Golf" active={heroReveal} />
                 <br />
-                <TypingText text="GOLF" active={mobileSecondLineReveal} />
+                <TypingText text="Coaching System" active={mobileSecondLineReveal} />
               </span>
             </Typography>
 
@@ -223,7 +223,7 @@ function Hero({ informationsRef, setVideoReady }) {
             <Box className={`hero-landing__visual ${heroReveal ? "hero-landing__visual--revealed" : ""}`}>
               <Box
                 className="hero-landing__screens"
-                sx={{ width: { md: "210px" }, height: { md: "385px" } }}
+                sx={{ width: { md: "232px" }, height: { md: "420px" } }}
               >
                 <Box key={currentSlide.title} className="hero-landing__screen is-active">
                   <Box
@@ -231,18 +231,10 @@ function Hero({ informationsRef, setVideoReady }) {
                     onClick={handleNextSlide}
                     sx={{ cursor: "pointer" }}
                   >
-                    <Box className="hero-landing__screen-media">
-                      <img
-                        src={currentSlide.image}
-                        alt={currentSlide.alt}
-                        className="hero-landing__screen-image"
-                      />
-                    </Box>
-                    <Box
-                      component="img"
-                      src="/mobile.png"
-                      alt="Mobile frame"
-                      className="hero-landing__phone-overlay"
+                    <img
+                      src={currentSlide.image}
+                      alt={currentSlide.alt}
+                      className="hero-landing__screen-image hero-landing__screen-image--plain"
                     />
                   </Box>
                 </Box>
@@ -286,7 +278,7 @@ function Hero({ informationsRef, setVideoReady }) {
                 className="hero-landing__rating-title"
                 sx={{ fontSize: { md: "0.8rem" } }}
               >
-                Best Golf App
+                The most complete golf Coaching App
               </Typography>
               <Typography
                 component="p"
@@ -366,7 +358,7 @@ function Hero({ informationsRef, setVideoReady }) {
           </Box>
         </Box>
 
-        <Box className={`hero-landing__nav ${heroReveal ? "hero-landing__nav--revealed" : ""}`} aria-label="Navegación del hero">
+        <Box className={`hero-landing__nav ${heroReveal ? "hero-landing__nav--revealed" : ""}`} aria-label="NavegaciÃ³n del hero">
           {slides.map((slide, index) => (
             <button
               key={slide.title}
@@ -383,3 +375,4 @@ function Hero({ informationsRef, setVideoReady }) {
 }
 
 export default Hero;
+
