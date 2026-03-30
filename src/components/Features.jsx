@@ -1,12 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Alert, Box, Button, Container, Snackbar, Typography } from "@mui/material";
+import { Alert, Box, Button, Container, Dialog, DialogContent, IconButton, Snackbar, Typography } from "@mui/material";
 import ConstructionRoundedIcon from "@mui/icons-material/ConstructionRounded";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import { motion } from "framer-motion";
 import "./css/Features.css";
 
 function Features() {
   const sectionRefs = useRef([]);
   const [visibleSections, setVisibleSections] = useState([false, false, false]);
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [openSchedulingDialog, setOpenSchedulingDialog] = useState(false);
+  const [openClientDialog, setOpenClientDialog] = useState(false);
+  const [openLessonDialog, setOpenLessonDialog] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -51,14 +56,15 @@ function Features() {
             alt="Smart scheduling preview"
             sx={{
               display: "block",
-              width: { xs: "min(100%, 360px)", md: "520px" },
-              maxWidth: "100%",
+              width: { xs: "min(100%, 220px)", md: "360px" },
+              maxWidth: { xs: "100%", md: "250px" },
               height: "auto",
               mx: "auto",
-              mb: { xs: 2, md: 2.5 },
-              borderRadius: "24px",
+              mb: { xs: 1.5, md: 2 },
+              borderRadius: "20px",
               objectFit: "contain",
-              filter: "drop-shadow(0 18px 28px rgba(0,0,0,0.16))",
+              opacity: 0.9,
+              filter: "drop-shadow(0 10px 18px rgba(0,0,0,0.10))",
             }}
           />
 
@@ -91,21 +97,14 @@ function Features() {
             className="features-showcase__description"
             sx={{ textAlign: "center", mx: "auto", lineHeight: 1.95 }}
           >
-            Effortlessly manage your schedule with an intelligent booking
-            system designed for modern golf coaches. Clients can check
-            real-time availability, book sessions instantly, and prepay for
-            lessons or packages all in one place. Seamlessly synced with your
-            personal calendar, it keeps your availability always up to date,
-            avoids conflicts, and ensures clear, reliable scheduling for both
-            you and your clients. Built-in prepayment options, partial or full,
-            ensure commitment, protecting your time and reducing no-shows so
-            you can focus on coaching with confidence.
+            Real-time booking, calendar sync, and built-in prepayment to keep
+            clients committed and every lesson effortlessly organized.
           </Typography>
 
           <Button
             className="features-showcase__button"
             variant="contained"
-            onClick={handleComingSoon}
+            onClick={() => setOpenSchedulingDialog(true)}
             sx={{
               minWidth: { xs: "280px", sm: "320px", md: "360px" },
               height: "54px",
@@ -184,7 +183,7 @@ function Features() {
               },
             }}
           >
-            See More Features
+            Learn More
           </Button>
         </Box>
         <Box
@@ -197,6 +196,7 @@ function Features() {
               src="/feature-2.jpeg"
               alt="Golf lesson management preview"
               className="features-showcase__secondary-image features-showcase__secondary-image--full"
+              style={{ maxWidth: "88%", width: "82%", margin: "0 auto", display: "block" }}
             />
           </Box>
 
@@ -215,21 +215,17 @@ function Features() {
             </Typography>
 
             <Typography component="p" className="features-showcase__secondary-description">
-              Stay connected with your clients through a centralized platform
-              designed for seamless communication and better coaching
-              relationships. Monitor their activity, track practice progress,
-              and keep everything organized in one place. By maintaining
-              direct and structured communication, you can guide your clients
-              more effectively, keep them engaged, and continuously motivate
-              them to improve.
+              A centralized client hub for communication, activity tracking,
+              and practice follow-up, helping you stay organized and keep
+              every player engaged.
             </Typography>
 
           <Button
             className="features-showcase__button"
             variant="contained"
-            onClick={handleComingSoon}
+            onClick={() => setOpenClientDialog(true)}
           >
-            Manage Clients
+            Read More
           </Button>
           </Box>
         </Box>
@@ -245,7 +241,7 @@ function Features() {
               src="/feature-3.jpeg"
               alt="Golf courses preview"
               className="features-showcase__secondary-image features-showcase__secondary-image--full"
-              style={{ transform: "translateY(-18px)" }}
+              style={{ transform: "translateY(-18px)", maxWidth: "88%", width: "76%", margin: "0 auto", display: "block" }}
             />
           </Box>
 
@@ -264,20 +260,17 @@ function Features() {
             </Typography>
 
             <Typography component="p" className="features-showcase__secondary-description">
-              Plan, structure, and track your lessons across all areas of the
-              game, including swing, fundamentals, short game, putting, and
-              course management. Create personalized coaching plans, keep
-              detailed session records, and follow each client&apos;s progress,
-              ensuring a more organized, consistent, and effective coaching
-              experience.
+              Plan lessons across every area of the game, keep session records
+              organized, and follow each client&apos;s progress with a clear,
+              structured coaching system.
             </Typography>
 
             <Button
               className="features-showcase__button"
               variant="contained"
-              onClick={handleComingSoon}
+              onClick={() => setOpenLessonDialog(true)}
             >
-              View Courses
+              Explore More
             </Button>
           </Box>
         </Box>
@@ -302,6 +295,354 @@ function Features() {
           Under Construction
         </Alert>
       </Snackbar>
+
+      <Dialog
+        open={openSchedulingDialog}
+        onClose={() => setOpenSchedulingDialog(false)}
+        maxWidth="sm"
+        fullWidth
+        PaperProps={{
+          sx: {
+            borderRadius: "24px",
+            overflow: "hidden",
+            background:
+              "linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(247,250,251,0.98) 100%)",
+            boxShadow: "0 28px 80px rgba(0,0,0,0.22)",
+          },
+        }}
+      >
+        <DialogContent sx={{ p: 0 }}>
+          <Box
+            sx={{
+              position: "relative",
+              px: { xs: 3, md: 4 },
+              py: { xs: 3, md: 4 },
+              background:
+                "linear-gradient(135deg, rgba(31,191,117,0.12) 0%, rgba(20,138,88,0.05) 55%, rgba(255,255,255,0.9) 100%)",
+            }}
+          >
+            <IconButton
+              onClick={() => setOpenSchedulingDialog(false)}
+              sx={{
+                position: "absolute",
+                top: 14,
+                right: 14,
+                color: "#18302a",
+                backgroundColor: "rgba(255,255,255,0.72)",
+                animation: "dialogCloseSpin 0.8s ease-out 1",
+                "&:hover": {
+                  backgroundColor: "rgba(255,255,255,0.95)",
+                },
+                "@keyframes dialogCloseSpin": {
+                  "0%": { transform: "rotate(0deg)" },
+                  "100%": { transform: "rotate(720deg)" },
+                },
+              }}
+            >
+              <CloseRoundedIcon />
+            </IconButton>
+
+            <Box
+              component={motion.div}
+              initial={{ opacity: 0, x: 36 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <Typography
+                component="p"
+                sx={{
+                  m: 0,
+                  color: "#1fbf75",
+                  fontSize: "0.8rem",
+                  fontWeight: 800,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+                }}
+              >
+                Smart Scheduling
+              </Typography>
+            </Box>
+
+            <Typography
+              component="h3"
+              sx={{
+                mt: 1,
+                mb: 1.5,
+                color: "#0c1c22",
+                fontSize: { xs: "1.8rem", md: "2.2rem" },
+                lineHeight: 1,
+                fontWeight: 900,
+                letterSpacing: "0.02em",
+                textTransform: "uppercase",
+                fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+              }}
+            >
+              Scheduling That Works For Coaches
+            </Typography>
+
+            <Typography
+              component="p"
+              sx={{
+                m: 0,
+                color: "#5f6f76",
+                fontSize: "1rem",
+                lineHeight: 1.82,
+              }}
+            >
+              Effortlessly manage your schedule with an intelligent booking system
+              designed for modern golf coaches. Clients can check real-time
+              availability, book sessions instantly, and prepay for lessons or
+              packages all in one place. Seamlessly synced with your personal
+              calendar, it keeps your availability always up to date, avoids
+              conflicts, and ensures clear, reliable scheduling for both you and
+              your clients. Built-in prepayment options, partial or full, ensure
+              commitment, protecting your time and reducing no-shows so you can
+              focus on coaching with confidence.
+            </Typography>
+
+            <Box
+              component="img"
+              src="/calendar.webp"
+              alt="Smart scheduling"
+              sx={{
+                display: "block",
+                width: { xs: "92px", md: "118px" },
+                height: "auto",
+                mx: "auto",
+                mt: 1.5,
+                filter: "drop-shadow(0 16px 24px rgba(0,0,0,0.14))",
+              }}
+            />
+          </Box>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={openClientDialog}
+        onClose={() => setOpenClientDialog(false)}
+        maxWidth="sm"
+        fullWidth
+        PaperProps={{
+          sx: {
+            borderRadius: "24px",
+            overflow: "hidden",
+            background:
+              "linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(247,250,251,0.98) 100%)",
+            boxShadow: "0 28px 80px rgba(0,0,0,0.22)",
+          },
+        }}
+      >
+        <DialogContent sx={{ p: 0 }}>
+          <Box
+            sx={{
+              position: "relative",
+              px: { xs: 3, md: 4 },
+              py: { xs: 3, md: 4 },
+              background:
+                "linear-gradient(135deg, rgba(31,191,117,0.12) 0%, rgba(20,138,88,0.05) 55%, rgba(255,255,255,0.9) 100%)",
+            }}
+          >
+            <IconButton
+              onClick={() => setOpenClientDialog(false)}
+              sx={{
+                position: "absolute",
+                top: 14,
+                right: 14,
+                color: "#18302a",
+                backgroundColor: "rgba(255,255,255,0.72)",
+                animation: "dialogCloseSpin 0.8s ease-out 1",
+                "&:hover": {
+                  backgroundColor: "rgba(255,255,255,0.95)",
+                },
+                "@keyframes dialogCloseSpin": {
+                  "0%": { transform: "rotate(0deg)" },
+                  "100%": { transform: "rotate(720deg)" },
+                },
+              }}
+            >
+              <CloseRoundedIcon />
+            </IconButton>
+
+            <Box
+              component={motion.div}
+              initial={{ opacity: 0, x: 36 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <Typography
+                component="p"
+                sx={{
+                  m: 0,
+                  color: "#1fbf75",
+                  fontSize: "0.8rem",
+                  fontWeight: 800,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+                }}
+              >
+                Client Management
+              </Typography>
+            </Box>
+
+            <Typography
+              component="h3"
+              sx={{
+                mt: 1,
+                mb: 1.5,
+                color: "#0c1c22",
+                fontSize: { xs: "1.8rem", md: "2.2rem" },
+                lineHeight: 1,
+                fontWeight: 900,
+                letterSpacing: "0.02em",
+                textTransform: "uppercase",
+                fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+              }}
+            >
+              Client Management & Communication
+            </Typography>
+
+            <Typography
+              component="p"
+              sx={{
+                m: 0,
+                color: "#5f6f76",
+                fontSize: "1rem",
+                lineHeight: 1.82,
+              }}
+            >
+              Stay connected with your clients through a centralized platform
+              designed for seamless communication and better coaching
+              relationships. Monitor their activity, track practice progress,
+              and keep everything organized in one place. By maintaining direct
+              and structured communication, you can guide your clients more
+              effectively, keep them engaged, and continuously motivate them to
+              improve.
+            </Typography>
+
+            <Box
+              component="img"
+              src="/fondo-3.jpg"
+              alt="Client management preview"
+              sx={{
+                display: "block",
+                width: { xs: "255px", md: "325px" },
+                height: "auto",
+                mx: "auto",
+                mt: 2,
+                borderRadius: "18px",
+                filter: "drop-shadow(0 16px 24px rgba(0,0,0,0.14))",
+              }}
+            />
+          </Box>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={openLessonDialog}
+        onClose={() => setOpenLessonDialog(false)}
+        maxWidth="sm"
+        fullWidth
+        PaperProps={{
+          sx: {
+            borderRadius: "24px",
+            overflow: "hidden",
+            background:
+              "linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(247,250,251,0.98) 100%)",
+            boxShadow: "0 28px 80px rgba(0,0,0,0.22)",
+          },
+        }}
+      >
+        <DialogContent sx={{ p: 0 }}>
+          <Box
+            sx={{
+              position: "relative",
+              px: { xs: 3, md: 4 },
+              py: { xs: 3, md: 4 },
+              background:
+                "linear-gradient(135deg, rgba(31,191,117,0.12) 0%, rgba(20,138,88,0.05) 55%, rgba(255,255,255,0.9) 100%)",
+            }}
+          >
+            <IconButton
+              onClick={() => setOpenLessonDialog(false)}
+              sx={{
+                position: "absolute",
+                top: 14,
+                right: 14,
+                color: "#18302a",
+                backgroundColor: "rgba(255,255,255,0.72)",
+                animation: "dialogCloseSpin 0.8s ease-out 1",
+                "&:hover": {
+                  backgroundColor: "rgba(255,255,255,0.95)",
+                },
+                "@keyframes dialogCloseSpin": {
+                  "0%": { transform: "rotate(0deg)" },
+                  "100%": { transform: "rotate(720deg)" },
+                },
+              }}
+            >
+              <CloseRoundedIcon />
+            </IconButton>
+
+            <Box
+              component={motion.div}
+              initial={{ opacity: 0, x: 36 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <Typography
+                component="p"
+                sx={{
+                  m: 0,
+                  color: "#1fbf75",
+                  fontSize: "0.8rem",
+                  fontWeight: 800,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+                }}
+              >
+                Golf Lesson Management
+              </Typography>
+            </Box>
+
+            <Typography
+              component="h3"
+              sx={{
+                mt: 1,
+                mb: 1.5,
+                color: "#0c1c22",
+                fontSize: { xs: "1.8rem", md: "2.2rem" },
+                lineHeight: 1,
+                fontWeight: 900,
+                letterSpacing: "0.02em",
+                textTransform: "uppercase",
+                fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+              }}
+            >
+              Golf Lesson Management
+            </Typography>
+
+            <Typography
+              component="p"
+              sx={{
+                m: 0,
+                color: "#5f6f76",
+                fontSize: "1rem",
+                lineHeight: 1.82,
+              }}
+            >
+              Plan, structure, and track your lessons across all areas of the
+              game, including swing, fundamentals, short game, putting, and
+              course management. Create personalized coaching plans, keep
+              detailed session records, and follow each client&apos;s progress,
+              ensuring a more organized, consistent, and effective coaching
+              experience.
+            </Typography>
+          </Box>
+        </DialogContent>
+      </Dialog>
     </Box>
   );
 }

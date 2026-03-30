@@ -153,6 +153,7 @@ function Hero({ informationsRef, setVideoReady }) {
             className={`hero-landing__copy ${heroReveal ? "hero-landing__copy--revealed" : ""}`}
             sx={{
               pt: { xs: 0, sm: 0 },
+              mt: { xs: "-18px", md: 0 },
               justifySelf: { xs: "stretch", md: "center" },
               pr: { md: 0 },
               mr: { xs: 0, md: "20px" },
@@ -224,8 +225,9 @@ function Hero({ informationsRef, setVideoReady }) {
               <Box
                 className="hero-landing__screens"
                 sx={{
-                  width: { xs: "378px", md: "310px" },
-                  height: { xs: "676px", md: "560px" },
+                  width: { xs: "280px", md: "220px" },
+                  height: { xs: "500px", md: "400px" },
+                  mt: { xs: "72px", md: 0 },
                 }}
               >
                 <Box key={currentSlide.title} className="hero-landing__screen is-active">
@@ -238,6 +240,11 @@ function Hero({ informationsRef, setVideoReady }) {
                       src={currentSlide.image}
                       alt={currentSlide.alt}
                       className="hero-landing__screen-image hero-landing__screen-image--plain"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain",
+                      }}
                     />
                   </Box>
                 </Box>
@@ -249,7 +256,7 @@ function Hero({ informationsRef, setVideoReady }) {
         <Box
           className={`hero-landing__bottom ${heroReveal ? "hero-landing__bottom--revealed" : ""}`}
           sx={{
-            mt: { xs: "8px", md: "14px" },
+            mt: { xs: "30px", md: "14px" },
             mx: "auto",
             transform: { md: "translateY(28px)" },
             width: { xs: "100%", md: "750px" },
