@@ -32,6 +32,7 @@ function App() {
   const isHome = ["/", "/inicio", ""].includes(location.pathname);
   const [showApp, setShowApp] = useState(false);
   const [snackbarVersion, setSnackbarVersion] = useState({ open: false, version: "", });
+  const [assetVersion, setAssetVersion] = useState("");
 
   const [shouldAnimateInformations, setShouldAnimateInformations] = useState(false);
   const triggerInformations = (value) => setShouldAnimateInformations(value);
@@ -154,6 +155,21 @@ function App() {
 
   //LIMPIAR CACHE
   useEffect(() => {
+    const appendVersionToUrl = (url, version) => {
+      if (!url || !version) return url;
+      if (/^(blob:|data:|https?:|mailto:|tel:)/i.test(url)) return url;
+
+      try {
+        const parsed = new URL(url, window.location.origin);
+        if (parsed.origin !== window.location.origin) return url;
+        if (parsed.pathname === "/version.json") return url;
+        parsed.searchParams.set("v", version);
+        return `${parsed.pathname}${parsed.search}${parsed.hash}`;
+      } catch {
+        return url;
+      }
+    };
+
     const checkVersionAndClearCache = async () => {
       try {
         const response = await fetch("/version.json", {
@@ -167,9 +183,11 @@ function App() {
         const data = await response.json();
         const storedVersion = localStorage.getItem("app_version");
         const currentVersion = data.version;
+        setAssetVersion(currentVersion);
 
         if (!storedVersion) {
           localStorage.setItem("app_version", currentVersion);
+          sessionStorage.setItem("asset_version", currentVersion);
           return;
         }
 
@@ -197,11 +215,18 @@ function App() {
 
             // 💾 Actualizar versión guardada
             localStorage.setItem("app_version", currentVersion);
+            sessionStorage.setItem("asset_version", currentVersion);
 
             // 🔁 Recarga completa desde el servidor (no solo pathname)
-            window.location.reload(true); // o usa window.location.href = "/"
+            window.location.replace(
+              appendVersionToUrl(
+                window.location.pathname + window.location.search + window.location.hash,
+                currentVersion
+              )
+            );
           }, 1500);
         } else {
+          sessionStorage.setItem("asset_version", currentVersion);
           console.log("✅ App actualizada. Versión:", currentVersion);
         }
       } catch (err) {
@@ -211,6 +236,74 @@ function App() {
 
     checkVersionAndClearCache();
   }, []);
+
+  useEffect(() => {
+    const activeVersion = assetVersion || sessionStorage.getItem("asset_version");
+    if (!activeVersion) return undefined;
+
+    const versionizeAttr = (element, attr) => {
+      const currentValue = element.getAttribute(attr);
+      if (!currentValue) return;
+      if (/^(blob:|data:|https?:|mailto:|tel:)/i.test(currentValue)) return;
+
+      try {
+        const parsed = new URL(currentValue, window.location.origin);
+        if (parsed.origin !== window.location.origin) return;
+        if (parsed.pathname === "/version.json") return;
+
+        parsed.searchParams.set("v", activeVersion);
+        const nextValue = `${parsed.pathname}${parsed.search}${parsed.hash}`;
+        if (currentValue !== nextValue) {
+          element.setAttribute(attr, nextValue);
+        }
+      } catch {
+        // ignorar URLs no parseables
+      }
+    };
+
+    const versionizeNode = (node) => {
+      if (!(node instanceof HTMLElement)) return;
+
+      if (node.matches?.("img[src], video[src], source[src]")) {
+        versionizeAttr(node, "src");
+      }
+      if (node.matches?.("video[poster]")) {
+        versionizeAttr(node, "poster");
+      }
+
+      node.querySelectorAll?.("img[src], video[src], source[src]").forEach((element) => {
+        versionizeAttr(element, "src");
+      });
+      node.querySelectorAll?.("video[poster]").forEach((element) => {
+        versionizeAttr(element, "poster");
+      });
+    };
+
+    versionizeNode(document.body);
+
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => versionizeNode(node));
+
+        if (
+          mutation.type === "attributes" &&
+          mutation.target instanceof HTMLElement &&
+          (mutation.attributeName === "src" || mutation.attributeName === "poster")
+        ) {
+          versionizeNode(mutation.target);
+        }
+      });
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["src", "poster"],
+    });
+
+    return () => observer.disconnect();
+  }, [assetVersion]);
 
 
   return (
