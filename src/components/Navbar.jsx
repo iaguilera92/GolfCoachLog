@@ -90,8 +90,6 @@ const menuItems = [
   { name: "About", icon: <GroupsIcon /> }, { name: "Pro Shop", icon: <StorefrontIcon /> }, { name: "Contact", icon: <Mail /> }
 ];
 
-const blockedMenuItems = new Set(["Services", "About"]);
-
 function Navbar({ contactoRef, informationsRef, videoReady }) {
   const [open, setOpen] = useState(false), [isScrolled, setIsScrolled] = useState(false), [openPDF, setOpenPDF] = useState(false);
   const theme = useTheme(), isMobile = useMediaQuery(theme.breakpoints.down('sm')), navigate = useNavigate();
@@ -116,11 +114,6 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
   const handleClosePDF = () => setOpenPDF(false);
 
   const handleClick = (item) => {
-    if (blockedMenuItems.has(item.name)) {
-      setOpen(false);
-      return;
-    }
-
     setOpen(false);
     const actions = {
       Contact: () => scrollToRef(contactoRef),
@@ -314,7 +307,14 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
 
               <Box sx={{ flexGrow: 1 }} />
 
-              <Box sx={{ display: { xs: "none", md: "flex" }, gap: 1 }}>
+              <Box
+                sx={{
+                  display: { xs: "none", md: "flex" },
+                  gap: 1.1,
+                  alignItems: "center",
+                  ml: "auto",
+                }}
+              >
                 {menuItems.map((item, index) => (
                   <Button
                     key={item.name}
@@ -324,31 +324,57 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
                     animate="visible"
                     variants={menuItemVariants}
                     onClick={() => handleClick(item)}
-                    disabled={blockedMenuItems.has(item.name)}
                     sx={{
-                      fontFamily: "Poppins, sans-serif",
-                      padding: "10px 14px",
-                      background: item.name === "Pro Shop"
-                        ? "linear-gradient(160deg, #FFE082 0%, #FFC43D 38%, #FFB300 62%, #E68A00 100%)"
-                        : "transparent",
-                      border: "none",
+                      fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+                      minWidth: 0,
+                      px: item.name === "Pro Shop" ? 2.5 : 1.1,
+                      py: item.name === "Pro Shop" ? 0.8 : 0.7,
                       borderRadius: item.name === "Pro Shop" ? "999px" : 0,
-                      fontWeight: item.name === "Pro Shop" ? 800 : 500,
-                      color: item.name === "Pro Shop" ? "#ffffff" : "white",
-                      textShadow: item.name === "Pro Shop" ? "0 1px 2px rgba(0,0,0,0.35)" : "none",
-                      boxShadow: item.name === "Pro Shop"
-                        ? "0 0 18px rgba(255, 195, 45, 0.52), 0 8px 20px rgba(120, 72, 0, 0.32)"
-                        : "none",
-                      opacity: blockedMenuItems.has(item.name) ? 0.38 : 1,
+                      border:
+                        item.name === "Pro Shop"
+                          ? "2px solid rgba(69, 219, 92, 0.72)"
+                          : "none",
+                      background:
+                        item.name === "Pro Shop"
+                          ? "linear-gradient(180deg, rgba(43,48,45,0.92) 0%, rgba(33,37,35,0.92) 100%)"
+                          : "transparent",
+                      color:
+                        item.name === "Contact"
+                          ? "#35cf4c"
+                          : "#ffffff",
+                      fontWeight: 800,
+                      fontSize: "1rem",
+                      letterSpacing: "0.02em",
+                      textTransform: "uppercase",
+                      position: "relative",
+                      lineHeight: 1,
+                      opacity: 1,
+                      "&::after": item.name === "Home" ? {
+                        content: '""',
+                        position: "absolute",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        bottom: 3,
+                        width: "68%",
+                        height: "3px",
+                        borderRadius: "999px",
+                        background: "linear-gradient(90deg, #53e85e 0%, #28aa3b 100%)",
+                        boxShadow: "0 0 8px rgba(83,232,94,0.45)",
+                      } : {},
                       "&:hover": {
-                        backgroundColor: blockedMenuItems.has(item.name)
-                          ? "transparent"
-                          : item.name === "Pro Shop"
-                            ? undefined
-                            : "rgba(255, 255, 255, 0.1)",
-                        transform: item.name === "Pro Shop" ? "scale(1.04)" : "none",
-                        filter: item.name === "Pro Shop" ? "brightness(1.08)" : "none",
-                      }
+                        backgroundColor:
+                          item.name === "Pro Shop"
+                            ? "rgba(51,58,54,0.95)"
+                            : "transparent",
+                        color:
+                          item.name === "Contact"
+                            ? "#4be163"
+                            : "#ffffff",
+                        borderColor:
+                          item.name === "Pro Shop"
+                            ? "#55e46b"
+                            : undefined,
+                      },
                     }}
                   >
                     {item.name}
@@ -432,7 +458,6 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
                   >
                     <ListItemButton
                       onClick={() => handleClick(item)}
-                      disabled={blockedMenuItems.has(item.name)}
                       sx={{
                         px: 2,
                         py: 0.5,
@@ -483,14 +508,12 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
                               "0 0 26px rgba(255, 210, 85, 0.92), 0 10px 24px rgba(120,72,0,0.54)",
                           },
                         }),
-                        opacity: blockedMenuItems.has(item.name) ? 0.38 : 1,
+                        opacity: 1,
                         "&:hover": {
                           backgroundColor:
                             item.name === "Pro Shop"
                               ? undefined
-                              : blockedMenuItems.has(item.name)
-                                ? "transparent"
-                                : "rgba(255,255,255,0.05)",
+                              : "rgba(255,255,255,0.05)",
                         },
                         "@keyframes goldSweep": {
                           "0%": { left: "-70%", opacity: 0 },

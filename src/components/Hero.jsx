@@ -1,383 +1,189 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Box, Button, Container, Typography } from "@mui/material";
-import AppleIcon from "@mui/icons-material/Apple";
+import PlayCircleOutlineRoundedIcon from "@mui/icons-material/PlayCircleOutlineRounded";
+import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
+import SmartDisplayRoundedIcon from "@mui/icons-material/SmartDisplayRounded";
+import ChatRoundedIcon from "@mui/icons-material/ChatRounded";
+import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
+import PublicRoundedIcon from "@mui/icons-material/PublicRounded";
+import SignalCellularAltRoundedIcon from "@mui/icons-material/SignalCellularAltRounded";
+import WifiRoundedIcon from "@mui/icons-material/WifiRounded";
+import BatteryFullRoundedIcon from "@mui/icons-material/BatteryFullRounded";
+import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { motion } from "framer-motion";
 import "./css/Hero.css";
 
-const slides = [
+const dashboardCards = [
   {
-    eyebrow: "Golf Coaches",
-    title: "Train with coaches and track progress",
-    image: "/mobile-hero-1.avif",
-    alt: "Golf coach training",
+    title: "Smart Schedule",
+    icon: <CalendarMonthRoundedIcon sx={{ fontSize: 50 }} />,
+    accent: "#45db5c",
   },
   {
-    eyebrow: "Tournaments",
-    title: "Run tournaments with live results",
-    image: "/mobile-hero-2.avif",
-    alt: "Golf tournaments",
+    title: "Video Analysis",
+    icon: <SmartDisplayRoundedIcon sx={{ fontSize: 50 }} />,
+    accent: "#7d73ff",
   },
   {
-    eyebrow: "Scorecard",
-    title: "Keep every round on one scorecard",
-    image: "/mobile-hero-3.avif",
-    alt: "Digital golf scorecard",
+    title: "Messages",
+    icon: <ChatRoundedIcon sx={{ fontSize: 50 }} />,
+    accent: "#45db5c",
   },
   {
-    eyebrow: "Performance",
-    title: "Measure progress with smarter coaching insights",
-    image: "/hero-3.png",
-    alt: "Golf coaching performance insights",
+    title: "Pro Shop",
+    icon: <ShoppingBagOutlinedIcon sx={{ fontSize: 50 }} />,
+    accent: "#45db5c",
   },
 ];
 
-function TypingText({ text, active }) {
-  return (
-    <Box component="span" sx={{ whiteSpace: "pre-wrap", display: "inline-block" }}>
-      {text.split("").map((char, index) => (
-        <Box
-          key={`${text}-${index}-${char === " " ? "space" : char}`}
-          component={motion.span}
-          initial={{ opacity: 0, y: -26 }}
-          animate={active ? { opacity: 1, y: 0 } : { opacity: 0, y: -26 }}
-          transition={{
-            delay: active ? index * 0.045 : 0,
-            duration: 0.34,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          sx={{
-            display: "inline-block",
-            color: "inherit",
-            font: "inherit",
-            lineHeight: "inherit",
-            letterSpacing: "inherit",
-            textShadow: "inherit",
-            whiteSpace: "pre",
-          }}
-        >
-          {char === " " ? "\u00A0" : char}
-        </Box>
-      ))}
-    </Box>
-  );
-}
-
 function Hero({ informationsRef, setVideoReady }) {
-  const [activeSlide, setActiveSlide] = useState(0);
-  const [heroReveal, setHeroReveal] = useState(false);
-  const [mobileSecondLineReveal, setMobileSecondLineReveal] = useState(false);
-
   useEffect(() => {
-    if (setVideoReady) {
-      setVideoReady(true);
-    }
+    setVideoReady?.(true);
   }, [setVideoReady]);
 
-  useEffect(() => {
-    const interval = window.setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
-
-    return () => window.clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const revealTimer = window.setTimeout(() => {
-      setHeroReveal(true);
-    }, 4600);
-
-    return () => window.clearTimeout(revealTimer);
-  }, []);
-
-  useEffect(() => {
-    if (!heroReveal) {
-      setMobileSecondLineReveal(false);
-      return undefined;
-    }
-
-    const mobileDelay = window.innerWidth < 640 ? 620 : 0;
-    const secondLineTimer = window.setTimeout(() => {
-      setMobileSecondLineReveal(true);
-    }, mobileDelay);
-
-    return () => window.clearTimeout(secondLineTimer);
-  }, [heroReveal]);
-
   const handleScrollToServices = () => {
-    if (!informationsRef?.current) {
-      return;
-    }
+    if (!informationsRef?.current) return;
 
     const isMobile = window.innerWidth < 768;
-    const offset = isMobile ? -40 : -80;
-    const y = informationsRef.current.getBoundingClientRect().top + window.scrollY + offset;
+    const offset = isMobile ? -28 : -78;
+    const y =
+      informationsRef.current.getBoundingClientRect().top +
+      window.scrollY +
+      offset;
+
     window.scrollTo({ top: y, behavior: "smooth" });
   };
 
-  const handleNextSlide = () => {
-    setActiveSlide((prev) => (prev + 1) % slides.length);
-  };
-
-  const currentSlide = slides[activeSlide];
-
   return (
-    <Box
-      className="hero-landing"
-      sx={{
-        backgroundImage: "linear-gradient(90deg, rgba(5, 18, 28, 0.54), rgba(7, 31, 46, 0.3)), url('/fondo-7.jpg')",
-        pt: { xs: "136px", md: 0 },
-        pb: { xs: "48px", md: 0 },
-        minHeight: { xs: "auto", md: "768px" },
-        height: { xs: "auto", md: "100vh" },
-        alignItems: { xs: "flex-start", md: "center" },
-        justifyContent: { xs: "flex-start", md: "center" },
-      }}
-    >
-      <Container
-        maxWidth="lg"
-        className="hero-landing__container"
-        sx={{ mt: { xs: "10px", md: 0 }, maxWidth: { md: "980px !important" } }}
-      >
-        <Box
-          className="hero-landing__content"
-          sx={{
-            columnGap: { xs: 4, md: "0px" },
-            justifyContent: { md: "center" },
-            mx: { xs: "auto", md: "auto" },
-            width: { md: "750px" },
-            maxWidth: { md: "750px" },
-            gridTemplateColumns: { md: "minmax(0, 450px) minmax(220px, 280px)" },
-          }}
-        >
-          <Box
-            className={`hero-landing__copy ${heroReveal ? "hero-landing__copy--revealed" : ""}`}
-            sx={{
-              pt: { xs: 0, sm: 0 },
-              mt: { xs: "-18px", md: 0 },
-              justifySelf: { xs: "stretch", md: "center" },
-              pr: { md: 0 },
-              mr: { xs: 0, md: "20px" },
-              ml: { xs: 0, md: 0 },
-              mx: { xs: "auto", md: 0 },
-              textAlign: { xs: "center", md: "left" },
-              width: "100%",
-              maxWidth: { md: "420px" },
-            }}
+    <Box className="hero-coach">
+      <Box className="hero-coach__overlay" />
+      <Container maxWidth="xl" className="hero-coach__container">
+        <Box className="hero-coach__grid">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.75, ease: "easeOut" }}
           >
-            <Typography
-              component="h1"
-              className="hero-landing__title"
-              sx={{
-                fontSize: { xs: "2.7rem", sm: "2.4rem", md: "3.05rem !important" },
-                fontWeight: 900,
-                fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
-                lineHeight: { xs: 0.92, md: 0.95 },
-                mt: { xs: "10px", md: 0 },
-              }}
-            >
-              <span className="hero-landing__title-desktop">
-                <TypingText text="All in one Golf Coaching System" active={heroReveal} />
-              </span>
-              <span className="hero-landing__title-mobile">
-                <TypingText text="All in one Golf" active={heroReveal} />
-                <br />
-                <TypingText text="Coaching System" active={mobileSecondLineReveal} />
-              </span>
-            </Typography>
-
-            <Box className="hero-landing__headline-wrap" sx={{ mx: { xs: "auto", md: 0 } }}>
-              {slides.map((slide, index) => (
-                <Typography
-                  key={slide.title}
-                  component="p"
-                  className={`hero-landing__headline ${index === activeSlide ? "is-active" : ""}`}
-                >
-                  {slide.title}
+            <Box className="hero-coach__copy">
+              <Box className="hero-coach__badge">
+                <PublicRoundedIcon sx={{ fontSize: 18, color: "#59dd69" }} />
+                <Typography className="hero-coach__badge-text">
+                  TRUSTED BY 1,000+ GOLF COACHES WORLDWIDE
                 </Typography>
-              ))}
-            </Box>
+              </Box>
 
-            <Box
-              className="hero-landing__actions"
-              sx={{
-                display: "flex",
-                justifyContent: { xs: "center", md: "flex-start" },
-                mt: { xs: "-14px !important", md: "28px !important" },
-              }}
-            >
-              <Button
-                variant="contained"
-                className="hero-landing__primary-btn"
-                sx={{
-                  py: "8px !important",
-                  minHeight: "0 !important",
-                  mt: { xs: "0 !important", md: "0 !important" },
-                }}
-                onClick={handleScrollToServices}
-              >
-                Try for Free
-              </Button>
-            </Box>
-          </Box>
+              <Typography component="h1" className="hero-coach__title">
+                <Box component="span" display="block">
+                  Coach more.
+                </Box>
+                <Box component="span" display="block" className="hero-coach__title-accent">
+                  Organize less.
+                </Box>
+                <Box component="span" display="block">
+                  Grow faster.
+                </Box>
+              </Typography>
 
-          <Box className="hero-landing__aside" sx={{ ml: { md: "0" }, maxWidth: { md: "260px" }, justifySelf: { md: "center" } }}>
-            <Box className={`hero-landing__visual ${heroReveal ? "hero-landing__visual--revealed" : ""}`}>
-              <Box
-                className="hero-landing__screens"
-                sx={{
-                  width: { xs: "280px", md: "220px" },
-                  height: { xs: "500px", md: "400px" },
-                  mt: { xs: "72px", md: 0 },
-                }}
-              >
-                <Box key={currentSlide.title} className="hero-landing__screen is-active">
-                  <Box
-                    className="hero-landing__phone-frame"
-                    onClick={handleNextSlide}
-                    sx={{ cursor: "pointer" }}
-                  >
-                    <img
-                      src={currentSlide.image}
-                      alt={currentSlide.alt}
-                      className="hero-landing__screen-image hero-landing__screen-image--plain"
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "contain",
-                      }}
-                    />
+              <Typography className="hero-coach__description">
+                The all-in-one platform to manage your schedule, analyze swings,
+                run programs and grow your coaching business.
+              </Typography>
+
+              <Box className="hero-coach__actions">
+                <Button
+                  variant="outlined"
+                  className="hero-coach__cta hero-coach__cta--secondary"
+                  onClick={handleScrollToServices}
+                  startIcon={<PlayCircleOutlineRoundedIcon sx={{ fontSize: 24 }} />}
+                >
+                  Watch Demo
+                </Button>
+              </Box>
+
+              <Box className="hero-coach__meta">
+                <Box className="hero-coach__meta-item">
+                  <Box className="hero-coach__meta-dot">✓</Box>
+                  <Typography className="hero-coach__meta-text">
+                    No credit card required
+                  </Typography>
+                </Box>
+                <Box className="hero-coach__meta-item">
+                  <Box className="hero-coach__meta-dot">✓</Box>
+                  <Typography className="hero-coach__meta-text">
+                    Free 14-day trial
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 34, y: 12 }}
+            animate={{ opacity: 1, x: 0, y: 0 }}
+            transition={{ duration: 0.85, ease: "easeOut", delay: 0.08 }}
+          >
+            <Box className="hero-coach__visual">
+              <Box className="hero-coach__phone-shell">
+                <Box className="hero-coach__notch" />
+
+                <Box className="hero-coach__screen">
+                  <Box className="hero-coach__screen-bg" />
+
+                  <Box className="hero-coach__brand">
+                    <Box className="hero-coach__statusbar">
+                      <Typography className="hero-coach__time">10:30</Typography>
+                      <Box className="hero-coach__status-icons">
+                        <SignalCellularAltRoundedIcon sx={{ fontSize: 17 }} />
+                        <WifiRoundedIcon sx={{ fontSize: 17 }} />
+                        <BatteryFullRoundedIcon
+                          sx={{
+                            fontSize: 18,
+                            transform: "rotate(90deg)",
+                          }}
+                        />
+                      </Box>
+                    </Box>
+                    <Typography className="hero-coach__brand-text">
+                      GOLF COACH <span>LOG</span>
+                    </Typography>
+                  </Box>
+
+                  <Box className="hero-coach__screen-topline">
+                    <ArrowBackIosNewRoundedIcon className="hero-coach__screen-topline-icon" />
+                    <Typography className="hero-coach__screen-muted">
+                      Dashboard
+                    </Typography>
+                    <CloseRoundedIcon className="hero-coach__screen-topline-icon" />
+                  </Box>
+
+                  <Typography className="hero-coach__welcome">
+                    Welcome back, Coach!
+                  </Typography>
+                  <Typography className="hero-coach__subtitle">
+                    Manage everything from one place.
+                  </Typography>
+
+                  <Box className="hero-coach__card-grid">
+                    {dashboardCards.map((card) => (
+                      <Box
+                        key={card.title}
+                        className="hero-coach__card"
+                        sx={{
+                          "--card-accent": card.accent,
+                        }}
+                      >
+                        <Box className="hero-coach__card-icon">{card.icon}</Box>
+                        <Typography className="hero-coach__card-title">
+                          {card.title}
+                        </Typography>
+                      </Box>
+                    ))}
                   </Box>
                 </Box>
               </Box>
             </Box>
-          </Box>
-        </Box>
-
-        <Box
-          className={`hero-landing__bottom ${heroReveal ? "hero-landing__bottom--revealed" : ""}`}
-          sx={{
-            mt: { xs: "30px", md: "14px" },
-            mx: "auto",
-            transform: { md: "translateY(28px)" },
-            width: { xs: "100%", md: "750px" },
-            maxWidth: { md: "750px" },
-            px: { xs: "6px", md: "16px" },
-            py: { xs: "18px", md: "12px" },
-          }}
-        >
-          <Box className="hero-landing__rating">
-            <Box
-              className="hero-landing__rating-appicon"
-              sx={{ width: { md: "34px" }, height: { md: "34px" }, fontSize: { md: "0.78rem" } }}
-            >
-              <Box
-                component="img"
-                src="/icon.png"
-                alt="Golf Coach Log"
-                sx={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  borderRadius: "8px",
-                }}
-              />
-            </Box>
-            <Box>
-              <Typography
-                component="p"
-                className="hero-landing__rating-title"
-                sx={{ fontSize: { md: "0.8rem" } }}
-              >
-                The most complete golf Coaching App
-              </Typography>
-              <Typography
-                component="p"
-                className="hero-landing__rating-meta"
-                sx={{ fontSize: { md: "0.72rem" } }}
-              >
-                290k Ratings
-              </Typography>
-            </Box>
-          </Box>
-
-          <Box className="hero-landing__stores" sx={{ gap: { md: "12px" } }}>
-            <Box
-              component="a"
-              href="https://18birdies.onelink.me/IdkR/3fc1cc20"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hero-landing__store-badge"
-              aria-label="Descargar en Google Play"
-              sx={{ minWidth: { md: "138px" }, px: { md: "10px" }, py: { md: "8px" } }}
-            >
-              <svg
-                viewBox="0 0 36 40"
-                aria-hidden="true"
-                className="hero-landing__store-icon hero-landing__store-icon--play"
-              >
-                <path fill="#00D2FF" d="M3.76 2.57 21.58 20 3.76 37.43A3.66 3.66 0 0 1 3 35.12V4.88c0-.88.28-1.69.76-2.31Z" />
-                <path fill="#00F076" d="M3.76 2.57a3.3 3.3 0 0 1 4.06-.36L28.8 14.1 21.58 20 3.76 2.57Z" />
-                <path fill="#FFBD00" d="m28.8 14.1 4.27 2.45c2.57 1.47 2.57 5.43 0 6.9L28.8 25.9 21.58 20l7.22-5.9Z" />
-                <path fill="#FF3A44" d="M3.76 37.43 21.58 20l7.22 5.9-20.98 11.89a3.3 3.3 0 0 1-4.06-.36Z" />
-              </svg>
-              <Box>
-                <Typography
-                  component="span"
-                  className="hero-landing__store-small"
-                  sx={{ fontSize: { md: "0.6rem" } }}
-                >
-                  GET IT ON
-                </Typography>
-                <Typography
-                  component="span"
-                  className="hero-landing__store-name"
-                  sx={{ fontSize: { md: "0.82rem" } }}
-                >
-                  Google Play
-                </Typography>
-              </Box>
-            </Box>
-
-            <Box
-              component="a"
-              href="https://18birdies.onelink.me/IdkR/4412480a"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hero-landing__store-badge"
-              aria-label="Descargar en App Store"
-              sx={{ minWidth: { md: "138px" }, px: { md: "10px" }, py: { md: "8px" } }}
-            >
-              <AppleIcon className="hero-landing__store-icon" />
-              <Box>
-                <Typography
-                  component="span"
-                  className="hero-landing__store-small"
-                  sx={{ fontSize: { md: "0.6rem" } }}
-                >
-                  Download on the
-                </Typography>
-                <Typography
-                  component="span"
-                  className="hero-landing__store-name"
-                  sx={{ fontSize: { md: "0.82rem" } }}
-                >
-                  App Store
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
-        </Box>
-
-        <Box className={`hero-landing__nav ${heroReveal ? "hero-landing__nav--revealed" : ""}`} aria-label="NavegaciÃ³n del hero">
-          {slides.map((slide, index) => (
-            <button
-              key={slide.title}
-              type="button"
-              className={`hero-landing__nav-dot ${index === activeSlide ? "is-active" : ""}`}
-              onClick={() => setActiveSlide(index)}
-              aria-label={`Mostrar ${slide.eyebrow}`}
-            />
-          ))}
+          </motion.div>
         </Box>
       </Container>
     </Box>
@@ -385,4 +191,3 @@ function Hero({ informationsRef, setVideoReady }) {
 }
 
 export default Hero;
-
