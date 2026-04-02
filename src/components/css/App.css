@@ -6,7 +6,7 @@
 }
 
 .app-stats {
-    padding: 0 0 56px;
+    padding: 0;
     background: #f7f9fb;
     position: relative;
     z-index: 1;
@@ -199,38 +199,39 @@
     width: 100vw;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
-    padding: 24px 32px 56px;
+    padding: 18px 26px 28px;
     background:
-        linear-gradient(180deg, rgba(4, 12, 7, 0.9) 0%, rgba(6, 16, 9, 0.82) 100%),
+        linear-gradient(180deg, rgba(4, 12, 7, 0.82) 0%, rgba(6, 16, 9, 0.72) 100%),
         url("/fondo-7.jpg") center/cover no-repeat;
 }
 
 .areas-overview__grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 18px;
-    max-width: 1240px;
+    gap: 14px;
+    max-width: 1280px;
     margin: 0 auto;
     align-items: stretch;
 }
 
 .areas-overview__card {
     position: relative;
-    min-height: 260px;
-    padding: 92px 20px 20px;
-    border-radius: 22px;
-    border: 1px solid rgba(70, 221, 95, 0.42);
+    min-height: 200px;
+    padding: 74px 18px 16px;
+    border-radius: 20px;
+    border: 1px solid rgba(83, 244, 114, 0.56);
     background:
-        linear-gradient(180deg, rgba(5, 16, 10, 0.92) 0%, rgba(6, 14, 10, 0.96) 100%);
+        linear-gradient(180deg, rgba(3, 12, 8, 0.9) 0%, rgba(4, 10, 7, 0.95) 100%);
     box-shadow:
-        0 18px 30px rgba(0, 0, 0, 0.22),
+        0 0 0 1px rgba(83, 244, 114, 0.18),
+        0 0 16px rgba(83, 244, 114, 0.18),
         inset 0 0 0 1px rgba(134, 255, 153, 0.04);
     overflow: visible;
 }
 
 .areas-overview__icon-wrap {
     position: absolute;
-    top: -14px;
+    top: -18px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -240,46 +241,46 @@
 }
 
 .areas-overview__icon {
-    width: 110px;
-    height: 100px;
+    width: 88px;
+    height: 88px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 24px;
+    border-radius: 22px;
     color: #eaf8ec;
     background:
-        radial-gradient(circle at 50% 38%, rgba(75, 223, 90, 0.16) 0%, rgba(75, 223, 90, 0.04) 54%, rgba(0, 0, 0, 0) 100%),
-        linear-gradient(180deg, rgba(12, 27, 15, 0.96) 0%, rgba(7, 17, 11, 0.98) 100%);
-    border: 1px solid rgba(71, 229, 98, 0.82);
+        radial-gradient(circle at 50% 38%, rgba(75, 223, 90, 0.14) 0%, rgba(75, 223, 90, 0.03) 54%, rgba(0, 0, 0, 0) 100%),
+        linear-gradient(180deg, rgba(8, 23, 12, 0.96) 0%, rgba(5, 14, 9, 0.98) 100%);
+    border: 1px solid rgba(71, 229, 98, 0.88);
     box-shadow:
-        0 0 0 1px rgba(71, 229, 98, 0.14),
-        0 0 18px rgba(71, 229, 98, 0.32),
+        0 0 0 1px rgba(71, 229, 98, 0.16),
+        0 0 18px rgba(71, 229, 98, 0.38),
         inset 0 0 18px rgba(71, 229, 98, 0.08);
 }
 
 .areas-overview__icon .MuiSvgIcon-root {
-    font-size: 3.25rem;
-    transform: scaleX(1.08);
+    font-size: 2.9rem;
+    transform: scaleX(1.02);
 }
 
 .areas-overview__title {
     margin: 0;
     color: #46da53;
-    font-size: 1.02rem;
+    font-size: 0.98rem;
     font-weight: 800;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.02em;
     text-transform: uppercase;
     text-align: center;
     font-family: "Roboto Condensed", "Roboto-BoldCondensed", sans-serif;
 }
 
 .areas-overview__description {
-    margin: 10px auto 0;
-    font-family: "Poppins", sans-serif;
-    max-width: 240px;
-    color: rgba(238, 245, 238, 0.82);
-    font-size: 0.9rem;
-    line-height: 1.42;
+    margin: 8px auto 0;
+    font-family: "Roboto Condensed", "Roboto-BoldCondensed", sans-serif;
+    max-width: 252px;
+    color: rgba(238, 245, 238, 0.8);
+    font-size: 0.92rem;
+    line-height: 1.34;
     text-align: center;
 }
 
@@ -293,7 +294,7 @@
 
 @media (max-width: 900px) {
     .app-stats {
-        padding: 0 0 44px;
+        padding: 0;
     }
 
     .app-stats__item {
@@ -328,7 +329,7 @@
     }
 
     .areas-overview {
-        padding: 8px 20px 24px;
+        padding: 8px 18px 18px;
     }
 
     .areas-overview__grid {
@@ -338,7 +339,7 @@
 
     .areas-overview__card {
         min-height: auto;
-        padding: 84px 18px 18px;
+        padding: 76px 18px 18px;
     }
 
     .app-reviews__slider {

@@ -73,7 +73,16 @@ function Hero({ informationsRef, setVideoReady }) {
                 </Typography>
               </Box>
 
-              <Typography component="h1" className="hero-coach__title">
+              <Typography
+                component="h1"
+                className="hero-coach__title"
+                sx={{
+                  fontSize: { xs: "3rem", sm: "3.7rem", md: "5.15rem", lg: "5.8rem" },
+                  lineHeight: { xs: 0.98, md: 0.92 },
+                  letterSpacing: { xs: "-0.04em", md: "-0.055em" },
+                  maxWidth: { xs: "100%", md: "11ch" },
+                }}
+              >
                 <Box component="span" display="block">
                   Coach more.
                 </Box>
@@ -85,7 +94,14 @@ function Hero({ informationsRef, setVideoReady }) {
                 </Box>
               </Typography>
 
-              <Typography className="hero-coach__description">
+              <Typography
+                className="hero-coach__description"
+                sx={{
+                  fontSize: { xs: "1.02rem", sm: "1.12rem", md: "1.28rem", lg: "1.38rem" },
+                  lineHeight: { xs: 1.55, md: 1.58 },
+                  maxWidth: { xs: "100%", md: "37rem" },
+                }}
+              >
                 The all-in-one platform to manage your schedule, analyze swings,
                 run programs and grow your coaching business.
               </Typography>
@@ -119,9 +135,9 @@ function Hero({ informationsRef, setVideoReady }) {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 34, y: 12 }}
-            animate={{ opacity: 1, x: 0, y: 0 }}
-            transition={{ duration: 0.85, ease: "easeOut", delay: 0.08 }}
+            initial={{ opacity: 0, x: 120 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 3 }}
           >
             <Box className="hero-coach__visual">
               <Box className="hero-coach__phone-shell">
@@ -157,7 +173,7 @@ function Hero({ informationsRef, setVideoReady }) {
                     <CloseRoundedIcon className="hero-coach__screen-topline-icon" />
                   </Box>
 
-                  <Typography className="hero-coach__welcome">
+                  <Typography className="hero-coach__welcome" sx={{ mt: "28px" }}>
                     Welcome back, Coach!
                   </Typography>
                   <Typography className="hero-coach__subtitle">

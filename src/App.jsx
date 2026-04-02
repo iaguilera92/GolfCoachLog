@@ -100,7 +100,20 @@ function App() {
   //location.pathname
   useEffect(() => {
     if (location.pathname === "/") {
-      // Ejecutar lógica cuando se vuelva a la ruta de inicio
+      const pendingTarget = sessionStorage.getItem("pendingScrollTarget");
+      if (!pendingTarget) return;
+
+      const timer = setTimeout(() => {
+        const target = document.getElementById(pendingTarget);
+        if (!target) return;
+
+        const offset = window.innerWidth < 768 ? -64 : -92;
+        const y = target.getBoundingClientRect().top + window.scrollY + offset;
+        window.scrollTo({ top: y, behavior: "smooth" });
+        sessionStorage.removeItem("pendingScrollTarget");
+      }, 250);
+
+      return () => clearTimeout(timer);
     }
   }, [location.pathname]);
 

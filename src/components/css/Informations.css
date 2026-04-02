@@ -1,7 +1,7 @@
 ﻿.tournament-block {
   position: relative;
-  padding: 6px 0 64px;
-  margin-top: -48px;
+  padding: 0;
+  margin-top: -18px;
   background: #ffffff;
 }
 
@@ -24,7 +24,7 @@
   overflow: hidden;
   background:
     linear-gradient(90deg, rgba(7, 18, 28, 0.72), rgba(7, 18, 28, 0.48)),
-    url("/fondo-7.jpg") center/cover no-repeat;
+    url("/fondo-17.jpg") center/cover no-repeat;
   box-shadow: none;
 }
 
@@ -145,7 +145,7 @@
 
 .tournament-block__premium {
   position: relative;
-  margin-top: 34px;
+  margin-top: 0;
   min-height: 280px;
   padding: 56px 0;
   border-radius: 0;
@@ -436,7 +436,7 @@
 
 @media (max-width: 900px) {
   .tournament-block {
-    padding: 10px 0 52px;
+    padding: 0;
   }
 
   .tournament-block__panel {
@@ -503,7 +503,7 @@
     align-items: center;
     text-align: center;
     gap: 22px;
-    margin-top: 24px;
+    margin-top: 0;
     min-height: 0;
     padding: 34px 20px;
     border-radius: 0;

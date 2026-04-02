@@ -56,30 +56,107 @@ function Areas() {
           mb: 0,
           position: "relative",
           zIndex: 2,
+          pb: 0,
         }}
         ref={reviewsRef}
       >
         <Box
           className="app-reviews__panel"
           sx={{
-            pt: { xs: "18px", md: "30px" },
-            pb: { xs: "18px", md: "24px" },
+            pt: 0,
+            pb: 0,
             background: "transparent",
           }}
         >
-          <Box className="areas-overview">
-            <Box className="areas-overview__grid">
+          <Box
+            className="areas-overview"
+            sx={{
+              minHeight: { xs: "560px", md: "380px" },
+              px: { xs: "26px", md: "26px" },
+              pt: { xs: "46px", md: "72px" },
+              pb: { xs: "46px", md: "28px" },
+              background:
+                'linear-gradient(180deg, rgba(4, 12, 7, 0.82) 0%, rgba(6, 16, 9, 0.72) 100%), url("/fondo-7.jpg") center/cover no-repeat',
+            }}
+          >
+            <Box
+              className="areas-overview__grid"
+              sx={{
+                gap: { xs: "14px", md: "14px" },
+                maxWidth: "1120px",
+                justifyContent: "center",
+              }}
+            >
               {areaCards.map((card) => (
-                <Box key={card.title} className="areas-overview__card">
-                  <Box className="areas-overview__icon-wrap">
-                    <Box className="areas-overview__icon">
+                <Box
+                  key={card.title}
+                  className="areas-overview__card"
+                  sx={{
+                    minHeight: { xs: "auto", md: "228px" },
+                    pt: { xs: "92px", md: "88px" },
+                    px: { xs: "20px", md: "22px" },
+                    pb: { xs: "22px", md: "20px" },
+                    borderRadius: "20px",
+                    border: "1px solid rgba(83, 244, 114, 0.56)",
+                    background:
+                      "linear-gradient(180deg, rgba(3, 12, 8, 0.9) 0%, rgba(4, 10, 7, 0.95) 100%)",
+                    boxShadow:
+                      "0 0 0 1px rgba(83, 244, 114, 0.18), 0 0 16px rgba(83, 244, 114, 0.18), inset 0 0 0 1px rgba(134, 255, 153, 0.04)",
+                  }}
+                >
+                  <Box className="areas-overview__icon-wrap" sx={{ top: "-18px" }}>
+                    <Box
+                      className="areas-overview__icon"
+                      sx={{
+                        width: { xs: "104px", md: "110px" },
+                        height: { xs: "92px", md: "96px" },
+                        borderRadius: "22px",
+                        background:
+                          "radial-gradient(circle at 50% 38%, rgba(75, 223, 90, 0.14) 0%, rgba(75, 223, 90, 0.03) 54%, rgba(0, 0, 0, 0) 100%), linear-gradient(180deg, rgba(8, 23, 12, 0.96) 0%, rgba(5, 14, 9, 0.98) 100%)",
+                        border: "1px solid rgba(71, 229, 98, 0.88)",
+                        boxShadow:
+                          "0 0 0 1px rgba(71, 229, 98, 0.16), 0 0 18px rgba(71, 229, 98, 0.38), inset 0 0 18px rgba(71, 229, 98, 0.08)",
+                        "& .MuiSvgIcon-root": {
+                          fontSize: { xs: "3.2rem", md: "3.35rem" },
+                          transform: "scaleX(1.02)",
+                        },
+                      }}
+                    >
                       {card.icon}
                     </Box>
                   </Box>
                   <Typography component="h3" className="areas-overview__title">
-                    {card.title}
+                    <Box
+                      component="span"
+                      sx={{
+                        mt: { xs: "8px", md: "10px" },
+                        fontWeight: 900,
+                        fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+                        fontSize: { xs: "0.98rem", sm: "1.06rem", md: "0.98rem" },
+                        lineHeight: 1.08,
+                        letterSpacing: "0.02em",
+                        color: "#46da53",
+                        textTransform: "uppercase",
+                        display: "block",
+                      }}
+                    >
+                      {card.title}
+                    </Box>
                   </Typography>
-                  <Typography component="p" className="areas-overview__description">
+                  <Typography
+                    component="p"
+                    className="areas-overview__description"
+                    sx={{
+                      textAlign: "center",
+                      mx: "auto",
+                      lineHeight: 1.34,
+                      fontSize: { xs: "0.92rem", md: "0.92rem" },
+                      fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+                      maxWidth: "252px",
+                      color: "rgba(238, 245, 238, 0.8)",
+                      mt: "8px",
+                    }}
+                  >
                     {card.description}
                   </Typography>
                 </Box>

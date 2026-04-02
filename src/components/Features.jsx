@@ -1,9 +1,8 @@
-﻿import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Alert, Box, Button, Container, Dialog, DialogContent, IconButton, Snackbar, Typography } from "@mui/material";
 import ConstructionRoundedIcon from "@mui/icons-material/ConstructionRounded";
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import SmartDisplayRoundedIcon from "@mui/icons-material/SmartDisplayRounded";
 import { motion } from "framer-motion";
 import "./css/Features.css";
 
@@ -63,7 +62,14 @@ function Features() {
       headline: "See it. Analyze it. Improve it.",
       description:
         "Record, draw, compare and track every swing to help players get better faster.",
-      icon: <SmartDisplayRoundedIcon />,
+      icon: (
+        <Box
+          component="img"
+          src="/video.png"
+          alt="Video analysis"
+          className="features-showcase__overview-icon-image"
+        />
+      ),
     },
     {
       title: "CLIENT COMMUNICATION",
@@ -91,7 +97,14 @@ function Features() {
         >
           <Box className="features-showcase__overview-header">
             <Box className="features-showcase__overview-line" />
-            <Typography component="h2" className="features-showcase__overview-title">
+            <Typography
+              component="h2"
+              className="features-showcase__overview-title"
+              sx={{
+                fontSize: { xs: "1.75rem", sm: "1.95rem", md: "2.45rem" },
+                lineHeight: 1.02,
+              }}
+            >
               Everything you need in one place
             </Typography>
             <Box className="features-showcase__overview-line" />
@@ -102,6 +115,12 @@ function Features() {
               <Box
                 key={card.title}
                 className={`features-showcase__overview-card ${index === 0 ? "features-showcase__overview-card--featured" : ""}`}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "flex-start",
+                }}
               >
                 <Box className="features-showcase__overview-icon-wrap">
                   <Box className="features-showcase__overview-icon">
@@ -109,21 +128,34 @@ function Features() {
                   </Box>
                 </Box>
 
-                <Typography component="h3" className="features-showcase__overview-card-title">
+                <Typography
+                  component="h3"
+                  className="features-showcase__overview-card-title"
+                  sx={{ textAlign: "center", width: "100%" }}
+                >
                   {card.title}
                 </Typography>
 
-                <Typography component="p" className="features-showcase__overview-card-headline">
+                <Typography
+                  component="p"
+                  className="features-showcase__overview-card-headline"
+                  sx={{ textAlign: "center", width: "100%" }}
+                >
                   {card.headline}
                 </Typography>
 
-                <Typography component="p" className="features-showcase__overview-card-description">
+                <Typography
+                  component="p"
+                  className="features-showcase__overview-card-description"
+                  sx={{ textAlign: "center", width: "100%", mx: "auto" }}
+                >
                   {card.description}
                 </Typography>
               </Box>
             ))}
           </Box>
         </Box>
+
         <Box
           ref={(el) => { sectionRefs.current[1] = el; }}
           data-feature-index="1"
@@ -421,6 +453,3 @@ function Features() {
 }
 
 export default Features;
-
-
-

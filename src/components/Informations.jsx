@@ -1,15 +1,12 @@
-﻿import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Alert, Box, Button, Container, Dialog, DialogContent, IconButton, Snackbar, Typography } from "@mui/material";
 import ConstructionRoundedIcon from "@mui/icons-material/ConstructionRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import LockRoundedIcon from "@mui/icons-material/LockRounded";
-import FormatQuoteRoundedIcon from "@mui/icons-material/FormatQuoteRounded";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
 import PublicRoundedIcon from "@mui/icons-material/PublicRounded";
-import ShoppingBagRoundedIcon from "@mui/icons-material/ShoppingBagRounded";
-import ArrowOutwardRoundedIcon from "@mui/icons-material/ArrowOutwardRounded";
-import TrendingUpRoundedIcon from "@mui/icons-material/TrendingUpRounded";
+import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
 import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
 import "./css/Informations.css";
@@ -19,18 +16,17 @@ function Informations() {
   const [openTournamentDialog, setOpenTournamentDialog] = useState(false);
   const [openPracticeDialog, setOpenPracticeDialog] = useState(false);
   const [openPaymentsDialog, setOpenPaymentsDialog] = useState(false);
+
   const sectionOneRef = useRef(null);
+  const sectionThreeRef = useRef(null);
   const { ref: sectionTwoRef, inView: sectionTwoInView } = useInView({
     triggerOnce: true,
     threshold: 0.22,
     rootMargin: "0px 0px -8% 0px",
   });
-  const sectionThreeRef = useRef(null);
+
   const [sectionOneInView, setSectionOneInView] = useState(false);
   const [sectionThreeInView, setSectionThreeInView] = useState(false);
-  const handleComingSoon = () => {
-    setOpenSnackbar(true);
-  };
 
   useEffect(() => {
     const handleScrollReveal = () => {
@@ -54,8 +50,98 @@ function Informations() {
     return () => window.removeEventListener("scroll", handleScrollReveal);
   }, [sectionOneInView, sectionThreeInView]);
 
+  const closeSpinSx = {
+    position: "absolute",
+    top: 14,
+    right: 14,
+    color: "#18302a",
+    backgroundColor: "rgba(255,255,255,0.72)",
+    animation: "dialogCloseSpin 0.8s ease-out 1",
+    "&:hover": {
+      backgroundColor: "rgba(255,255,255,0.95)",
+    },
+    "@keyframes dialogCloseSpin": {
+      "0%": { transform: "rotate(0deg)" },
+      "100%": { transform: "rotate(720deg)" },
+    },
+  };
+
+  const dialogPaperSx = {
+    borderRadius: "24px",
+    overflow: "hidden",
+    background:
+      "linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(247,250,251,0.98) 100%)",
+    boxShadow: "0 28px 80px rgba(0,0,0,0.22)",
+  };
+
+  const greenKicker = (text) => (
+    <Box
+      component={motion.div}
+      initial={{ opacity: 0, x: 36 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <Typography
+        component="p"
+        sx={{
+          m: 0,
+          color: "#1fbf75",
+          fontSize: "0.8rem",
+          fontWeight: 800,
+          letterSpacing: "0.12em",
+          textTransform: "uppercase",
+          fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+        }}
+      >
+        {text}
+      </Typography>
+    </Box>
+  );
+
   return (
     <Box className="tournament-block">
+      <Container maxWidth="lg" className="tournament-block__container">
+        <Box
+          className={`tournament-block__community app-section-reveal app-section-reveal--left ${sectionTwoInView ? "is-visible" : ""}`}
+          ref={sectionTwoRef}
+        >
+          <Box className="tournament-block__community-image-wrap">
+            <img
+              src="/informations.png"
+              alt="Practice log preview"
+              className="tournament-block__community-image"
+            />
+          </Box>
+
+          <Box className="tournament-block__community-copy">
+            <Typography
+              component="h2"
+              className="tournament-block__community-title"
+              sx={{
+                fontWeight: 900,
+                fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+                fontSize: { xs: "2rem", sm: "2.25rem", md: "2.7rem" },
+              }}
+            >
+              SWING ANALYSIS
+            </Typography>
+
+            <Typography component="p" className="tournament-block__community-description">
+              Organize lesson videos, track progress over time, and give
+              players clear, precise feedback that helps them improve faster.
+            </Typography>
+
+            <Button
+              variant="contained"
+              className="tournament-block__button"
+              onClick={() => setOpenPracticeDialog(true)}
+            >
+              See More
+            </Button>
+          </Box>
+        </Box>
+      </Container>
+
       <Box
         className="tournament-block__panel tournament-block__panel--full"
         ref={sectionOneRef}
@@ -106,7 +192,296 @@ function Informations() {
             </Button>
           </Box>
         </Container>
-      </Box>`r`n`r`n      <Snackbar
+      </Box>
+
+      <Box
+        className="tournament-block__premium tournament-block__premium--full"
+        ref={sectionThreeRef}
+        sx={{
+          background:
+            'linear-gradient(90deg, rgba(0, 0, 0, 0.68), rgba(0, 0, 0, 0.56)), url("/fondo-feature.avif") center/cover no-repeat',
+        }}
+      >
+        <Container
+          maxWidth={false}
+          className="tournament-block__container tournament-block__container--premium"
+          sx={{ px: { xs: 3, md: 6, lg: 10 } }}
+        >
+          <Box
+            className={`tournament-block__premium-inner app-section-reveal app-section-reveal--right ${sectionThreeInView ? "is-visible" : ""}`}
+            sx={{
+              px: { xs: 0, md: 4, lg: 6 },
+              display: "grid",
+              gap: { xs: 2, md: 2.2 },
+            }}
+          >
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: { xs: "1fr", md: "1fr 1.1fr" },
+                gap: { xs: 2, md: 2.2 },
+                alignItems: "stretch",
+              }}
+            >
+              <Box
+                sx={{
+                  borderRadius: "22px",
+                  border: "1px solid rgba(79, 235, 102, 0.65)",
+                  background:
+                    "linear-gradient(180deg, rgba(5,16,10,0.84) 0%, rgba(7,16,10,0.72) 100%)",
+                  boxShadow: "0 0 0 1px rgba(79,235,102,0.12), 0 0 24px rgba(79,235,102,0.12)",
+                  p: { xs: 2.2, md: 2.8 },
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Box>
+                  <Box
+                    sx={{
+                      display: "grid",
+                      gridTemplateColumns: "auto 1fr",
+                      alignItems: "start",
+                      gap: 1,
+                    }}
+                  >
+                    <Typography
+                      component="span"
+                      sx={{
+                        color: "#52e65e",
+                        fontSize: "2.4rem",
+                        fontWeight: 900,
+                        lineHeight: 1,
+                        mt: -0.25,
+                        fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+                      }}
+                    >
+                      {"\u201C\u201C"}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        color: "#ffffff",
+                        fontStyle: "italic",
+                        fontSize: { xs: "0.98rem", md: "1.05rem" },
+                        lineHeight: 1.6,
+                      }}
+                    >
+                      <Box component="span" sx={{ display: "block" }}>
+                        Golf Coach Log saves me hours every week. My students book
+                        easily and my calendar is always up to date.
+                      </Box>
+                      <Box
+                        component="span"
+                        sx={{
+                          display: "block",
+                          mt: 1,
+                          color: "#59dd69",
+                          fontWeight: 800,
+                          fontStyle: "normal",
+                          fontSize: "0.92rem",
+                          fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+                        }}
+                      >
+                        Coach M.
+                      </Box>
+                    </Typography>
+                  </Box>
+                </Box>
+
+                <Box
+                  sx={{
+                    mt: 2,
+                    pt: 1.8,
+                    borderTop: "1px solid rgba(106, 236, 119, 0.35)",
+                    display: "grid",
+                    gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+                    gap: 1.2,
+                  }}
+                >
+                  {[
+                    { icon: <StarRoundedIcon sx={{ fontSize: 52 }} />, value: "290K+", label: "App Ratings" },
+                    { icon: <GroupsRoundedIcon sx={{ fontSize: 52 }} />, value: "1,000+", label: "Golf Coaches" },
+                    { icon: <PublicRoundedIcon sx={{ fontSize: 52 }} />, value: "40+", label: "Countries" },
+                  ].map((item) => (
+                    <Box key={item.label} sx={{ textAlign: "center" }}>
+                      <Box sx={{ color: "#58e056", display: "flex", justifyContent: "center", mb: 0.5 }}>
+                        {item.icon}
+                      </Box>
+                      <Typography sx={{ color: "#ffffff", fontWeight: 800, fontSize: { xs: "1rem", md: "1.15rem" } }}>
+                        {item.value}
+                      </Typography>
+                      <Typography sx={{ color: "rgba(255,255,255,0.72)", fontSize: "0.78rem", lineHeight: 1.2 }}>
+                        {item.label}
+                      </Typography>
+                    </Box>
+                  ))}
+                </Box>
+              </Box>
+
+              <Box
+                sx={{
+                  borderRadius: "22px",
+                  border: "1px solid rgba(79, 235, 102, 0.65)",
+                  background:
+                    'linear-gradient(180deg, rgba(4,11,7,0.82) 0%, rgba(5,12,8,0.88) 100%), url("/fondo-hero.png") center/cover no-repeat',
+                  boxShadow: "0 0 0 1px rgba(79,235,102,0.12), 0 0 24px rgba(79,235,102,0.12)",
+                  p: { xs: 2.2, md: 2.8 },
+                  display: "grid",
+                  gridTemplateColumns: { xs: "1fr", md: "1.1fr 0.9fr" },
+                  gap: 2,
+                  alignItems: "end",
+                }}
+              >
+                <Box>
+                  <Typography
+                    component="h2"
+                    sx={{
+                      m: 0,
+                      color: "#ffffff",
+                      fontWeight: 900,
+                      fontSize: { xs: "1.45rem", md: "1.9rem" },
+                      lineHeight: 1,
+                      fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    PRO SHOP &amp; REVENUE
+                  </Typography>
+
+                  <Typography
+                    sx={{
+                      mt: 1.2,
+                      color: "rgba(255,255,255,0.82)",
+                      fontSize: { xs: "0.95rem", md: "1rem" },
+                      lineHeight: 1.55,
+                      maxWidth: "34ch",
+                    }}
+                  >
+                    Sell products, manage inventory and increase your revenue
+                    directly from the app.
+                  </Typography>
+
+                  <Button
+                    variant="outlined"
+                    onClick={() => setOpenPaymentsDialog(true)}
+                    endIcon={<ArrowForwardRoundedIcon />}
+                    sx={{
+                      mt: 2.2,
+                      borderRadius: "999px",
+                      px: 2.1,
+                      py: 1,
+                      color: "#58e056",
+                      borderColor: "rgba(88,224,86,0.82)",
+                      fontWeight: 800,
+                      textTransform: "none",
+                      fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+                      "&:hover": {
+                        borderColor: "#66ef70",
+                        backgroundColor: "rgba(88,224,86,0.08)",
+                      },
+                    }}
+                  >
+                    Explore Pro Shop
+                  </Button>
+                </Box>
+
+                <Box
+                  sx={{
+                    justifySelf: { xs: "stretch", md: "end" },
+                    borderRadius: "18px",
+                    border: "1px solid rgba(87, 230, 96, 0.45)",
+                    background: "linear-gradient(180deg, rgba(6,15,9,0.78) 0%, rgba(9,22,13,0.88) 100%)",
+                    p: 1.8,
+                    minWidth: { md: "210px" },
+                  }}
+                >
+                  <Typography sx={{ color: "rgba(255,255,255,0.75)", fontSize: "0.78rem" }}>
+                    Total Revenue
+                  </Typography>
+                  <Typography sx={{ color: "#58e056", fontWeight: 900, fontSize: { xs: "1.65rem", md: "1.9rem" }, lineHeight: 1.1 }}>
+                    $2,540.00
+                  </Typography>
+                  <Typography sx={{ color: "rgba(255,255,255,0.7)", fontSize: "0.72rem", mt: 0.4 }}>
+                    This Month
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>
+
+            <Box
+              sx={{
+                borderRadius: "22px",
+                border: "1px solid rgba(79, 235, 102, 0.65)",
+                background:
+                  "linear-gradient(180deg, rgba(5,16,10,0.84) 0%, rgba(7,16,10,0.74) 100%)",
+                boxShadow: "0 0 0 1px rgba(79,235,102,0.12), 0 0 24px rgba(79,235,102,0.12)",
+                px: { xs: 2.2, md: 3.2 },
+                py: { xs: 2, md: 2.3 },
+                display: "flex",
+                flexDirection: { xs: "column", md: "row" },
+                alignItems: { xs: "stretch", md: "center" },
+                justifyContent: "space-between",
+                gap: 2,
+              }}
+            >
+              <Box>
+                <Typography
+                  sx={{
+                    color: "#ffffff",
+                    fontWeight: 900,
+                    fontSize: { xs: "1.55rem", md: "2rem" },
+                    lineHeight: 1,
+                    fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+                  }}
+                >
+                  Start coaching smarter today.
+                </Typography>
+                <Typography sx={{ mt: 0.7, color: "rgba(255,255,255,0.76)", fontSize: "0.95rem" }}>
+                  Join Golf Coach Log and focus on what matters most: your players.
+                </Typography>
+              </Box>
+
+              <Box sx={{ display: "flex", flexDirection: "column", alignItems: { xs: "stretch", md: "flex-end" } }}>
+                <Button
+                  variant="contained"
+                  onClick={() => setOpenPaymentsDialog(true)}
+                  endIcon={<ArrowForwardRoundedIcon />}
+                  sx={{
+                    borderRadius: "999px",
+                    px: 3,
+                    py: 1.15,
+                    minWidth: { xs: "100%", md: "230px" },
+                    background: "linear-gradient(135deg, #5fe25f 0%, #2db44f 100%)",
+                    color: "#ffffff",
+                    fontWeight: 800,
+                    textTransform: "none",
+                    fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+                    boxShadow: "0 10px 24px rgba(46,180,79,0.28)",
+                    "&:hover": {
+                      background: "linear-gradient(135deg, #70ea6f 0%, #34bf56 100%)",
+                    },
+                  }}
+                >
+                  Start Free Trial
+                </Button>
+                <Typography
+                  sx={{
+                    mt: 0.8,
+                    color: "rgba(255,255,255,0.72)",
+                    fontSize: "0.74rem",
+                    textAlign: "center",
+                    width: { xs: "100%", md: "230px" },
+                  }}
+                >
+                  No credit card required
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+        </Container>
+      </Box>
+
+      <Snackbar
         open={openSnackbar}
         autoHideDuration={2200}
         onClose={() => setOpenSnackbar(false)}
@@ -126,21 +501,7 @@ function Informations() {
         </Alert>
       </Snackbar>
 
-      <Dialog
-        open={openTournamentDialog}
-        onClose={() => setOpenTournamentDialog(false)}
-        maxWidth="sm"
-        fullWidth
-        PaperProps={{
-          sx: {
-            borderRadius: "24px",
-            overflow: "hidden",
-            background:
-              "linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(247,250,251,0.98) 100%)",
-            boxShadow: "0 28px 80px rgba(0,0,0,0.22)",
-          },
-        }}
-      >
+      <Dialog open={openTournamentDialog} onClose={() => setOpenTournamentDialog(false)} maxWidth="sm" fullWidth PaperProps={{ sx: dialogPaperSx }}>
         <DialogContent sx={{ p: 0 }}>
           <Box
             sx={{
@@ -151,48 +512,11 @@ function Informations() {
                 "linear-gradient(135deg, rgba(31,191,117,0.12) 0%, rgba(20,138,88,0.05) 55%, rgba(255,255,255,0.9) 100%)",
             }}
           >
-            <IconButton
-              onClick={() => setOpenTournamentDialog(false)}
-              sx={{
-                position: "absolute",
-                top: 14,
-                right: 14,
-                color: "#18302a",
-                backgroundColor: "rgba(255,255,255,0.72)",
-                animation: "dialogCloseSpin 0.8s ease-out 1",
-                "&:hover": {
-                  backgroundColor: "rgba(255,255,255,0.95)",
-                },
-                "@keyframes dialogCloseSpin": {
-                  "0%": { transform: "rotate(0deg)" },
-                  "100%": { transform: "rotate(720deg)" },
-                },
-              }}
-            >
+            <IconButton onClick={() => setOpenTournamentDialog(false)} sx={closeSpinSx}>
               <CloseRoundedIcon />
             </IconButton>
 
-            <Box
-              component={motion.div}
-              initial={{ opacity: 0, x: 36 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <Typography
-                component="p"
-                sx={{
-                  m: 0,
-                  color: "#1fbf75",
-                  fontSize: "0.8rem",
-                  fontWeight: 800,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
-                }}
-              >
-                Tournaments
-              </Typography>
-            </Box>
+            {greenKicker("Tournaments")}
 
             <Typography
               component="h3"
@@ -208,7 +532,7 @@ function Informations() {
                 fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
               }}
             >
-              Tournaments & Competitions
+              Tournaments &amp; Competitions
             </Typography>
 
             <Typography
@@ -287,21 +611,7 @@ function Informations() {
         </DialogContent>
       </Dialog>
 
-      <Dialog
-        open={openPracticeDialog}
-        onClose={() => setOpenPracticeDialog(false)}
-        maxWidth="sm"
-        fullWidth
-        PaperProps={{
-          sx: {
-            borderRadius: "24px",
-            overflow: "hidden",
-            background:
-              "linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(247,250,251,0.98) 100%)",
-            boxShadow: "0 28px 80px rgba(0,0,0,0.22)",
-          },
-        }}
-      >
+      <Dialog open={openPracticeDialog} onClose={() => setOpenPracticeDialog(false)} maxWidth="sm" fullWidth PaperProps={{ sx: dialogPaperSx }}>
         <DialogContent sx={{ p: 0 }}>
           <Box
             sx={{
@@ -312,48 +622,11 @@ function Informations() {
                 "linear-gradient(135deg, rgba(31,191,117,0.12) 0%, rgba(20,138,88,0.05) 55%, rgba(255,255,255,0.9) 100%)",
             }}
           >
-            <IconButton
-              onClick={() => setOpenPracticeDialog(false)}
-              sx={{
-                position: "absolute",
-                top: 14,
-                right: 14,
-                color: "#18302a",
-                backgroundColor: "rgba(255,255,255,0.72)",
-                animation: "dialogCloseSpin 0.8s ease-out 1",
-                "&:hover": {
-                  backgroundColor: "rgba(255,255,255,0.95)",
-                },
-                "@keyframes dialogCloseSpin": {
-                  "0%": { transform: "rotate(0deg)" },
-                  "100%": { transform: "rotate(720deg)" },
-                },
-              }}
-            >
+            <IconButton onClick={() => setOpenPracticeDialog(false)} sx={closeSpinSx}>
               <CloseRoundedIcon />
             </IconButton>
 
-            <Box
-              component={motion.div}
-              initial={{ opacity: 0, x: 36 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <Typography
-                component="p"
-                sx={{
-                  m: 0,
-                  color: "#1fbf75",
-                  fontSize: "0.8rem",
-                  fontWeight: 800,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
-                }}
-              >
-                Practice Log
-              </Typography>
-            </Box>
+            {greenKicker("Swing Analysis")}
 
             <Typography
               component="h3"
@@ -369,7 +642,7 @@ function Informations() {
                 fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
               }}
             >
-              Practice Log
+              Swing Analysis
             </Typography>
 
             <Typography
@@ -381,12 +654,11 @@ function Informations() {
                 lineHeight: 1.82,
               }}
             >
-              Empower your clients to take ownership of their improvement with a
-              dynamic practice tracking system. Record sessions, track key
-              stats, and build consistency through structured training.
-              Transform practice into progress, creating a motivating
-              experience that keeps your clients engaged, accountable, and
-              continuously improving.
+              Centralize all your lesson videos and swing feedback in one
+              organized platform. Track your clients&apos; progress over time and
+              build a visual history of their development. With integrated
+              analysis tools, you can deliver precise, easy-to-understand
+              feedback, turning every video into a powerful coaching moment.
             </Typography>
 
             <Box
@@ -414,12 +686,8 @@ function Informations() {
         fullWidth
         PaperProps={{
           sx: {
-            borderRadius: "24px",
-            overflow: "hidden",
+            ...dialogPaperSx,
             maxHeight: "88vh",
-            background:
-              "linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(247,250,251,0.98) 100%)",
-            boxShadow: "0 28px 80px rgba(0,0,0,0.22)",
           },
         }}
       >
@@ -434,48 +702,11 @@ function Informations() {
                 "linear-gradient(135deg, rgba(31,191,117,0.12) 0%, rgba(20,138,88,0.05) 55%, rgba(255,255,255,0.9) 100%)",
             }}
           >
-            <IconButton
-              onClick={() => setOpenPaymentsDialog(false)}
-              sx={{
-                position: "absolute",
-                top: 14,
-                right: 14,
-                color: "#18302a",
-                backgroundColor: "rgba(255,255,255,0.72)",
-                animation: "dialogCloseSpin 0.8s ease-out 1",
-                "&:hover": {
-                  backgroundColor: "rgba(255,255,255,0.95)",
-                },
-                "@keyframes dialogCloseSpin": {
-                  "0%": { transform: "rotate(0deg)" },
-                  "100%": { transform: "rotate(720deg)" },
-                },
-              }}
-            >
+            <IconButton onClick={() => setOpenPaymentsDialog(false)} sx={closeSpinSx}>
               <CloseRoundedIcon />
             </IconButton>
 
-            <Box
-              component={motion.div}
-              initial={{ opacity: 0, x: 36 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <Typography
-                component="p"
-                sx={{
-                  m: 0,
-                  color: "#1fbf75",
-                  fontSize: "0.8rem",
-                  fontWeight: 800,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
-                }}
-              >
-                Payments
-              </Typography>
-            </Box>
+            {greenKicker("Payments")}
 
             <Typography
               component="h3"
@@ -491,7 +722,7 @@ function Informations() {
                 fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
               }}
             >
-              Payments & Revenue Management
+              Payments &amp; Revenue Management
             </Typography>
 
             <Typography
@@ -599,6 +830,3 @@ function Informations() {
 }
 
 export default Informations;
-
-
-

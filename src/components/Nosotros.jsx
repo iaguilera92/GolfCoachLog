@@ -1,4 +1,13 @@
-import { Box, Typography, Grid, Container, useTheme, useMediaQuery, Card, CardContent } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Grid,
+  Container,
+  useTheme,
+  useMediaQuery,
+  Card,
+  CardContent,
+} from "@mui/material";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 
@@ -18,7 +27,7 @@ const Nosotros = () => {
   };
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'auto' });
+    window.scrollTo({ top: 0, behavior: "auto" });
   }, []);
 
   useEffect(() => {
@@ -30,7 +39,7 @@ const Nosotros = () => {
   }, [isMobile]);
 
   useEffect(() => {
-    const t = setTimeout(() => setSubrayadoActivo(true), 1000); // ⏱️ delay 1s
+    const t = setTimeout(() => setSubrayadoActivo(true), 1000);
     return () => clearTimeout(t);
   }, []);
 
@@ -39,21 +48,21 @@ const Nosotros = () => {
       maxWidth={false}
       disableGutters
       sx={{
-        minHeight: '100vh',
-        width: '100%',
+        minHeight: "100vh",
+        width: "100%",
         py: 14,
         px: 0,
         pb: 3.5,
-        position: 'relative',
-        overflow: 'hidden',
-        backgroundImage: isMobile ? 'url(fondo-blizz-2.webp)' : 'url(fondo-blizz-2.webp)',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed',
-        backgroundPosition: 'center',
+        position: "relative",
+        overflow: "hidden",
+        backgroundImage:
+          'linear-gradient(rgba(0,0,0,0.58), rgba(0,0,0,0.58)), url(/fondo-feature.avif)',
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+        backgroundPosition: "center",
       }}
     >
-      {/* Título */}
       <Box textAlign="center" mb={4}>
         <Typography
           variant={isMobile ? "h5" : "h3"}
@@ -67,7 +76,7 @@ const Nosotros = () => {
               position: "absolute",
               bottom: -2,
               left: 0,
-              width: subrayadoActivo ? "100%" : "0%", // 👈 cambia dinámicamente
+              width: subrayadoActivo ? "100%" : "0%",
               height: "3px",
               borderRadius: "3px",
               background: "linear-gradient(90deg, #FF9800, #F57C00)",
@@ -75,7 +84,7 @@ const Nosotros = () => {
             },
           }}
         >
-          {"Nosotros".split("").map((char, index) => (
+          {"About Us".split("").map((char, index) => (
             <motion.span
               key={index}
               custom={index}
@@ -89,9 +98,6 @@ const Nosotros = () => {
         </Typography>
       </Box>
 
-
-
-      {/* Primera fila con animación */}
       <Box maxWidth="1200px" mx="auto">
         <Grid container spacing={6} alignItems="center">
           <Grid item xs={12} md={6}>
@@ -99,30 +105,52 @@ const Nosotros = () => {
               <motion.div
                 initial={{ opacity: 0, x: -60 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, ease: 'easeOut' }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
                 viewport={{ once: true }}
               >
-                <Card sx={{ backgroundColor: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(10px)', borderRadius: 3, p: 2 }}>
+                <Card
+                  sx={{
+                    backgroundColor: "rgba(255,255,255,0.05)",
+                    backdropFilter: "blur(10px)",
+                    borderRadius: 3,
+                    p: 2,
+                  }}
+                >
                   <CardContent>
                     <Typography variant="h5" color="white" gutterBottom>
-                      ¿Quiénes Somos?
+                      Who We Are
                     </Typography>
 
-                    <Typography variant="body2" sx={{ color: '#ccc', textAlign: 'justify', mb: 2 }}>
-                      Somos una empresa especializada en soluciones de telecomunicaciones, infraestructura digital y conectividad segura, con más de 8 años de experiencia en proyectos para empresas e instituciones.
+                    <Typography
+                      variant="body2"
+                      sx={{ color: "#ccc", textAlign: "justify", mb: 2 }}
+                    >
+                      Golf Coach Log is an all-in-one platform built for modern
+                      golf coaches who want to organize, scale, and deliver a
+                      better coaching experience from one place.
                     </Typography>
 
-                    <Typography variant="body2" sx={{ color: '#ccc', textAlign: 'justify', mb: 2 }}>
-                      Desarrollamos e implementamos redes estructuradas, fusiones de fibra óptica y obras conforme a la Ley de Ductos, asegurando cumplimiento normativo y eficiencia técnica en cada instalación.
+                    <Typography
+                      variant="body2"
+                      sx={{ color: "#ccc", textAlign: "justify", mb: 2 }}
+                    >
+                      We bring together smart scheduling, swing analysis, lesson
+                      management, tournaments, practice tracking, payments,
+                      revenue tools, and pro shop capabilities into a single
+                      connected system.
                     </Typography>
 
-                    <Typography variant="body2" sx={{ color: '#ccc', textAlign: 'justify' }}>
-                      Acompañamos a nuestros clientes con soporte integral, asesoría técnica y mejoras continuas para garantizar que cada solución sea robusta, escalable y preparada para el futuro.
+                    <Typography
+                      variant="body2"
+                      sx={{ color: "#ccc", textAlign: "justify" }}
+                    >
+                      Our goal is simple: help coaches spend less time
+                      organizing and more time coaching, building stronger
+                      client relationships, and growing a more professional golf
+                      business.
                     </Typography>
                   </CardContent>
                 </Card>
-
-
               </motion.div>
             </Box>
           </Grid>
@@ -131,14 +159,17 @@ const Nosotros = () => {
             <motion.div
               initial={{ opacity: 0, x: 60 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, ease: 'easeOut' }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
               viewport={{ once: true }}
             >
               <Box textAlign="center">
                 <img
-                  src="/logo-ingsnt.png"
-                  alt="Logo"
-                  style={{ maxWidth: isMobile ? '83%' : '100%', height: 'auto' }}
+                  src="/logo-golfcoachlog.png"
+                  alt="Golf Coach Log"
+                  style={{
+                    maxWidth: isMobile ? "83%" : "100%",
+                    height: "auto",
+                  }}
                 />
               </Box>
             </motion.div>
@@ -148,24 +179,24 @@ const Nosotros = () => {
 
       <Box
         sx={{
-          width: '100vw',
-          position: 'relative',
+          width: "100vw",
+          position: "relative",
           mt: 4,
           mb: 4,
           py: 4,
-          backgroundImage: 'url(/developer-background.jpg)',
-          backgroundSize: 'cover',
-          backgroundPosition: isMobile ? `center ${scrollY * 0.3}px` : 'center',
-          backgroundAttachment: isMobile ? 'scroll' : 'fixed',
-          textAlign: 'right',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          '::before': {
+          backgroundImage: "url(/fondo-17.jpg)",
+          backgroundSize: "cover",
+          backgroundPosition: isMobile ? `center ${scrollY * 0.3}px` : "center",
+          backgroundAttachment: isMobile ? "scroll" : "fixed",
+          textAlign: "right",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          "::before": {
             content: '""',
-            position: 'absolute',
+            position: "absolute",
             inset: 0,
-            background: 'rgba(0, 0, 0, 0.4)',
+            background: "rgba(0, 0, 0, 0.4)",
             zIndex: 1,
           },
         }}
@@ -173,9 +204,9 @@ const Nosotros = () => {
         <Container
           maxWidth="lg"
           sx={{
-            width: '100%',
+            width: "100%",
             px: 2,
-            position: 'relative',
+            position: "relative",
             zIndex: 2,
           }}
         >
@@ -183,85 +214,95 @@ const Nosotros = () => {
             variant={isMobile ? "h6" : "h4"}
             fontWeight={600}
             sx={{
-              color: 'white',
-              textShadow: '2px 2px 8px rgba(0,0,0,0.7)',
-              textAlign: 'right',
+              color: "white",
+              textShadow: "2px 2px 8px rgba(0,0,0,0.7)",
+              textAlign: "right",
             }}
           >
-            Ayudamos a hacer <span style={{ color: '#ffe037' }}>crecer</span> tu negocio
+            We help golf coaches <span style={{ color: "#ffe037" }}>grow</span>{" "}
+            smarter
           </Typography>
         </Container>
       </Box>
 
-
-
-      {/* Segunda fila con animación */}
       <Box maxWidth="1200px" mx="auto" mt={2}>
         <Grid container spacing={3} alignItems="flex-start">
-          {/* Imagen a la izquierda con animación */}
           <Grid item xs={12} md={6}>
             <motion.div
               initial={{ opacity: 0, x: -60 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, ease: 'easeOut' }}
-              viewport={{ once: true, amount: 0.3 }} // 👈 mejora el comportamiento en scroll
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              viewport={{ once: true, amount: 0.3 }}
             >
               <Box
                 sx={{
-                  height: '100%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backdropFilter: 'blur(10px)',
+                  height: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backdropFilter: "blur(10px)",
                   p: 0,
-                  mt: isMobile ? -3 : 0
+                  mt: isMobile ? -3 : 0,
                 }}
               >
                 <img
                   src="mision-empresa.png"
-                  alt="Logo React"
-                  style={{ maxWidth: '100%', height: 'auto' }}
+                  alt="Golf Coach Log Mission"
+                  style={{ maxWidth: "100%", height: "auto" }}
                 />
               </Box>
             </motion.div>
           </Grid>
 
-          {/* Misión + Visión a la derecha con animación */}
           <Grid item xs={12} md={6}>
             <Box px={{ xs: 2, sm: 0 }}>
-
               <motion.div
                 initial={{ opacity: 0, x: 60 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, ease: 'easeOut' }}
-                viewport={{ once: true, amount: 0.3 }} // 👈 mejora el comportamiento en scroll
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                viewport={{ once: true, amount: 0.3 }}
               >
-                <Card sx={{ backgroundColor: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(10px)', borderRadius: 3, p: 3 }}>
+                <Card
+                  sx={{
+                    backgroundColor: "rgba(255,255,255,0.05)",
+                    backdropFilter: "blur(10px)",
+                    borderRadius: 3,
+                    p: 3,
+                  }}
+                >
                   <CardContent>
                     <Typography variant="h5" color="white" gutterBottom>
-                      Misión
+                      Mission
                     </Typography>
-                    <Typography variant="body2" sx={{ color: '#ccc', textAlign: 'left', mb: 3 }}>
-                      Entregar soluciones integrales en infraestructura de telecomunicaciones, conectividad y tecnologías de la información, garantizando instalaciones seguras, normativas y preparadas para los desafíos del futuro digital.
+                    <Typography
+                      variant="body2"
+                      sx={{ color: "#ccc", textAlign: "left", mb: 3 }}
+                    >
+                      To give golf coaches a complete platform that simplifies
+                      operations, improves communication, and helps every
+                      lesson, program, and player journey feel more organized,
+                      measurable, and professional.
                     </Typography>
 
                     <Typography variant="h5" color="white" gutterBottom>
-                      Visión
+                      Vision
                     </Typography>
-                    <Typography variant="body2" sx={{ color: '#ccc', textAlign: 'left' }}>
-                      Ser líderes en implementación de redes estructuradas, fibra óptica y cumplimiento de la Ley de Ductos, posicionándonos como un referente confiable en transformación tecnológica e infraestructura crítica a nivel nacional.
+                    <Typography
+                      variant="body2"
+                      sx={{ color: "#ccc", textAlign: "left" }}
+                    >
+                      To become the platform golf coaches trust to manage
+                      scheduling, video feedback, tournaments, payments,
+                      clinics, and business growth in one seamless ecosystem
+                      built specifically for coaching.
                     </Typography>
                   </CardContent>
                 </Card>
-
-
               </motion.div>
             </Box>
-
           </Grid>
         </Grid>
       </Box>
-
     </Container>
   );
 };

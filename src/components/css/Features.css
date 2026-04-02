@@ -1,6 +1,6 @@
 ﻿.features-showcase {
   position: relative;
-  padding: 0 0 72px;
+  padding: 0 0 12px;
   background: url("/fondo-18.png") center/cover no-repeat;
   overflow: hidden;
 }
@@ -764,10 +764,10 @@
   width: 100%;
   height: 100%;
   min-height: 320px;
-  border-radius: 28px;
+  border-radius: 0;
   object-fit: cover;
   filter: none;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  box-shadow: none;
 }
 
 .features-showcase__secondary-copy {
@@ -806,7 +806,7 @@
 
 @media (min-width: 900px) {
   .features-showcase {
-    padding: 0 0 24px;
+    padding: 0 0 6px;
     overflow: visible;
     z-index: 3;
   }
@@ -831,7 +831,7 @@
 
 @media (max-width: 640px) {
   .features-showcase {
-    padding: 0 0 34px;
+    padding: 0 0 6px;
   }
 
   .features-showcase__copy--hero {

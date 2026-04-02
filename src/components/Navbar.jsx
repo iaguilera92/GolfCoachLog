@@ -86,7 +86,7 @@ const SocialButton = ({ href, Icon, bgColor, hoverStyles }) => (
 );
 
 const menuItems = [
-  { name: "Home", icon: <Home /> }, { name: "Services", icon: <ViewListIcon /> },
+  { name: "Home", icon: <Home /> }, { name: "Features", icon: <ViewListIcon /> },
   { name: "About", icon: <GroupsIcon /> }, { name: "Pro Shop", icon: <StorefrontIcon /> }, { name: "Contact", icon: <Mail /> }
 ];
 
@@ -112,13 +112,27 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
   const scrollToRef = (ref, offset = -80) => ref?.current && window.scrollTo({ top: ref.current.getBoundingClientRect().top + window.scrollY + offset, behavior: 'smooth' });
   const handleOpenPDF = () => isMobile ? window.open("/plataformasweb-pdf.pdf", "_blank") : setOpenPDF(true);
   const handleClosePDF = () => setOpenPDF(false);
+  const scrollToAreas = () => {
+    const areasSection = document.getElementById("areas-section");
+    if (!areasSection) return;
+    const offset = isMobile ? -64 : -92;
+    const y = areasSection.getBoundingClientRect().top + window.scrollY + offset;
+    window.scrollTo({ top: y, behavior: "smooth" });
+  };
 
   const handleClick = (item) => {
     setOpen(false);
     const actions = {
       Contact: () => scrollToRef(contactoRef),
       Home: () => location.pathname !== "/" ? navigate("/") : scrollToTop(),
-      Services: () => navigate("/servicios"),
+      Features: () => {
+        if (location.pathname !== "/") {
+          sessionStorage.setItem("pendingScrollTarget", "areas-section");
+          navigate("/");
+          return;
+        }
+        scrollToAreas();
+      },
       About: () => navigate("/nosotros"),
       "Pro Shop": () => navigate("/catalogo"),
       Presentation: handleOpenPDF
