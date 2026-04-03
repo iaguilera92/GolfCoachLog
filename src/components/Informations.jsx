@@ -127,10 +127,10 @@ function Informations() {
               alt="Practice log preview"
               className="tournament-block__community-image"
               style={{
-                width: "80%",
-                maxWidth: "80%",
+                width: "60%",
+                maxWidth: "72%",
                 height: "auto",
-                maxHeight: "345px",
+                maxHeight: "330px",
                 borderRadius: 0,
                 objectFit: "contain",
                 boxShadow: "none",
@@ -188,6 +188,10 @@ function Informations() {
       <Box
         className="tournament-block__panel tournament-block__panel--full"
         ref={sectionOneRef}
+        sx={{
+          background:
+            'linear-gradient(90deg, rgba(7, 18, 28, 0.56), rgba(7, 18, 28, 0.32)), url("/fondo-17.jpg") center 18%/cover no-repeat',
+        }}
       >
         <Container
           maxWidth="lg"
@@ -378,68 +382,15 @@ function Informations() {
                   boxShadow: "0 0 0 1px rgba(79,235,102,0.12), 0 0 24px rgba(79,235,102,0.12)",
                   p: { xs: 2.2, md: 2.8 },
                   display: "grid",
-                  gridTemplateColumns: { xs: "1fr", md: "1.1fr 0.9fr" },
+                  gridTemplateColumns: { xs: "1fr", md: "0.9fr 1.1fr" },
                   gap: 2,
                   alignItems: "center",
                   minHeight: { md: "290px" },
                 }}
               >
-                <Box>
-                  <Typography
-                    component="h2"
-                    sx={{
-                      m: 0,
-                      color: "#ffffff",
-                      fontWeight: 900,
-                      fontSize: { xs: "1.45rem", md: "1.9rem" },
-                      lineHeight: 1,
-                      fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    PRO SHOP &amp; REVENUE
-                  </Typography>
-
-                  <Typography
-                    sx={{
-                      mt: 1.2,
-                      color: "rgba(255,255,255,0.82)",
-                      fontSize: { xs: "0.95rem", md: "1rem" },
-                      lineHeight: 1.55,
-                      maxWidth: "34ch",
-                    }}
-                  >
-                    Sell products, manage inventory and increase your revenue
-                    directly from the app.
-                  </Typography>
-
-                  <Button
-                    variant="outlined"
-                    onClick={() => setOpenPaymentsDialog(true)}
-                    endIcon={<ArrowForwardRoundedIcon />}
-                    sx={{
-                      mt: 2.2,
-                      borderRadius: "999px",
-                      px: 2.1,
-                      py: 1,
-                      color: "#58e056",
-                      borderColor: "rgba(88,224,86,0.82)",
-                      fontWeight: 800,
-                      textTransform: "none",
-                      fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
-                      "&:hover": {
-                        borderColor: "#66ef70",
-                        backgroundColor: "rgba(88,224,86,0.08)",
-                      },
-                    }}
-                  >
-                    Explore Pro Shop
-                  </Button>
-                </Box>
-
                 <Box
                   sx={{
-                    justifySelf: { xs: "stretch", md: "end" },
+                    justifySelf: { xs: "stretch", md: "start" },
                     display: "flex",
                     flexDirection: "column",
                     alignItems: { xs: "stretch", md: "center" },
@@ -502,6 +453,59 @@ function Informations() {
                       This Month
                     </Typography>
                   </Box>
+                </Box>
+
+                <Box>
+                  <Typography
+                    component="h2"
+                    sx={{
+                      m: 0,
+                      color: "#ffffff",
+                      fontWeight: 900,
+                      fontSize: { xs: "1.45rem", md: "1.9rem" },
+                      lineHeight: 1,
+                      fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    PRO SHOP &amp; REVENUE
+                  </Typography>
+
+                  <Typography
+                    sx={{
+                      mt: 1.2,
+                      color: "rgba(255,255,255,0.82)",
+                      fontSize: { xs: "0.95rem", md: "1rem" },
+                      lineHeight: 1.55,
+                      maxWidth: "34ch",
+                    }}
+                  >
+                    Sell products, manage inventory and increase your revenue
+                    directly from the app.
+                  </Typography>
+
+                  <Button
+                    variant="outlined"
+                    onClick={() => setOpenPaymentsDialog(true)}
+                    endIcon={<ArrowForwardRoundedIcon />}
+                    sx={{
+                      mt: 2.2,
+                      borderRadius: "999px",
+                      px: 2.1,
+                      py: 1,
+                      color: "#58e056",
+                      borderColor: "rgba(88,224,86,0.82)",
+                      fontWeight: 800,
+                      textTransform: "none",
+                      fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+                      "&:hover": {
+                        borderColor: "#66ef70",
+                        backgroundColor: "rgba(88,224,86,0.08)",
+                      },
+                    }}
+                    >
+                      Explore Pro Shop
+                    </Button>
                 </Box>
               </Box>
             </Box>

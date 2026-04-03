@@ -171,9 +171,9 @@ function Features() {
               className="features-showcase__secondary-image features-showcase__secondary-image--full"
               style={{
                 transform: "translateY(-8px)",
-                maxWidth: "78%",
-                width: "66%",
-                maxHeight: "360px",
+                maxWidth: "72%",
+                width: "60%",
+                maxHeight: "330px",
                 height: "auto",
                 objectFit: "contain",
                 margin: "0 auto",

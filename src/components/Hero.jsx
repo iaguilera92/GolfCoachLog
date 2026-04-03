@@ -107,7 +107,7 @@ function Hero({ informationsRef, setVideoReady }) {
                 <Box className="hero-coach__meta-item">
                   <Box className="hero-coach__meta-dot">✓</Box>
                   <Typography className="hero-coach__meta-text">
-                    No credit card required
+                    Free to start
                   </Typography>
                 </Box>
               </Box>
@@ -189,4 +189,5 @@ function Hero({ informationsRef, setVideoReady }) {
 }
 
 export default Hero;
+
 

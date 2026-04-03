@@ -30,7 +30,6 @@ import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRound
 import CloseIcon from "@mui/icons-material/Close";
 import ViewCarouselIcon from '@mui/icons-material/ViewCarousel';
 import { useLocation } from 'react-router-dom';
-import golfCoachLogLogo from "../../logo-golfcoachlog.png";
 
 
 const socialData = {
@@ -87,11 +86,11 @@ const SocialButton = ({ href, Icon, bgColor, hoverStyles }) => (
 
 const menuItems = [
   { name: "Home", icon: <Home /> }, { name: "Features", icon: <ViewListIcon /> },
-  { name: "About", icon: <GroupsIcon /> }, { name: "Pro Shop", icon: <StorefrontIcon /> }, { name: "Contact", icon: <Mail /> }
+  { name: "About", icon: <GroupsIcon /> }, { name: "Contact", icon: <Mail /> }
 ];
 
 function Navbar({ contactoRef, informationsRef, videoReady }) {
-  const [open, setOpen] = useState(false), [isScrolled, setIsScrolled] = useState(false), [openPDF, setOpenPDF] = useState(false);
+  const [open, setOpen] = useState(false), [isScrolled, setIsScrolled] = useState(false), [openPDF, setOpenPDF] = useState(false), [openContactDialog, setOpenContactDialog] = useState(false);
   const theme = useTheme(), isMobile = useMediaQuery(theme.breakpoints.down('sm')), navigate = useNavigate();
   const pdfSrc = `/plataformasweb-pdf.pdf#zoom=${isMobile ? 100 : 60}`;
   const location = useLocation();
@@ -123,7 +122,7 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
   const handleClick = (item) => {
     setOpen(false);
     const actions = {
-      Contact: () => window.open("https://api.whatsapp.com/send?phone=17866162621", "_blank"),
+      Contact: () => setOpenContactDialog(true),
       Home: () => location.pathname !== "/" ? navigate("/") : scrollToTop(),
       Features: () => {
         if (location.pathname !== "/") {
@@ -303,7 +302,7 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
                       style={{ cursor: "pointer" }}
                     >
                       <motion.img
-                        src={golfCoachLogLogo}
+                        src="/logo-golfcoachlog.png"
                         alt="Logo"
                         onClick={LogoInicio}
                         initial={{ scale: 1 }}
@@ -738,6 +737,142 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
           <Box sx={{ height: { xs: "75vh", sm: "80vh", md: "85vh" }, width: "100%", backgroundColor: "#000", }}>
 
             <iframe src={pdfSrc} title="PresentaciÃ³n Ingsnt" width="100%" height="100%" style={{ border: 'none' }} />
+          </Box>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={openContactDialog}
+        onClose={() => setOpenContactDialog(false)}
+        fullWidth
+        maxWidth="xs"
+        disableScrollLock
+        PaperProps={{
+          sx: {
+            borderRadius: 3,
+            overflow: "hidden",
+            background: "linear-gradient(180deg, rgba(9,12,14,0.98) 0%, rgba(18,22,26,0.98) 100%)",
+            color: "#ffffff",
+            boxShadow: "0 20px 48px rgba(0,0,0,0.28)",
+          }
+        }}
+        BackdropProps={{
+          sx: {
+            backgroundColor: "rgba(0,0,0,0.7)"
+          }
+        }}
+      >
+        <DialogTitle
+          sx={{
+            fontWeight: 800,
+            fontSize: "1.25rem",
+            px: 3,
+            py: 2.2,
+            position: "relative",
+            borderBottom: "1px solid rgba(255,255,255,0.08)",
+            fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+          }}
+        >
+          Contact
+          <IconButton
+            aria-label="close"
+            onClick={() => setOpenContactDialog(false)}
+            sx={{
+              position: "absolute",
+              right: 12,
+              top: 12,
+              color: "#ffffff",
+              animation: "contactCloseSpin 0.95s ease-out 1",
+              "@keyframes contactCloseSpin": {
+                "0%": { transform: "rotate(0deg)" },
+                "100%": { transform: "rotate(1080deg)" },
+              },
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+
+        <DialogContent sx={{ px: 3, py: 3 }}>
+          <Box sx={{ display: "grid", gap: 1.5 }}>
+            <Typography sx={{ color: "rgba(255,255,255,0.76)", lineHeight: 1.6 }}>
+              Reach out to our team and we&apos;ll help you get started with Golf Coach Log.
+            </Typography>
+
+            <Box
+              sx={{
+                borderRadius: "16px",
+                border: "1px solid rgba(255,255,255,0.08)",
+                background: "rgba(255,255,255,0.04)",
+                p: 1.8,
+              }}
+            >
+              <Typography sx={{ color: "#67df77", fontWeight: 800, fontSize: "0.8rem", mb: 0.5 }}>
+                WhatsApp
+              </Typography>
+              <Typography sx={{ color: "#ffffff", fontWeight: 700, fontSize: "1.05rem" }}>
+                +1 786 616 2621
+              </Typography>
+            </Box>
+
+            <Box
+              sx={{
+                borderRadius: "16px",
+                border: "1px solid rgba(255,255,255,0.08)",
+                background: "rgba(255,255,255,0.04)",
+                p: 1.8,
+              }}
+            >
+              <Typography sx={{ color: "#67df77", fontWeight: 800, fontSize: "0.8rem", mb: 0.5 }}>
+                Email
+              </Typography>
+              <Typography sx={{ color: "#ffffff", fontWeight: 700, fontSize: "1.05rem" }}>
+                Info@wellnessandsports.com
+              </Typography>
+            </Box>
+
+            <Box sx={{ display: "grid", gap: 1, gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" }, mt: 0.4 }}>
+              <Button
+                component="a"
+                href="https://api.whatsapp.com/send?phone=17866162621"
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                  py: 1.15,
+                  borderRadius: "999px",
+                  background: "linear-gradient(135deg, #1fbf75 0%, #148a58 100%)",
+                  color: "#fff",
+                  fontWeight: 800,
+                  textTransform: "none",
+                  "&:hover": {
+                    background: "linear-gradient(135deg, #2bd385 0%, #179764 100%)",
+                  },
+                }}
+              >
+                Send WhatsApp
+              </Button>
+
+              <Button
+                component="a"
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=Info@wellnessandsports.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                  py: 1.15,
+                  borderRadius: "999px",
+                  background: "rgba(255,255,255,0.08)",
+                  border: "1px solid rgba(255,255,255,0.14)",
+                  color: "#fff",
+                  fontWeight: 800,
+                  textTransform: "none",
+                  "&:hover": {
+                    background: "rgba(255,255,255,0.14)",
+                  },
+                }}
+              >
+                Send Email
+              </Button>
+            </Box>
           </Box>
         </DialogContent>
       </Dialog>
