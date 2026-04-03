@@ -93,81 +93,92 @@ function Features() {
         <Box
           ref={(el) => { sectionRefs.current[0] = el; }}
           data-feature-index="0"
-          className={`features-showcase__overview ${visibleSections[0] ? "features-showcase__reveal is-visible from-left" : "features-showcase__reveal from-left"}`}
+          className="features-showcase__overview"
         >
-          <Box className="features-showcase__overview-header">
-            <Box className="features-showcase__overview-line" />
-            <Typography
-              component="h2"
-              className="features-showcase__overview-title"
-              sx={{
-                fontSize: { xs: "1.75rem", sm: "1.95rem", md: "2.45rem" },
-                lineHeight: 1.02,
-              }}
-            >
-              Everything you need in one place
-            </Typography>
-            <Box className="features-showcase__overview-line" />
-          </Box>
-
-          <Box className="features-showcase__overview-grid">
-            {overviewCards.map((card, index) => (
-              <Box
-                key={card.title}
-                className={`features-showcase__overview-card ${index === 0 ? "features-showcase__overview-card--featured" : ""}`}
+          <Box className={visibleSections[0] ? "features-showcase__reveal is-visible from-left" : "features-showcase__reveal from-left"}>
+            <Box className="features-showcase__overview-header">
+              <Box className="features-showcase__overview-line" />
+              <Typography
+                component="h2"
+                className="features-showcase__overview-title"
                 sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "flex-start",
+                  fontSize: { xs: "1.75rem", sm: "1.95rem", md: "2.45rem" },
+                  lineHeight: 1.02,
                 }}
               >
-                <Box className="features-showcase__overview-icon-wrap">
-                  <Box className="features-showcase__overview-icon">
-                    {card.icon}
+                The all-in-one platform for golf coaches
+              </Typography>
+              <Box className="features-showcase__overview-line" />
+            </Box>
+
+            <Box className="features-showcase__overview-grid">
+              {overviewCards.map((card, index) => (
+                <Box
+                  key={card.title}
+                  className={`features-showcase__overview-card ${index === 0 ? "features-showcase__overview-card--featured" : ""}`}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                  }}
+                >
+                  <Box className="features-showcase__overview-icon-wrap">
+                    <Box className="features-showcase__overview-icon">
+                      {card.icon}
+                    </Box>
                   </Box>
+
+                  <Typography
+                    component="h3"
+                    className="features-showcase__overview-card-title"
+                    sx={{ textAlign: "center", width: "100%" }}
+                  >
+                    {card.title}
+                  </Typography>
+
+                  <Typography
+                    component="p"
+                    className="features-showcase__overview-card-headline"
+                    sx={{ textAlign: "center", width: "100%" }}
+                  >
+                    {card.headline}
+                  </Typography>
+
+                  <Typography
+                    component="p"
+                    className="features-showcase__overview-card-description"
+                    sx={{ textAlign: "center", width: "100%", mx: "auto" }}
+                  >
+                    {card.description}
+                  </Typography>
                 </Box>
-
-                <Typography
-                  component="h3"
-                  className="features-showcase__overview-card-title"
-                  sx={{ textAlign: "center", width: "100%" }}
-                >
-                  {card.title}
-                </Typography>
-
-                <Typography
-                  component="p"
-                  className="features-showcase__overview-card-headline"
-                  sx={{ textAlign: "center", width: "100%" }}
-                >
-                  {card.headline}
-                </Typography>
-
-                <Typography
-                  component="p"
-                  className="features-showcase__overview-card-description"
-                  sx={{ textAlign: "center", width: "100%", mx: "auto" }}
-                >
-                  {card.description}
-                </Typography>
-              </Box>
-            ))}
+              ))}
+            </Box>
           </Box>
         </Box>
 
         <Box
           ref={(el) => { sectionRefs.current[1] = el; }}
           data-feature-index="1"
-          className={`features-showcase__secondary features-showcase__secondary--reverse ${visibleSections[1] ? "features-showcase__reveal is-visible from-left" : "features-showcase__reveal from-left"}`}
+          className={`features-showcase__secondary features-showcase__secondary--reverse ${visibleSections[1] ? "features-showcase__reveal is-visible from-right" : "features-showcase__reveal from-right"}`}
           sx={{ pb: { xs: "10px", md: 0 } }}
         >
           <Box className="features-showcase__secondary-image-wrap">
             <img
-              src="/feature-1.png"
+              src="/comunication.png"
               alt="Golf courses preview"
               className="features-showcase__secondary-image features-showcase__secondary-image--full"
-              style={{ transform: "translateY(-8px)", maxWidth: "78%", width: "66%", margin: "0 auto", display: "block" }}
+              style={{
+                transform: "translateY(-8px)",
+                maxWidth: "78%",
+                width: "66%",
+                maxHeight: "360px",
+                height: "auto",
+                objectFit: "contain",
+                margin: "0 auto",
+                display: "block",
+              }}
             />
           </Box>
 

@@ -4,7 +4,6 @@ import { useInView } from "react-intersection-observer";
 import SchoolRoundedIcon from "@mui/icons-material/SchoolRounded";
 import SportsGolfRoundedIcon from "@mui/icons-material/SportsGolfRounded";
 import AssignmentTurnedInRoundedIcon from "@mui/icons-material/AssignmentTurnedInRounded";
-import AccountBalanceWalletRoundedIcon from "@mui/icons-material/AccountBalanceWalletRounded";
 
 const areaCards = [
   {
@@ -25,12 +24,6 @@ const areaCards = [
       "Players can log practice sessions, notes and progress over time.",
     icon: <AssignmentTurnedInRoundedIcon />,
   },
-  {
-    title: "PAYMENT & REVENUE MANAGEMENT",
-    description:
-      "Collect payments, track transactions and grow your teaching revenue.",
-    icon: <AccountBalanceWalletRoundedIcon />,
-  },
 ];
 
 function Areas() {
@@ -49,7 +42,7 @@ function Areas() {
     >
       <Container
         maxWidth={false}
-        className={`app-reviews app-section-reveal app-section-reveal--up ${reviewsInView ? "is-visible" : ""}`}
+        className="app-reviews"
         sx={{
           px: 0,
           mt: 0,
@@ -82,9 +75,14 @@ function Areas() {
             <Box
               className="areas-overview__grid"
               sx={{
-                gap: { xs: "14px", md: "14px" },
+                gridTemplateColumns: { xs: "1fr", md: "repeat(3, minmax(0, 1fr))" },
+                gap: { xs: "14px", md: "18px" },
                 maxWidth: "1120px",
                 justifyContent: "center",
+                opacity: reviewsInView ? 1 : 0,
+                transform: reviewsInView ? "translate3d(0, 0, 0)" : "translate3d(0, 90px, 0)",
+                transition:
+                  "opacity 820ms cubic-bezier(0.22, 1, 0.36, 1), transform 820ms cubic-bezier(0.22, 1, 0.36, 1)",
               }}
             >
               {areaCards.map((card) => (
@@ -92,33 +90,36 @@ function Areas() {
                   key={card.title}
                   className="areas-overview__card"
                   sx={{
-                    minHeight: { xs: "auto", md: "228px" },
-                    pt: { xs: "92px", md: "88px" },
-                    px: { xs: "20px", md: "22px" },
-                    pb: { xs: "22px", md: "20px" },
-                    borderRadius: "20px",
-                    border: "1px solid rgba(83, 244, 114, 0.56)",
+                    minHeight: { xs: "auto", md: "242px" },
+                    pt: { xs: "90px", md: "98px" },
+                    px: { xs: "20px", md: "24px" },
+                    pb: { xs: "20px", md: "22px" },
+                    borderRadius: "22px",
+                    border: "1px solid rgba(70, 221, 95, 0.42)",
                     background:
-                      "linear-gradient(180deg, rgba(3, 12, 8, 0.9) 0%, rgba(4, 10, 7, 0.95) 100%)",
+                      "linear-gradient(180deg, rgba(5, 16, 10, 0.92) 0%, rgba(6, 14, 10, 0.96) 100%)",
                     boxShadow:
-                      "0 0 0 1px rgba(83, 244, 114, 0.18), 0 0 16px rgba(83, 244, 114, 0.18), inset 0 0 0 1px rgba(134, 255, 153, 0.04)",
+                      "0 18px 30px rgba(0, 0, 0, 0.22), inset 0 0 0 1px rgba(134, 255, 153, 0.04)",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
                   }}
                 >
-                  <Box className="areas-overview__icon-wrap" sx={{ top: "-18px" }}>
+                  <Box className="areas-overview__icon-wrap" sx={{ top: { xs: "-12px", md: "-14px" } }}>
                     <Box
                       className="areas-overview__icon"
                       sx={{
-                        width: { xs: "104px", md: "110px" },
-                        height: { xs: "92px", md: "96px" },
-                        borderRadius: "22px",
+                        width: { xs: "108px", md: "118px" },
+                        height: { xs: "98px", md: "108px" },
+                        borderRadius: "24px",
                         background:
-                          "radial-gradient(circle at 50% 38%, rgba(75, 223, 90, 0.14) 0%, rgba(75, 223, 90, 0.03) 54%, rgba(0, 0, 0, 0) 100%), linear-gradient(180deg, rgba(8, 23, 12, 0.96) 0%, rgba(5, 14, 9, 0.98) 100%)",
-                        border: "1px solid rgba(71, 229, 98, 0.88)",
+                          "radial-gradient(circle at 50% 38%, rgba(75, 223, 90, 0.16) 0%, rgba(75, 223, 90, 0.04) 54%, rgba(0, 0, 0, 0) 100%), linear-gradient(180deg, rgba(12, 27, 15, 0.96) 0%, rgba(7, 17, 11, 0.98) 100%)",
+                        border: "1px solid rgba(71, 229, 98, 0.82)",
                         boxShadow:
-                          "0 0 0 1px rgba(71, 229, 98, 0.16), 0 0 18px rgba(71, 229, 98, 0.38), inset 0 0 18px rgba(71, 229, 98, 0.08)",
+                          "0 0 0 1px rgba(71, 229, 98, 0.14), 0 0 18px rgba(71, 229, 98, 0.32), inset 0 0 18px rgba(71, 229, 98, 0.08)",
                         "& .MuiSvgIcon-root": {
-                          fontSize: { xs: "3.2rem", md: "3.35rem" },
-                          transform: "scaleX(1.02)",
+                          fontSize: { xs: "3.2rem", md: "3.45rem" },
+                          transform: "scaleX(1.08)",
                         },
                       }}
                     >
@@ -129,15 +130,16 @@ function Areas() {
                     <Box
                       component="span"
                       sx={{
-                        mt: { xs: "8px", md: "10px" },
-                        fontWeight: 900,
+                        mt: { xs: "4px", md: "2px" },
+                        fontWeight: 800,
                         fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
-                        fontSize: { xs: "0.98rem", sm: "1.06rem", md: "0.98rem" },
-                        lineHeight: 1.08,
-                        letterSpacing: "0.02em",
+                        fontSize: { xs: "1.08rem", sm: "1.12rem", md: "1.12rem" },
+                        lineHeight: 1.12,
+                        letterSpacing: "0.04em",
                         color: "#46da53",
                         textTransform: "uppercase",
                         display: "block",
+                        textAlign: "center",
                       }}
                     >
                       {card.title}
@@ -149,12 +151,12 @@ function Areas() {
                     sx={{
                       textAlign: "center",
                       mx: "auto",
-                      lineHeight: 1.34,
-                      fontSize: { xs: "0.92rem", md: "0.92rem" },
+                      lineHeight: 1.42,
+                      fontSize: { xs: "0.94rem", md: "0.98rem" },
                       fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
-                      maxWidth: "252px",
-                      color: "rgba(238, 245, 238, 0.8)",
-                      mt: "8px",
+                      maxWidth: "258px",
+                      color: "rgba(238, 245, 238, 0.82)",
+                      mt: "10px",
                     }}
                   >
                     {card.description}

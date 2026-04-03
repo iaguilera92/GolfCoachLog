@@ -123,7 +123,7 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
   const handleClick = (item) => {
     setOpen(false);
     const actions = {
-      Contact: () => scrollToRef(contactoRef),
+      Contact: () => window.open("https://api.whatsapp.com/send?phone=17866162621", "_blank"),
       Home: () => location.pathname !== "/" ? navigate("/") : scrollToTop(),
       Features: () => {
         if (location.pathname !== "/") {
@@ -309,7 +309,7 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
                         initial={{ scale: 1 }}
                         animate={{ scale: isScrolled ? 0.8 : 1 }}
                         transition={{ duration: 0.3, ease: "easeOut" }}
-                        style={{ height: "45px", marginTop: "6px", cursor: "pointer" }}
+                        style={{ height: "52px", marginTop: "6px", cursor: "pointer" }}
                       />
                     </motion.div>
                   )}
@@ -357,7 +357,7 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
                           ? "#35cf4c"
                           : "#ffffff",
                       fontWeight: 800,
-                      fontSize: "1rem",
+                      fontSize: "1.08rem",
                       letterSpacing: "0.02em",
                       textTransform: "uppercase",
                       position: "relative",

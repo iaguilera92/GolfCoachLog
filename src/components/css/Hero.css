@@ -33,12 +33,22 @@
   display: grid;
   grid-template-columns: minmax(0, 1.02fr) minmax(300px, 0.98fr);
   align-items: center;
-  gap: 18px;
+  gap: 8px;
 }
 
 .hero-coach__copy {
   max-width: 560px;
   color: #fff;
+}
+
+@media (min-width: 900px) {
+  .hero-coach__grid {
+    grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
+  }
+
+  .hero-coach__copy {
+    margin-left: 92px;
+  }
 }
 
 .hero-coach__badge {
@@ -64,7 +74,7 @@
   margin: 0;
   color: #fff;
   font-family: "Poppins", sans-serif;
-  font-size: clamp(3.9rem, 6.6vw, 5.4rem);
+  font-size: clamp(3.9rem, 6.6vw, 4.7rem);
   line-height: 0.9;
   font-weight: 900;
   letter-spacing: -0.05em;
@@ -148,7 +158,7 @@
 
 .hero-coach__visual {
   position: relative;
-  min-height: 660px;
+  min-height: clamp(540px, 62vw, 660px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -156,8 +166,6 @@
 
 .hero-coach__phone-shell {
   position: relative;
-  width: 360px;
-  height: 700px;
   padding: 9px;
   border-radius: 48px;
   background: linear-gradient(180deg, #17191b 0%, #050607 100%);
@@ -225,13 +233,13 @@
 
 .hero-coach__brand {
   position: relative;
-  z-index: 2;
+  z-index: 4;
   margin-top: 0;
   margin-left: 0;
   margin-right: 0;
-  padding: 22px 18px 16px;
+  padding: 16px 18px 10px;
   border-radius: 0;
-  background: linear-gradient(180deg, rgba(8,10,12,0.98) 0%, rgba(18,22,26,0.94) 100%);
+  background: hsl(212.73deg 54.1% 23.92%);
 }
 
 .hero-coach__brand-text {
@@ -244,6 +252,14 @@
 
 .hero-coach__brand-text span {
   color: #49dd5d;
+}
+
+.hero-coach__brand-logo {
+  display: block;
+  width: 190px;
+  max-width: 100%;
+  height: auto;
+  margin: -4px auto 0;
 }
 
 .hero-coach__screen-topline {
@@ -267,6 +283,24 @@
   font-size: 1.02rem;
   font-weight: 600;
   text-align: center;
+}
+
+.hero-coach__dashboard-image-wrap {
+  position: relative;
+  z-index: 1;
+  padding: 0;
+  height: calc(100% - 82px);
+  cursor: pointer;
+}
+
+.hero-coach__dashboard-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transform: translateY(-10px);
+  border-radius: 0 0 40px 40px;
 }
 
 .hero-coach__welcome {

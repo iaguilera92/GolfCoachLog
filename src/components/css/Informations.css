@@ -1,8 +1,8 @@
-﻿.tournament-block {
+.tournament-block {
   position: relative;
   padding: 0;
   margin-top: -18px;
-  background: #ffffff;
+  background: transparent;
 }
 
 .tournament-block__container {
@@ -79,13 +79,12 @@
 }
 
 .tournament-block__community {
-  margin-top: 34px;
   display: flex;
   align-items: center;
   gap: 40px;
-  padding: 14px 30px;
+  padding: 0;
   border-radius: 0;
-  background: #ffffff;
+  background: transparent;
   box-shadow: none;
   overflow: hidden;
 }
@@ -95,7 +94,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ffffff;
+  background: transparent;
 }
 
 .tournament-block__community-image {
@@ -111,7 +110,7 @@
 .tournament-block__community-copy {
   flex: 1 1 auto;
   text-align: left;
-  background: #ffffff;
+  background: transparent;
 }
 
 @media (min-width: 901px) {
@@ -208,7 +207,7 @@
   margin-top: 34px;
   padding: 18px 28px 30px;
   border-radius: 0;
-  background: #ffffff;
+  background: transparent;
   box-shadow: none;
   text-align: center;
 }
@@ -964,3 +963,4 @@
   font-size: 0.9rem;
   font-weight: 600;
 }
+

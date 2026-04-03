@@ -1,46 +1,28 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Box, Button, Container, Typography } from "@mui/material";
 import PlayCircleOutlineRoundedIcon from "@mui/icons-material/PlayCircleOutlineRounded";
-import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
-import SmartDisplayRoundedIcon from "@mui/icons-material/SmartDisplayRounded";
-import ChatRoundedIcon from "@mui/icons-material/ChatRounded";
-import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
-import PublicRoundedIcon from "@mui/icons-material/PublicRounded";
 import SignalCellularAltRoundedIcon from "@mui/icons-material/SignalCellularAltRounded";
 import WifiRoundedIcon from "@mui/icons-material/WifiRounded";
 import BatteryFullRoundedIcon from "@mui/icons-material/BatteryFullRounded";
-import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { motion } from "framer-motion";
 import "./css/Hero.css";
 
-const dashboardCards = [
-  {
-    title: "Smart Schedule",
-    icon: <CalendarMonthRoundedIcon sx={{ fontSize: 50 }} />,
-    accent: "#45db5c",
-  },
-  {
-    title: "Video Analysis",
-    icon: <SmartDisplayRoundedIcon sx={{ fontSize: 50 }} />,
-    accent: "#7d73ff",
-  },
-  {
-    title: "Messages",
-    icon: <ChatRoundedIcon sx={{ fontSize: 50 }} />,
-    accent: "#45db5c",
-  },
-  {
-    title: "Pro Shop",
-    icon: <ShoppingBagOutlinedIcon sx={{ fontSize: 50 }} />,
-    accent: "#45db5c",
-  },
-];
+const heroDashboardImages = ["/hero-1.jpeg", "/hero-0.jpeg", "/hero-2.jpeg"];
 
 function Hero({ informationsRef, setVideoReady }) {
+  const [dashboardImageIndex, setDashboardImageIndex] = useState(0);
+
   useEffect(() => {
     setVideoReady?.(true);
   }, [setVideoReady]);
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setDashboardImageIndex((current) => (current + 1) % heroDashboardImages.length);
+    }, 5000);
+
+    return () => window.clearInterval(intervalId);
+  }, []);
 
   const handleScrollToServices = () => {
     if (!informationsRef?.current) return;
@@ -55,6 +37,10 @@ function Hero({ informationsRef, setVideoReady }) {
     window.scrollTo({ top: y, behavior: "smooth" });
   };
 
+  const handleNextDashboardImage = () => {
+    setDashboardImageIndex((current) => (current + 1) % heroDashboardImages.length);
+  };
+
   return (
     <Box className="hero-coach">
       <Box className="hero-coach__overlay" />
@@ -63,21 +49,21 @@ function Hero({ informationsRef, setVideoReady }) {
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.75, ease: "easeOut" }}
+            transition={{ duration: 0.75, ease: "easeOut", delay: 3.5 }}
+            style={{ width: "100%" }}
           >
-            <Box className="hero-coach__copy">
-              <Box className="hero-coach__badge">
-                <PublicRoundedIcon sx={{ fontSize: 18, color: "#59dd69" }} />
-                <Typography className="hero-coach__badge-text">
-                  TRUSTED BY 1,000+ GOLF COACHES WORLDWIDE
-                </Typography>
-              </Box>
-
+            <Box
+              className="hero-coach__copy"
+              sx={{
+                position: { md: "relative" },
+                left: { xs: 0, md: "150px" },
+              }}
+            >
               <Typography
                 component="h1"
                 className="hero-coach__title"
                 sx={{
-                  fontSize: { xs: "3rem", sm: "3.7rem", md: "5.15rem", lg: "5.8rem" },
+                  fontSize: { xs: "3rem", sm: "3.7rem", md: "4rem", lg: "4.4rem" },
                   lineHeight: { xs: 0.98, md: 0.92 },
                   letterSpacing: { xs: "-0.04em", md: "-0.055em" },
                   maxWidth: { xs: "100%", md: "11ch" },
@@ -97,9 +83,9 @@ function Hero({ informationsRef, setVideoReady }) {
               <Typography
                 className="hero-coach__description"
                 sx={{
-                  fontSize: { xs: "1.02rem", sm: "1.12rem", md: "1.28rem", lg: "1.38rem" },
+                  fontSize: { xs: "1.02rem", sm: "1.12rem", md: "1.02rem", lg: "1.08rem" },
                   lineHeight: { xs: 1.55, md: 1.58 },
-                  maxWidth: { xs: "100%", md: "37rem" },
+                  maxWidth: { xs: "100%", md: "34rem" },
                 }}
               >
                 The all-in-one platform to manage your schedule, analyze swings,
@@ -124,12 +110,6 @@ function Hero({ informationsRef, setVideoReady }) {
                     No credit card required
                   </Typography>
                 </Box>
-                <Box className="hero-coach__meta-item">
-                  <Box className="hero-coach__meta-dot">✓</Box>
-                  <Typography className="hero-coach__meta-text">
-                    Free 14-day trial
-                  </Typography>
-                </Box>
               </Box>
             </Box>
           </motion.div>
@@ -137,10 +117,22 @@ function Hero({ informationsRef, setVideoReady }) {
           <motion.div
             initial={{ opacity: 0, x: 120 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 3 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 3.5 }}
           >
-            <Box className="hero-coach__visual">
-              <Box className="hero-coach__phone-shell">
+            <Box
+              className="hero-coach__visual"
+              sx={{
+                position: { md: "relative" },
+                right: { xs: 0, md: "28px" },
+              }}
+            >
+              <Box
+                className="hero-coach__phone-shell"
+                sx={{
+                  width: { xs: "332px", md: "clamp(290px, 30vw, 290px)" },
+                  height: { xs: "540px", md: "clamp(540px, 58vw, 540px)" },
+                }}
+              >
                 <Box className="hero-coach__notch" />
 
                 <Box className="hero-coach__screen">
@@ -160,41 +152,31 @@ function Hero({ informationsRef, setVideoReady }) {
                         />
                       </Box>
                     </Box>
-                    <Typography className="hero-coach__brand-text">
-                      GOLF COACH <span>LOG</span>
-                    </Typography>
+                    <Box
+                      component="img"
+                      src="/logo-golfcoachlog.png"
+                      alt="Golf Coach Log"
+                      className="hero-coach__brand-logo"
+                    />
                   </Box>
 
-                  <Box className="hero-coach__screen-topline">
-                    <ArrowBackIosNewRoundedIcon className="hero-coach__screen-topline-icon" />
-                    <Typography className="hero-coach__screen-muted">
-                      Dashboard
-                    </Typography>
-                    <CloseRoundedIcon className="hero-coach__screen-topline-icon" />
-                  </Box>
-
-                  <Typography className="hero-coach__welcome" sx={{ mt: "28px" }}>
-                    Welcome back, Coach!
-                  </Typography>
-                  <Typography className="hero-coach__subtitle">
-                    Manage everything from one place.
-                  </Typography>
-
-                  <Box className="hero-coach__card-grid">
-                    {dashboardCards.map((card) => (
-                      <Box
-                        key={card.title}
-                        className="hero-coach__card"
-                        sx={{
-                          "--card-accent": card.accent,
-                        }}
-                      >
-                        <Box className="hero-coach__card-icon">{card.icon}</Box>
-                        <Typography className="hero-coach__card-title">
-                          {card.title}
-                        </Typography>
-                      </Box>
-                    ))}
+                  <Box
+                    className="hero-coach__dashboard-image-wrap"
+                    onClick={handleNextDashboardImage}
+                  >
+                    <Box
+                      key={heroDashboardImages[dashboardImageIndex]}
+                      component="img"
+                      src={heroDashboardImages[dashboardImageIndex]}
+                      alt="Golf coach dashboard preview"
+                      className="hero-coach__dashboard-image"
+                      sx={{
+                        transform:
+                          heroDashboardImages[dashboardImageIndex] === "/hero-2.jpeg"
+                            ? "translateY(-18px)"
+                            : "translateY(-10px)",
+                      }}
+                    />
                   </Box>
                 </Box>
               </Box>
@@ -207,3 +189,4 @@ function Hero({ informationsRef, setVideoReady }) {
 }
 
 export default Hero;
+

@@ -100,20 +100,57 @@ function Informations() {
 
   return (
     <Box className="tournament-block">
-      <Container maxWidth="lg" className="tournament-block__container">
+      <Box
+        sx={{
+          background: 'url("/fondo-18.png") center/cover no-repeat',
+          minHeight: { xs: "420px", md: "450px" },
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+      <Container
+        maxWidth="lg"
+        className="tournament-block__container"
+        sx={{ px: { xs: "20px", md: "30px" }, width: "100%" }}
+      >
         <Box
           className={`tournament-block__community app-section-reveal app-section-reveal--left ${sectionTwoInView ? "is-visible" : ""}`}
           ref={sectionTwoRef}
+          sx={{ minHeight: { md: "362px" } }}
         >
-          <Box className="tournament-block__community-image-wrap">
+          <Box
+            className="tournament-block__community-image-wrap"
+            sx={{ flex: { xs: "0 0 100%", md: "0 0 min(100%, 380px)" } }}
+          >
             <img
-              src="/informations.png"
+              src="/payment.png"
               alt="Practice log preview"
               className="tournament-block__community-image"
+              style={{
+                width: "80%",
+                maxWidth: "80%",
+                height: "auto",
+                maxHeight: "345px",
+                borderRadius: 0,
+                objectFit: "contain",
+                boxShadow: "none",
+                animation: "none",
+                transform: "none",
+                margin: "0 auto",
+                display: "block",
+              }}
             />
           </Box>
 
-          <Box className="tournament-block__community-copy">
+          <Box
+            className="tournament-block__community-copy"
+            sx={{
+              textAlign: { xs: "center", md: "right" },
+              display: "flex",
+              flexDirection: "column",
+              alignItems: { xs: "center", md: "flex-end" },
+            }}
+          >
             <Typography
               component="h2"
               className="tournament-block__community-title"
@@ -121,19 +158,24 @@ function Informations() {
                 fontWeight: 900,
                 fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
                 fontSize: { xs: "2rem", sm: "2.25rem", md: "2.7rem" },
+                textAlign: { xs: "center", md: "right" },
               }}
             >
-              SWING ANALYSIS
+              PAYMENTS &amp; REVENUE MANAGEMENT
             </Typography>
 
-            <Typography component="p" className="tournament-block__community-description">
-              Organize lesson videos, track progress over time, and give
-              players clear, precise feedback that helps them improve faster.
+            <Typography
+              component="p"
+              className="tournament-block__community-description"
+              sx={{ textAlign: { xs: "center", md: "right" } }}
+            >
+              Collect payments, track transactions and grow your teaching revenue.
             </Typography>
 
             <Button
               variant="contained"
               className="tournament-block__button"
+              sx={{ alignSelf: { xs: "center", md: "flex-end" } }}
               onClick={() => setOpenPracticeDialog(true)}
             >
               See More
@@ -141,6 +183,7 @@ function Informations() {
           </Box>
         </Box>
       </Container>
+      </Box>
 
       <Box
         className="tournament-block__panel tournament-block__panel--full"
@@ -208,11 +251,14 @@ function Informations() {
           sx={{ px: { xs: 3, md: 6, lg: 10 } }}
         >
           <Box
-            className={`tournament-block__premium-inner app-section-reveal app-section-reveal--right ${sectionThreeInView ? "is-visible" : ""}`}
+            className={`tournament-block__premium-inner app-section-reveal app-section-reveal--left ${sectionThreeInView ? "is-visible" : ""}`}
             sx={{
               px: { xs: 0, md: 4, lg: 6 },
               display: "grid",
               gap: { xs: 2, md: 2.2 },
+              width: "100%",
+              maxWidth: { xs: "100%", md: "1100px", lg: "1160px" },
+              mx: "auto",
             }}
           >
             <Box
@@ -282,7 +328,12 @@ function Informations() {
                           fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
                         }}
                       >
-                        Coach M.
+                        <Box component="span" sx={{ display: "block" }}>
+                          Coach Sergio Murtinho "Crandon Golf academy"
+                        </Box>
+                        <Box component="span" sx={{ display: "block" }}>
+                          Key Biscayne, Florida
+                        </Box>
                       </Box>
                     </Typography>
                   </Box>
@@ -329,7 +380,8 @@ function Informations() {
                   display: "grid",
                   gridTemplateColumns: { xs: "1fr", md: "1.1fr 0.9fr" },
                   gap: 2,
-                  alignItems: "end",
+                  alignItems: "center",
+                  minHeight: { md: "290px" },
                 }}
               >
                 <Box>
@@ -388,22 +440,68 @@ function Informations() {
                 <Box
                   sx={{
                     justifySelf: { xs: "stretch", md: "end" },
-                    borderRadius: "18px",
-                    border: "1px solid rgba(87, 230, 96, 0.45)",
-                    background: "linear-gradient(180deg, rgba(6,15,9,0.78) 0%, rgba(9,22,13,0.88) 100%)",
-                    p: 1.8,
-                    minWidth: { md: "210px" },
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: { xs: "stretch", md: "center" },
+                    justifyContent: "center",
+                    gap: 1.1,
+                    minWidth: { md: "220px" },
                   }}
                 >
-                  <Typography sx={{ color: "rgba(255,255,255,0.75)", fontSize: "0.78rem" }}>
-                    Total Revenue
-                  </Typography>
-                  <Typography sx={{ color: "#58e056", fontWeight: 900, fontSize: { xs: "1.65rem", md: "1.9rem" }, lineHeight: 1.1 }}>
-                    $2,540.00
-                  </Typography>
-                  <Typography sx={{ color: "rgba(255,255,255,0.7)", fontSize: "0.72rem", mt: 0.4 }}>
-                    This Month
-                  </Typography>
+                  <Box
+                    component="img"
+                    src="/shop.png"
+                    alt="Shop preview"
+                    sx={{
+                      display: "block",
+                      width: { xs: "86px", md: "106px" },
+                      height: "auto",
+                      mx: { xs: "auto", md: 0 },
+                    }}
+                  />
+
+                  <Box
+                    sx={{
+                      width: "100%",
+                      borderRadius: "18px",
+                      border: "1px solid rgba(87, 230, 96, 0.45)",
+                      background: "linear-gradient(180deg, rgba(6,15,9,0.78) 0%, rgba(9,22,13,0.88) 100%)",
+                      p: 1.8,
+                      minWidth: { md: "220px" },
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        color: "rgba(255,255,255,0.75)",
+                        fontSize: "0.78rem",
+                        textAlign: { xs: "center", md: "left" },
+                      }}
+                    >
+                      Total Revenue
+                    </Typography>
+                    <Typography
+                      sx={{
+                        color: "#58e056",
+                        fontWeight: 900,
+                        fontSize: { xs: "1.65rem", md: "1.9rem" },
+                        lineHeight: 1.1,
+                        mt: 0.35,
+                        textAlign: { xs: "center", md: "left" },
+                      }}
+                    >
+                      $2,540.00
+                    </Typography>
+                    <Typography
+                      sx={{
+                        color: "rgba(255,255,255,0.7)",
+                        fontSize: "0.72rem",
+                        mt: 0.45,
+                        textAlign: { xs: "center", md: "left" },
+                      }}
+                    >
+                      This Month
+                    </Typography>
+                  </Box>
                 </Box>
               </Box>
             </Box>
@@ -611,8 +709,14 @@ function Informations() {
         </DialogContent>
       </Dialog>
 
-      <Dialog open={openPracticeDialog} onClose={() => setOpenPracticeDialog(false)} maxWidth="sm" fullWidth PaperProps={{ sx: dialogPaperSx }}>
-        <DialogContent sx={{ p: 0 }}>
+      <Dialog
+        open={openPracticeDialog}
+        onClose={() => setOpenPracticeDialog(false)}
+        maxWidth="sm"
+        fullWidth
+        PaperProps={{ sx: { ...dialogPaperSx, overflow: "hidden" } }}
+      >
+        <DialogContent sx={{ p: 0, overflow: "hidden" }}>
           <Box
             sx={{
               position: "relative",
@@ -623,86 +727,6 @@ function Informations() {
             }}
           >
             <IconButton onClick={() => setOpenPracticeDialog(false)} sx={closeSpinSx}>
-              <CloseRoundedIcon />
-            </IconButton>
-
-            {greenKicker("Swing Analysis")}
-
-            <Typography
-              component="h3"
-              sx={{
-                mt: 1,
-                mb: 1.5,
-                color: "#0c1c22",
-                fontSize: { xs: "1.8rem", md: "2.2rem" },
-                lineHeight: 1,
-                fontWeight: 900,
-                letterSpacing: "0.02em",
-                textTransform: "uppercase",
-                fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
-              }}
-            >
-              Swing Analysis
-            </Typography>
-
-            <Typography
-              component="p"
-              sx={{
-                m: 0,
-                color: "#5f6f76",
-                fontSize: "1rem",
-                lineHeight: 1.82,
-              }}
-            >
-              Centralize all your lesson videos and swing feedback in one
-              organized platform. Track your clients&apos; progress over time and
-              build a visual history of their development. With integrated
-              analysis tools, you can deliver precise, easy-to-understand
-              feedback, turning every video into a powerful coaching moment.
-            </Typography>
-
-            <Box
-              component="img"
-              src="/log.jpeg"
-              alt="Practice log preview"
-              sx={{
-                display: "block",
-                width: { xs: "175px", md: "225px" },
-                height: "auto",
-                mx: "auto",
-                mt: 2,
-                borderRadius: "18px",
-                filter: "drop-shadow(0 16px 24px rgba(0,0,0,0.14))",
-              }}
-            />
-          </Box>
-        </DialogContent>
-      </Dialog>
-
-      <Dialog
-        open={openPaymentsDialog}
-        onClose={() => setOpenPaymentsDialog(false)}
-        maxWidth="sm"
-        fullWidth
-        PaperProps={{
-          sx: {
-            ...dialogPaperSx,
-            maxHeight: "88vh",
-          },
-        }}
-      >
-        <DialogContent sx={{ p: 0, overflow: "hidden" }}>
-          <Box
-            sx={{
-              position: "relative",
-              px: { xs: 3, md: 4 },
-              py: { xs: 2.5, md: 3 },
-              overflow: "hidden",
-              background:
-                "linear-gradient(135deg, rgba(31,191,117,0.12) 0%, rgba(20,138,88,0.05) 55%, rgba(255,255,255,0.9) 100%)",
-            }}
-          >
-            <IconButton onClick={() => setOpenPaymentsDialog(false)} sx={closeSpinSx}>
               <CloseRoundedIcon />
             </IconButton>
 
@@ -730,24 +754,26 @@ function Informations() {
               sx={{
                 m: 0,
                 color: "#5f6f76",
-                fontSize: "0.96rem",
-                lineHeight: 1.68,
+                fontSize: "1rem",
+                lineHeight: 1.82,
               }}
             >
-              Take full control of your coaching business with a complete payment
-              and revenue system. Track income from lessons, packages, clinics,
-              tournaments, and pro shop sales all seamlessly connected to your
-              clients and sessions. Everything is organized, recorded, and easy
-              to manage, so you can focus on growing your business without the
-              complexity. Being a coach and an entrepreneur has never been this
-              simple.
+              Take full control of your coaching business with a complete
+              payment and revenue system. Track income from lessons, packages,
+              clinics, tournaments, and pro shop sales-all seamlessly
+              connected to your clients and sessions.
+              <br />
+              Everything is organized, recorded, and easy to manage-so you can
+              focus on growing your business without the complexity.
+              <br />
+              Being a coach and an entrepreneur has never been this simple.
             </Typography>
 
             <Box
               sx={{
-                width: "100vw",
-                ml: "calc(50% - 50vw)",
-                mr: "calc(50% - 50vw)",
+                width: "calc(100% + 48px)",
+                ml: "-24px",
+                mr: "-24px",
                 mt: { xs: 1.2, sm: 1.8 },
                 background: "#ffffff",
                 borderTop: "1px solid rgba(31,60,51,0.18)",
@@ -777,8 +803,8 @@ function Informations() {
 
               <Box sx={{ overflow: "hidden", px: 0.5 }}>
                 <motion.div
-                  animate={{ x: [0, -390] }}
-                  transition={{ duration: 18, ease: "linear", repeat: Infinity }}
+                  animate={{ x: ["0%", "-50%"] }}
+                  transition={{ duration: 20, ease: "linear", repeat: Infinity }}
                   style={{ display: "flex", width: "max-content", willChange: "transform" }}
                 >
                   {[0, 1].map((copyIndex) => (
@@ -787,8 +813,8 @@ function Informations() {
                       sx={{
                         display: "flex",
                         alignItems: "center",
-                        gap: 1,
-                        pr: 1,
+                        gap: 1.2,
+                        pr: 1.2,
                         flexShrink: 0,
                       }}
                     >
@@ -822,6 +848,89 @@ function Informations() {
                 </motion.div>
               </Box>
             </Box>
+          </Box>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={openPaymentsDialog}
+        onClose={() => setOpenPaymentsDialog(false)}
+        maxWidth="sm"
+        fullWidth
+        PaperProps={{
+          sx: {
+            ...dialogPaperSx,
+            maxHeight: "88vh",
+          },
+        }}
+      >
+        <DialogContent sx={{ p: 0, overflow: "hidden" }}>
+          <Box
+            sx={{
+              position: "relative",
+              px: { xs: 3, md: 4 },
+              py: { xs: 2.5, md: 3 },
+              overflow: "hidden",
+              background:
+                "linear-gradient(135deg, rgba(31,191,117,0.12) 0%, rgba(20,138,88,0.05) 55%, rgba(255,255,255,0.9) 100%)",
+            }}
+          >
+            <IconButton onClick={() => setOpenPaymentsDialog(false)} sx={closeSpinSx}>
+              <CloseRoundedIcon />
+            </IconButton>
+
+            {greenKicker("Revenue")}
+
+            <Typography
+              component="h3"
+              sx={{
+                mt: 1,
+                mb: 1.5,
+                color: "#0c1c22",
+                fontSize: { xs: "1.8rem", md: "2.2rem" },
+                lineHeight: 1,
+                fontWeight: 900,
+                letterSpacing: "0.02em",
+                textTransform: "uppercase",
+                fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+              }}
+            >
+              Pro Shop &amp; Revenue
+            </Typography>
+
+            <Typography
+              component="p"
+              sx={{
+                m: 0,
+                color: "#5f6f76",
+                fontSize: "0.96rem",
+                lineHeight: 1.68,
+              }}
+            >
+              Sell products, manage inventory, and grow your coaching revenue
+              from one place. Keep your pro shop connected to your academy and
+              turn every sale into part of a more organized business system.
+              <br />
+              Start free, simplify operations, and create a smoother buying
+              experience for your players directly from the app.
+            </Typography>
+
+            <Box
+              component="img"
+              src="/feature-3.jpeg"
+              alt="Payments and revenue preview"
+              sx={{
+                display: "block",
+                width: { xs: "230px", md: "310px" },
+                height: "auto",
+                mx: "auto",
+                mt: 1.8,
+                mb: 1.8,
+                borderRadius: "18px",
+                filter: "drop-shadow(0 16px 24px rgba(0,0,0,0.14))",
+              }}
+            />
+
           </Box>
         </DialogContent>
       </Dialog>
