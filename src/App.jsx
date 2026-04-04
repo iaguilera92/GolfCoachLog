@@ -376,14 +376,31 @@ function App() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
+              transition={{ duration: 0.32 }}
               style={{
                 position: "fixed",
                 inset: 0,
-                background: "#11737C",
-                zIndex: 2000
+                background: "rgba(0, 0, 0, 0.96)",
+                zIndex: 2000,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
-            />
+            >
+              <motion.div
+                initial={{ opacity: 0.4, scale: 0.92, rotate: 0 }}
+                animate={{ opacity: 1, scale: 1, rotate: 360 }}
+                transition={{ duration: 0.55, ease: "easeOut" }}
+                style={{
+                  width: 56,
+                  height: 56,
+                  borderRadius: "999px",
+                  border: "3px solid rgba(255,255,255,0.12)",
+                  borderTopColor: "#1fbf75",
+                  boxShadow: "0 0 18px rgba(31,191,117,0.22)",
+                }}
+              />
+            </motion.div>
           )}
         </Box>
 

@@ -184,7 +184,7 @@ const Nosotros = () => {
           mt: 4,
           mb: 4,
           py: 4,
-          backgroundImage: "url(/fondo-17.jpg)",
+          backgroundImage: "url(/fondo-hero.avif)",
           backgroundSize: "cover",
           backgroundPosition: isMobile ? `center ${scrollY * 0.3}px` : "center",
           backgroundAttachment: isMobile ? "scroll" : "fixed",
@@ -196,7 +196,7 @@ const Nosotros = () => {
             content: '""',
             position: "absolute",
             inset: 0,
-            background: "rgba(0, 0, 0, 0.4)",
+            background: "rgba(0, 0, 0, 0.7)",
             zIndex: 1,
           },
         }}

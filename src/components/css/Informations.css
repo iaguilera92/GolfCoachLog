@@ -24,7 +24,7 @@
   overflow: hidden;
   background:
     linear-gradient(90deg, rgba(7, 18, 28, 0.56), rgba(7, 18, 28, 0.32)),
-    url("/fondo-17.jpg") center/cover no-repeat;
+    url("/fondo-17.avif") center/cover no-repeat;
   box-shadow: none;
 }
 
@@ -151,7 +151,7 @@
   overflow: hidden;
   background:
     linear-gradient(90deg, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.42)),
-    url("/fondo-17.jpg") center/cover no-repeat;
+    url("/fondo-17.avif") center/cover no-repeat;
   box-shadow: none;
 }
 

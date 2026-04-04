@@ -156,7 +156,7 @@
   min-height: 720px;
   background:
     linear-gradient(90deg, rgba(5, 20, 10, 0.94) 0%, rgba(7, 24, 11, 0.86) 38%, rgba(10, 31, 15, 0.28) 64%, rgba(10, 31, 15, 0.08) 100%),
-    url("/fondo-17.jpg") center/cover no-repeat;
+    url("/fondo-17.avif") center/cover no-repeat;
   border-radius: 34px;
   overflow: hidden;
   box-shadow: 0 28px 60px rgba(0, 0, 0, 0.2);
@@ -178,7 +178,7 @@
   padding: 0 32px 30px;
   background:
     linear-gradient(180deg, rgba(4, 12, 7, 0.9) 0%, rgba(6, 16, 9, 0.82) 100%),
-    url("/fondo-7.jpg") center/cover no-repeat;
+    url("/fondo-7.avif") center/cover no-repeat;
 }
 
 .features-showcase__overview-header {
@@ -551,7 +551,7 @@
   margin-right: calc(50% - 50vw);
   background:
     linear-gradient(90deg, rgba(5, 20, 10, 0.95) 0%, rgba(7, 24, 11, 0.88) 42%, rgba(10, 31, 15, 0.36) 70%, rgba(10, 31, 15, 0.18) 100%),
-    url("/fondo-17.jpg") center/cover no-repeat;
+    url("/fondo-17.avif") center/cover no-repeat;
   border-radius: 0;
   box-shadow: 0 28px 60px rgba(0, 0, 0, 0.22);
 }
@@ -933,7 +933,7 @@
     border-radius: 28px;
     background:
       linear-gradient(180deg, rgba(7, 23, 11, 0.94) 0%, rgba(8, 24, 12, 0.78) 36%, rgba(10, 31, 15, 0.48) 100%),
-      url("/fondo-17.jpg") center/cover no-repeat;
+      url("/fondo-17.avif") center/cover no-repeat;
     box-shadow: 0 22px 40px rgba(0, 0, 0, 0.22);
   }
 
@@ -996,7 +996,7 @@
     margin-top: 18px;
     background:
       linear-gradient(180deg, rgba(7, 23, 11, 0.95) 0%, rgba(8, 24, 12, 0.82) 36%, rgba(10, 31, 15, 0.52) 100%),
-      url("/fondo-17.jpg") center/cover no-repeat;
+      url("/fondo-17.avif") center/cover no-repeat;
     box-shadow: 0 22px 40px rgba(0, 0, 0, 0.22);
   }
 

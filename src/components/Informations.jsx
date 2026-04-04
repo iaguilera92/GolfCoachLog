@@ -190,7 +190,7 @@ function Informations() {
         ref={sectionOneRef}
         sx={{
           background:
-            'linear-gradient(90deg, rgba(7, 18, 28, 0.56), rgba(7, 18, 28, 0.32)), url("/fondo-17.jpg") center 18%/cover no-repeat',
+            'linear-gradient(90deg, rgba(7, 18, 28, 0.56), rgba(7, 18, 28, 0.32)), url("/fondo-17.avif") center 18%/cover no-repeat',
         }}
       >
         <Container
@@ -283,7 +283,7 @@ function Informations() {
                   p: { xs: 2.2, md: 2.8 },
                   display: "flex",
                   flexDirection: "column",
-                  justifyContent: "space-between",
+                  justifyContent: "center",
                 }}
               >
                 <Box>
@@ -292,7 +292,9 @@ function Informations() {
                       display: "grid",
                       gridTemplateColumns: "auto 1fr",
                       alignItems: "start",
-                      gap: 1,
+                      gap: 1.2,
+                      maxWidth: "520px",
+                      mx: "auto",
                     }}
                   >
                     <Typography
@@ -314,6 +316,7 @@ function Informations() {
                         fontStyle: "italic",
                         fontSize: { xs: "0.98rem", md: "1.05rem" },
                         lineHeight: 1.6,
+                        maxWidth: "38ch",
                       }}
                     >
                       <Box component="span" sx={{ display: "block" }}>
@@ -343,6 +346,10 @@ function Informations() {
                   </Box>
                 </Box>
 
+                {/*
+                  Metrics block hidden for now.
+                  Keep this section for future reactivation.
+
                 <Box
                   sx={{
                     mt: 2,
@@ -371,6 +378,7 @@ function Informations() {
                     </Box>
                   ))}
                 </Box>
+                */}
               </Box>
 
               <Box

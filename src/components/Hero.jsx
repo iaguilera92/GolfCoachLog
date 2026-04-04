@@ -130,7 +130,7 @@ function Hero({ informationsRef, setVideoReady }) {
                 className="hero-coach__phone-shell"
                 sx={{
                   width: { xs: "332px", md: "clamp(290px, 30vw, 290px)" },
-                  height: { xs: "540px", md: "clamp(540px, 58vw, 540px)" },
+                  height: { xs: "640px", md: "clamp(540px, 58vw, 540px)" },
                 }}
               >
                 <Box className="hero-coach__notch" />

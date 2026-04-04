@@ -69,7 +69,7 @@ function Areas() {
               pt: { xs: "46px", md: "72px" },
               pb: { xs: "46px", md: "28px" },
               background:
-                'linear-gradient(180deg, rgba(4, 12, 7, 0.82) 0%, rgba(6, 16, 9, 0.72) 100%), url("/fondo-7.jpg") center/cover no-repeat',
+                'linear-gradient(180deg, rgba(4, 12, 7, 0.82) 0%, rgba(6, 16, 9, 0.72) 100%), url("/fondo-7.avif") center/cover no-repeat',
             }}
           >
             <Box
