@@ -237,11 +237,12 @@
 .features-showcase__overview-card--featured {
   border-color: rgba(77, 238, 103, 0.82);
   box-shadow:
-    0 18px 30px rgba(0, 0, 0, 0.22),
-    0 0 0 1px rgba(77, 238, 103, 0.38),
-    0 0 12px rgba(77, 238, 103, 0.28),
-    0 0 24px rgba(77, 238, 103, 0.24),
-    inset 0 0 0 1px rgba(134, 255, 153, 0.06);
+    0 18px 30px rgba(0, 0, 0, 0.24),
+    0 0 0 1px rgba(77, 238, 103, 0.46),
+    0 0 18px rgba(77, 238, 103, 0.42),
+    0 0 36px rgba(77, 238, 103, 0.34),
+    0 0 58px rgba(77, 238, 103, 0.24),
+    inset 0 0 0 1px rgba(134, 255, 153, 0.08);
 }
 
 .features-showcase__overview-card--featured::after {
@@ -337,7 +338,7 @@
 }
 
 .features-showcase__overview-card-title {
-  margin: 0;
+  margin: 8px 0 0;
   color: #46da53;
   font-size: 1.05rem;
   font-weight: 800;
@@ -865,7 +866,8 @@
   .features-showcase__overview-header {
     grid-template-columns: 1fr;
     gap: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
+    transform: translateY(20px);
   }
 
   .features-showcase__overview-line {
@@ -876,12 +878,12 @@
 
   .features-showcase__overview-grid {
     grid-template-columns: 1fr;
-    gap: 14px;
+    gap: 26px;
   }
 
   .features-showcase__overview-card {
     min-height: auto;
-    padding: 84px 18px 18px;
+    padding: 98px 18px 18px;
   }
 
   .features-showcase__overview-card-description {

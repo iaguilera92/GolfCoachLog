@@ -193,7 +193,7 @@
   margin: 0;
   max-width: 520px;
   color: rgba(255, 255, 255, 0.82);
-  font-size: 0.96rem;
+  font-size: 0.9rem;
   line-height: 1.7;
 }
 
@@ -962,5 +962,12 @@
   color: rgba(255, 255, 255, 0.82);
   font-size: 0.9rem;
   font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .tournament-block__premium-description {
+    font-size: 0.82rem;
+    line-height: 1.58;
+  }
 }
 

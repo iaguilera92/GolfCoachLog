@@ -7,19 +7,84 @@ import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
 import PublicRoundedIcon from "@mui/icons-material/PublicRounded";
 import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
+import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
+import SchoolRoundedIcon from "@mui/icons-material/SchoolRounded";
+import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
+import ChildCareRoundedIcon from "@mui/icons-material/ChildCareRounded";
 import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
 import "./css/Informations.css";
+
+const userRoles = [
+  {
+    title: "Academy Coach",
+    icon: GroupsRoundedIcon,
+    summary: "Coach managing groups, tournaments, rankings, and academy-wide communication.",
+    description:
+      "Coach working within an academy or managing a structured group of players. Has tools to organize groups, run tournaments, manage rankings, communicate at scale, and oversee coaching operations.",
+    connections: [
+      "Works with multiple Players and Junior Players",
+      "Can collaborate with and manage other Coaches within the same academy",
+      "Can assign lessons, clinics, or sessions to other coaches",
+      "Oversees overall player and coach development",
+    ],
+  },
+  {
+    title: "Coach",
+    icon: SchoolRoundedIcon,
+    summary: "Independent pro who manages lessons, feedback, and player progress.",
+    description:
+      "Independent professional who manages lessons and players. Can log sessions, analyze swings, provide feedback, and track each player's progress.",
+    connections: [
+      "Works directly with Players and Junior Players",
+      "Can operate independently or within an Academy Coach structure",
+    ],
+  },
+  {
+    title: "Player",
+    icon: PersonRoundedIcon,
+    summary: "Golfer who accesses lessons, videos, stats, and training plans.",
+    description:
+      "Golfer training with a coach or independently. Can access lessons, videos, stats, and training plans to improve performance.",
+    connections: [
+      "Connects with one or multiple Coaches or Academy Coaches",
+      "Receives feedback, assignments, and progress tracking",
+    ],
+  },
+  {
+    title: "Junior Player",
+    icon: ChildCareRoundedIcon,
+    summary: "Young golfer following a structured pathway for long-term development.",
+    description:
+      "Developing golfer (kids or teens), typically part of a program or academy. Follows a more structured pathway focused on learning, progression, and long-term development.",
+    connections: [
+      "Connected to Coaches or Academy Coaches",
+      "Often part of an academy or structured program",
+      "(Future) Can include parent connection for tracking and communication",
+    ],
+  },
+];
 
 function Informations() {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [openTournamentDialog, setOpenTournamentDialog] = useState(false);
   const [openPracticeDialog, setOpenPracticeDialog] = useState(false);
   const [openPaymentsDialog, setOpenPaymentsDialog] = useState(false);
+  const [openLessonDialog, setOpenLessonDialog] = useState(false);
+  const [openRoleDialog, setOpenRoleDialog] = useState(false);
+  const [selectedRole, setSelectedRole] = useState(userRoles[0]);
+  const [rolesIntroPlayed, setRolesIntroPlayed] = useState(false);
+  const [showRolesHint, setShowRolesHint] = useState(true);
 
   const sectionOneRef = useRef(null);
   const sectionThreeRef = useRef(null);
+  const rolesSliderRef = useRef(null);
   const { ref: sectionTwoRef, inView: sectionTwoInView } = useInView({
+    triggerOnce: true,
+    threshold: 0.22,
+    rootMargin: "0px 0px -8% 0px",
+  });
+  const { ref: sectionFourRef, inView: sectionFourInView } = useInView({
     triggerOnce: true,
     threshold: 0.22,
     rootMargin: "0px 0px -8% 0px",
@@ -49,6 +114,58 @@ function Informations() {
     window.addEventListener("scroll", handleScrollReveal, { passive: true });
     return () => window.removeEventListener("scroll", handleScrollReveal);
   }, [sectionOneInView, sectionThreeInView]);
+
+  useEffect(() => {
+    if (!sectionTwoInView || rolesIntroPlayed || typeof window === "undefined") return;
+    if (window.innerWidth >= 900) return;
+
+    const slider = rolesSliderRef.current;
+    if (!slider) return;
+
+    const maxScroll = slider.scrollWidth - slider.clientWidth;
+    if (maxScroll <= 0) return;
+
+    const timeoutId = window.setTimeout(() => {
+      slider.scrollLeft = maxScroll;
+
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+          slider.scrollTo({
+            left: 0,
+            behavior: "smooth",
+          });
+          setRolesIntroPlayed(true);
+        });
+      });
+    }, 220);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [sectionTwoInView, rolesIntroPlayed]);
+
+  useEffect(() => {
+    const slider = rolesSliderRef.current;
+    if (!slider || typeof window === "undefined") return;
+
+    const updateHint = () => {
+      if (window.innerWidth >= 900) {
+        setShowRolesHint(false);
+        return;
+      }
+
+      const maxScroll = slider.scrollWidth - slider.clientWidth;
+      const isAtEnd = slider.scrollLeft >= maxScroll - 8;
+      setShowRolesHint(!isAtEnd);
+    };
+
+    updateHint();
+    slider.addEventListener("scroll", updateHint, { passive: true });
+    window.addEventListener("resize", updateHint);
+
+    return () => {
+      slider.removeEventListener("scroll", updateHint);
+      window.removeEventListener("resize", updateHint);
+    };
+  }, [sectionTwoInView]);
 
   const closeSpinSx = {
     position: "absolute",
@@ -98,92 +215,451 @@ function Informations() {
     </Box>
   );
 
+  const handleRolesHintClick = () => {
+    const slider = rolesSliderRef.current;
+    if (!slider) return;
+
+    const firstCard = slider.firstElementChild;
+    const step = firstCard ? firstCard.getBoundingClientRect().width + 20 : slider.clientWidth * 0.82;
+
+    slider.scrollTo({
+      left: Math.min(slider.scrollLeft + step, slider.scrollWidth - slider.clientWidth),
+      behavior: "smooth",
+    });
+  };
+
   return (
     <Box className="tournament-block">
       <Box
         sx={{
           background: 'url("/fondo-18.png") center/cover no-repeat',
-          minHeight: { xs: "420px", md: "450px" },
+          minHeight: { xs: "480px", md: "360px !important" },
           display: "flex",
           alignItems: "center",
         }}
       >
-      <Container
-        maxWidth="lg"
-        className="tournament-block__container"
-        sx={{ px: { xs: "20px", md: "30px" }, width: "100%" }}
-      >
-        <Box
-          className={`tournament-block__community app-section-reveal app-section-reveal--left ${sectionTwoInView ? "is-visible" : ""}`}
-          ref={sectionTwoRef}
-          sx={{ minHeight: { md: "362px" } }}
+        <Container
+          maxWidth="lg"
+          className="tournament-block__container"
+          sx={{ px: { xs: "20px", md: "30px" }, width: "100%" }}
         >
           <Box
-            className="tournament-block__community-image-wrap"
-            sx={{ flex: { xs: "0 0 100%", md: "0 0 min(100%, 380px)" } }}
-          >
-            <img
-              src="/payment.png"
-              alt="Practice log preview"
-              className="tournament-block__community-image"
-              style={{
-                width: "60%",
-                maxWidth: "72%",
-                height: "auto",
-                maxHeight: "330px",
-                borderRadius: 0,
-                objectFit: "contain",
-                boxShadow: "none",
-                animation: "none",
-                transform: "none",
-                margin: "0 auto",
-                display: "block",
-              }}
-            />
-          </Box>
-
-          <Box
-            className="tournament-block__community-copy"
+            className={`features-showcase__secondary features-showcase__secondary--reverse app-section-reveal app-section-reveal--left ${sectionTwoInView ? "is-visible" : ""}`}
+            ref={sectionTwoRef}
             sx={{
-              textAlign: { xs: "center", md: "right" },
-              display: "flex",
-              flexDirection: "column",
-              alignItems: { xs: "center", md: "flex-end" },
+              background: "transparent",
+              boxShadow: "none",
+              minHeight: { md: "340px !important" },
+              mt: 0,
+              px: { xs: 0, md: "40px" },
+              py: { xs: "12px", md: "8px !important" },
+              mb: 0,
+              gap: { xs: "24px", md: "44px" },
             }}
           >
-            <Typography
-              component="h2"
-              className="tournament-block__community-title"
+            <Box
+              className="features-showcase__secondary-image-wrap"
               sx={{
-                fontWeight: 900,
-                fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
-                fontSize: { xs: "2rem", sm: "2.25rem", md: "2.7rem" },
-                textAlign: { xs: "center", md: "right" },
+                flex: { xs: "0 0 100%", md: "0 0 min(100%, 350px)" },
+                width: { xs: "min(100%, 320px)", md: "auto" },
+                minHeight: { md: 0 },
               }}
             >
-              PAYMENTS &amp; REVENUE MANAGEMENT
+              <img
+                src="/golf-lesson.png"
+                alt="Golf lesson management"
+                className="features-showcase__secondary-image features-showcase__secondary-image--full"
+                style={{
+                  width: "50%",
+                  maxWidth: "72%",
+                  height: "auto",
+                  maxHeight: "330px",
+                  minHeight: 0,
+                  borderRadius: 0,
+                  objectFit: "contain",
+                  boxShadow: "none",
+                  animation: "none",
+                  transform: "none",
+                  margin: "0 auto",
+                  display: "block",
+                }}
+              />
+            </Box>
+
+            <Box
+              className="features-showcase__secondary-copy"
+              sx={{
+                alignItems: { xs: "center", md: "flex-start" },
+              }}
+            >
+              <Typography
+                component="h2"
+                className="features-showcase__secondary-title"
+                sx={{
+                  fontWeight: 900,
+                  fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+                  fontSize: { xs: "1.8rem", sm: "2.15rem", md: "2.6rem" },
+                  lineHeight: 1.08,
+                }}
+              >
+                GOLF LESSON MANAGEMENT
+              </Typography>
+
+              <Typography
+                component="p"
+                className="features-showcase__secondary-description"
+              >
+                Plan lessons across every area of the game, keep session records organized, and follow each client&apos;s progress with a clear, structured coaching system.
+              </Typography>
+
+              <Button
+                variant="contained"
+                className="features-showcase__button"
+                sx={{ alignSelf: { xs: "center", md: "flex-start" } }}
+                onClick={() => setOpenLessonDialog(true)}
+              >
+                Explore More
+              </Button>
+            </Box>
+          </Box>
+        </Container>
+      </Box>
+
+      <Box
+        sx={{
+          background: 'url("/fondo-18.png") center/cover no-repeat',
+          minHeight: { xs: "410px", md: "410px" },
+          display: "none",
+          alignItems: "center",
+          mb: { xs: -0.5, md: -1 },
+        }}
+      >
+        <Container
+          maxWidth="lg"
+          className="tournament-block__container"
+          sx={{ px: { xs: "20px", md: "30px" }, width: "100%" }}
+        >
+          <Box
+            className={`tournament-block__community app-section-reveal app-section-reveal--left ${sectionTwoInView ? "is-visible" : ""}`}
+            sx={{
+              minHeight: { md: "362px" },
+              display: "block",
+              background: "transparent",
+              pt: { xs: 1.1, md: 1.5 },
+            }}
+          >
+            <Box sx={{ maxWidth: "1180px", mx: "auto", color: "#fff" }}>
+              <Box sx={{ textAlign: "center", mb: { xs: 2.2, md: 3.1 } }}>
+                <Box
+                  sx={{
+                    display: "grid",
+                    gridTemplateColumns: { xs: "1fr", md: "minmax(40px, 1fr) auto minmax(40px, 1fr)" },
+                    alignItems: "center",
+                    gap: { xs: "10px", md: "16px" },
+                    margin: "0 auto 14px",
+                    maxWidth: "980px",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      height: "2px",
+                      borderRadius: "999px",
+                      maxWidth: { xs: "160px", md: "none" },
+                      width: "100%",
+                      justifySelf: { xs: "center", md: "stretch" },
+                      background:
+                        "linear-gradient(90deg, rgba(35, 191, 76, 0) 0%, rgba(49, 212, 82, 0.9) 100%)",
+                    }}
+                  />
+                  <Typography
+                    component="h2"
+                    sx={{
+                      color: "#0f231b",
+                      fontWeight: 900,
+                      fontSize: { xs: "1.34rem", sm: "2.5rem", md: "3.2rem" },
+                      lineHeight: { xs: 1.06, sm: 0.96, md: 0.96 },
+                      letterSpacing: { xs: "-0.015em", sm: "-0.03em", md: "-0.03em" },
+                      textShadow: "0 8px 24px rgba(255,255,255,0.16)",
+                      fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+                      maxWidth: "900px",
+                      mx: "auto",
+                      px: { xs: 1, sm: 0 },
+                    }}
+                  >
+                    USER ROLES – GOLF COACH LOG
+                  </Typography>
+                  <Box
+                    sx={{
+                      height: "2px",
+                      borderRadius: "999px",
+                      maxWidth: { xs: "160px", md: "none" },
+                      width: "100%",
+                      justifySelf: { xs: "center", md: "stretch" },
+                      background:
+                        "linear-gradient(90deg, rgba(49, 212, 82, 0.9) 0%, rgba(35, 191, 76, 0) 100%)",
+                    }}
+                  />
+                </Box>
+                <Typography
+                  sx={{
+                    mt: -0.55,
+                    color: "rgba(12, 28, 22, 0.6)",
+                    lineHeight: 1.55,
+                    fontSize: { xs: "0.84rem", md: "0.9rem" },
+                    fontWeight: 500,
+                    maxWidth: "680px",
+                    mx: "auto",
+                  }}
+                >
+                  <Box component="span" sx={{ display: { xs: "none", sm: "inline" } }}>
+                    “Tap a role to explore responsibilities, role scope, and how each profile connects inside the platform.”
+                  </Box>
+                  <Box component="span" sx={{ display: { xs: "inline", sm: "none" } }}>
+                    “Tap a role to explore each profile.”
+                  </Box>
+                </Typography>
+              </Box>
+
+              <Box
+                onClick={handleRolesHintClick}
+                sx={{
+                  display: { xs: "flex", md: "none" },
+                  visibility: showRolesHint ? "visible" : "hidden",
+                  opacity: showRolesHint ? 1 : 0,
+                  alignItems: "center",
+                  justifyContent: "flex-end",
+                  gap: 0.5,
+                  mb: 0.9,
+                  pr: 0.2,
+                  color: "rgba(12, 28, 22, 0.66)",
+                  transition: "opacity 180ms ease",
+                  cursor: "pointer",
+                  WebkitTapHighlightColor: "transparent",
+                  userSelect: "none",
+                  outline: "none",
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: "0.72rem",
+                    fontWeight: 700,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+                  }}
+                >
+                  Swipe
+                </Typography>
+                <ArrowForwardRoundedIcon sx={{ fontSize: "1rem" }} />
+              </Box>
+
+              <Box
+                ref={rolesSliderRef}
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: { xs: "repeat(4, minmax(220px, 1fr))", md: "repeat(4, minmax(0, 1fr))" },
+                  gap: { xs: 1.25, md: 1.6 },
+                  overflowX: { xs: "auto", md: "visible" },
+                  scrollSnapType: { xs: "x mandatory", md: "none" },
+                  pb: 0.7,
+                  px: { xs: 0.2, md: 0 },
+                  "&::-webkit-scrollbar": { display: "none" },
+                }}
+              >
+                {userRoles.map((role) => {
+                  const isOpen = selectedRole?.title === role.title;
+                  const RoleIcon = role.icon;
+                  return (
+                    <Box
+                      key={role.title}
+                      onClick={() => {
+                        setSelectedRole(role);
+                        setOpenRoleDialog(true);
+                      }}
+                      sx={{
+                        minWidth: { xs: "220px", md: "auto" },
+                        minHeight: { xs: "228px", md: "auto" },
+                        scrollSnapAlign: { xs: "center", md: "none" },
+                        borderRadius: "22px",
+                        border: "1px solid rgba(18, 56, 40, 0.72)",
+                        background:
+                          "linear-gradient(180deg, rgba(16,36,28,0.92) 0%, rgba(9,22,16,0.86) 100%)",
+                        boxShadow: "0 10px 18px rgba(0,0,0,0.14)",
+                        p: { xs: 1.55, md: 1.8 },
+                        cursor: "pointer",
+                        display: "flex",
+                        flexDirection: "column",
+                        transition: "transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease",
+                        transform: isOpen ? "translateY(-2px)" : "translateY(0)",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          width: { xs: 44, md: 50 },
+                          height: { xs: 44, md: 50 },
+                          borderRadius: "14px",
+                          display: "grid",
+                          placeItems: "center",
+                          mb: 1.2,
+                          background: "linear-gradient(180deg, rgba(39,176,86,0.28) 0%, rgba(12,40,24,0.56) 100%)",
+                          border: "1px solid rgba(123, 230, 138, 0.5)",
+                        }}
+                      >
+                        <RoleIcon sx={{ color: "#7be68a", fontSize: { xs: "1.4rem", md: "1.55rem" } }} />
+                      </Box>
+
+                      <Typography
+                        sx={{
+                          color: "#ffffff",
+                          fontWeight: 800,
+                          fontSize: { xs: "1rem", md: "1.08rem" },
+                          lineHeight: 1.1,
+                          fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+                        }}
+                      >
+                        {role.title}
+                      </Typography>
+
+                      <Typography
+                        sx={{
+                          mt: 0.85,
+                          color: "rgba(255,255,255,0.72)",
+                          fontSize: { xs: "0.84rem", md: "0.9rem" },
+                          lineHeight: 1.55,
+                          minHeight: { xs: "78px", md: "66px" },
+                        }}
+                      >
+                        {role.summary}
+                      </Typography>
+
+                      <Box sx={{ display: "flex", justifyContent: "flex-end", mt: "auto", pt: 1.2 }}>
+                        <Box
+                          sx={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            minHeight: "32px",
+                            px: 1.2,
+                            borderRadius: "999px",
+                            border: "1px solid rgba(123, 230, 138, 0.38)",
+                            background: "linear-gradient(180deg, rgba(39,176,86,0.16) 0%, rgba(12,40,24,0.3) 100%)",
+                            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04)",
+                          }}
+                        >
+                          <Typography
+                            sx={{
+                              color: "#7be68a",
+                              fontSize: "0.74rem",
+                              fontWeight: 800,
+                              letterSpacing: "0.08em",
+                              textTransform: "uppercase",
+                              fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+                              lineHeight: 1,
+                            }}
+                          >
+                            Role Details
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Box>
+                  );
+                })}
+              </Box>
+            </Box>
+          </Box>
+        </Container>
+      </Box>
+
+      <Dialog
+        open={openRoleDialog}
+        onClose={() => setOpenRoleDialog(false)}
+        maxWidth="sm"
+        fullWidth
+        PaperProps={{ sx: dialogPaperSx }}
+      >
+        <DialogContent sx={{ p: 0 }}>
+          <Box
+            sx={{
+              position: "relative",
+              px: { xs: 3, md: 4 },
+              py: { xs: 3, md: 4 },
+              background:
+                "linear-gradient(135deg, rgba(31,191,117,0.12) 0%, rgba(20,138,88,0.05) 55%, rgba(255,255,255,0.9) 100%)",
+            }}
+          >
+            <IconButton onClick={() => setOpenRoleDialog(false)} sx={closeSpinSx}>
+              <CloseRoundedIcon />
+            </IconButton>
+
+            {greenKicker("User Roles")}
+
+            <Typography
+              component="h3"
+              sx={{
+                mt: 1,
+                mb: 1.4,
+                color: "#0c1c22",
+                fontSize: { xs: "1.8rem", md: "2.2rem" },
+                lineHeight: 1,
+                fontWeight: 900,
+                letterSpacing: "0.02em",
+                textTransform: "uppercase",
+                fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+              }}
+            >
+              {selectedRole?.title}
             </Typography>
 
             <Typography
               component="p"
-              className="tournament-block__community-description"
-              sx={{ textAlign: { xs: "center", md: "right" } }}
+              sx={{
+                m: 0,
+                color: "#5f6f76",
+                fontSize: "1rem",
+                lineHeight: 1.82,
+              }}
             >
-              Collect payments, track transactions and grow your teaching revenue.
+              {selectedRole?.description}
             </Typography>
 
-            <Button
-              variant="contained"
-              className="tournament-block__button"
-              sx={{ alignSelf: { xs: "center", md: "flex-end" } }}
-              onClick={() => setOpenPracticeDialog(true)}
+            <Typography
+              sx={{
+                mt: 1.5,
+                color: "#1fbf75",
+                fontSize: "0.78rem",
+                fontWeight: 800,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+              }}
             >
-              See More
-            </Button>
+              Connections
+            </Typography>
+
+            <Box sx={{ mt: 1, display: "grid", gap: 0.75 }}>
+              {selectedRole?.connections.map((connection) => (
+                <Typography
+                  key={connection}
+                  sx={{
+                    m: 0,
+                    color: "#5f6f76",
+                    fontSize: "0.98rem",
+                    lineHeight: 1.72,
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: 0.75,
+                  }}
+                >
+                  <Box component="span" sx={{ color: "#1fbf75" }}>
+                    •
+                  </Box>
+                  <Box component="span">{connection}</Box>
+                </Typography>
+              ))}
+            </Box>
           </Box>
-        </Box>
-      </Container>
-      </Box>
+        </DialogContent>
+      </Dialog>
 
       <Box
         className="tournament-block__panel tournament-block__panel--full"
@@ -237,6 +713,92 @@ function Informations() {
             >
               Learn More
             </Button>
+          </Box>
+        </Container>
+      </Box>
+
+      <Box
+        sx={{
+          background: 'url("/fondo-18.png") center/cover no-repeat',
+          minHeight: { xs: "500px", md: "290px" },
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <Container
+          maxWidth="lg"
+          className="tournament-block__container"
+          sx={{ px: { xs: "20px", md: "30px" }, width: "100%" }}
+        >
+          <Box
+            className={`tournament-block__community app-section-reveal app-section-reveal--left ${sectionFourInView ? "is-visible" : ""}`}
+            ref={sectionFourRef}
+            sx={{ minHeight: { md: "250px" }, py: 0 }}
+          >
+            <Box
+              className="tournament-block__community-image-wrap"
+              sx={{ flex: { xs: "0 0 100%", md: "0 0 min(100%, 350px)" } }}
+            >
+              <img
+                src="/payment.png"
+                alt="Practice log preview"
+                className="tournament-block__community-image"
+                style={{
+                  width: "60%",
+                  maxWidth: "72%",
+                  height: "auto",
+                  maxHeight: "330px",
+                  borderRadius: 0,
+                  objectFit: "contain",
+                  boxShadow: "none",
+                  animation: "none",
+                  transform: "none",
+                  margin: "0 auto",
+                  display: "block",
+                }}
+              />
+            </Box>
+
+            <Box
+              className="tournament-block__community-copy"
+              sx={{
+                textAlign: { xs: "center", md: "right" },
+                display: "flex",
+                flexDirection: "column",
+                alignItems: { xs: "center", md: "flex-end" },
+                mr: { md: "38px" },
+              }}
+            >
+              <Typography
+                component="h2"
+                className="tournament-block__community-title"
+                sx={{
+                  fontWeight: 900,
+                  fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+                  fontSize: { xs: "2rem", sm: "2.25rem", md: "2.7rem" },
+                  textAlign: { xs: "center", md: "right" },
+                }}
+              >
+                PAYMENTS &amp; REVENUE MANAGEMENT
+              </Typography>
+
+              <Typography
+                component="p"
+                className="tournament-block__community-description"
+                sx={{ textAlign: { xs: "center", md: "right" } }}
+              >
+                Collect payments, track transactions and grow your teaching revenue.
+              </Typography>
+
+              <Button
+                variant="contained"
+                className="tournament-block__button"
+                sx={{ alignSelf: { xs: "center", md: "flex-end" } }}
+                onClick={() => setOpenPracticeDialog(true)}
+              >
+                See More
+              </Button>
+            </Box>
           </Box>
         </Container>
       </Box>
@@ -470,7 +1032,7 @@ function Informations() {
                       m: 0,
                       color: "#ffffff",
                       fontWeight: 900,
-                      fontSize: { xs: "1.45rem", md: "1.9rem" },
+                      fontSize: { xs: "1.45rem", md: "1.8rem" },
                       lineHeight: 1,
                       fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
                       whiteSpace: "nowrap",
@@ -483,9 +1045,9 @@ function Informations() {
                     sx={{
                       mt: 1.2,
                       color: "rgba(255,255,255,0.82)",
-                      fontSize: { xs: "0.95rem", md: "1rem" },
+                      fontSize: { xs: "0.88rem", md: "0.95rem" },
                       lineHeight: 1.55,
-                      maxWidth: "34ch",
+                      maxWidth: "40ch",
                     }}
                   >
                     Sell products, manage inventory and increase your revenue
@@ -511,9 +1073,9 @@ function Informations() {
                         backgroundColor: "rgba(88,224,86,0.08)",
                       },
                     }}
-                    >
-                      Explore Pro Shop
-                    </Button>
+                  >
+                    Explore Pro Shop
+                  </Button>
                 </Box>
               </Box>
             </Box>
@@ -860,6 +1422,61 @@ function Informations() {
                 </motion.div>
               </Box>
             </Box>
+          </Box>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={openLessonDialog}
+        onClose={() => setOpenLessonDialog(false)}
+        maxWidth="sm"
+        fullWidth
+        PaperProps={{ sx: dialogPaperSx }}
+      >
+        <DialogContent sx={{ p: 0 }}>
+          <Box
+            sx={{
+              position: "relative",
+              px: { xs: 3, md: 4 },
+              py: { xs: 3, md: 4 },
+              background:
+                "linear-gradient(135deg, rgba(31,191,117,0.12) 0%, rgba(20,138,88,0.05) 55%, rgba(255,255,255,0.9) 100%)",
+            }}
+          >
+            <IconButton onClick={() => setOpenLessonDialog(false)} sx={closeSpinSx}>
+              <CloseRoundedIcon />
+            </IconButton>
+
+            {greenKicker("Golf Lesson Management")}
+
+            <Typography
+              component="h3"
+              sx={{
+                mt: 1,
+                mb: 1.5,
+                color: "#0c1c22",
+                fontSize: { xs: "1.8rem", md: "2.2rem" },
+                lineHeight: 1,
+                fontWeight: 900,
+                letterSpacing: "0.02em",
+                textTransform: "uppercase",
+                fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+              }}
+            >
+              Golf Lesson Management
+            </Typography>
+
+            <Typography
+              component="p"
+              sx={{
+                m: 0,
+                color: "#5f6f76",
+                fontSize: "1rem",
+                lineHeight: 1.82,
+              }}
+            >
+              Plan, structure, and track your lessons across all areas of the game, including swing, fundamentals, short game, putting, and course management. Create personalized coaching plans, keep detailed session records, and follow each client&apos;s progress, ensuring a more organized, consistent, and effective coaching experience.
+            </Typography>
           </Box>
         </DialogContent>
       </Dialog>

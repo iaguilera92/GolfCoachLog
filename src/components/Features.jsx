@@ -3,15 +3,74 @@ import { Alert, Box, Button, Container, Dialog, DialogContent, IconButton, Snack
 import ConstructionRoundedIcon from "@mui/icons-material/ConstructionRounded";
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
+import SchoolRoundedIcon from "@mui/icons-material/SchoolRounded";
+import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
+import ChildCareRoundedIcon from "@mui/icons-material/ChildCareRounded";
+import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
 import { motion } from "framer-motion";
 import "./css/Features.css";
 
+const userRoles = [
+  {
+    title: "Academy Coach",
+    icon: GroupsRoundedIcon,
+    summary: "Coach managing groups, tournaments, rankings, and academy-wide communication.",
+    description:
+      "Coach working within an academy or managing a structured group of players. Has tools to organize groups, run tournaments, manage rankings, communicate at scale, and oversee coaching operations.",
+    connections: [
+      "Works with multiple Players and Junior Players",
+      "Can collaborate with and manage other Coaches within the same academy",
+      "Can assign lessons, clinics, or sessions to other coaches",
+      "Oversees overall player and coach development",
+    ],
+  },
+  {
+    title: "Coach",
+    icon: SchoolRoundedIcon,
+    summary: "Independent pro who manages lessons, feedback, and player progress.",
+    description:
+      "Independent professional who manages lessons and players. Can log sessions, analyze swings, provide feedback, and track each player's progress.",
+    connections: [
+      "Works directly with Players and Junior Players",
+      "Can operate independently or within an Academy Coach structure",
+    ],
+  },
+  {
+    title: "Player",
+    icon: PersonRoundedIcon,
+    summary: "Golfer who accesses lessons, videos, stats, and training plans.",
+    description:
+      "Golfer training with a coach or independently. Can access lessons, videos, stats, and training plans to improve performance.",
+    connections: [
+      "Connects with one or multiple Coaches or Academy Coaches",
+      "Receives feedback, assignments, and progress tracking",
+    ],
+  },
+  {
+    title: "Junior Player",
+    icon: ChildCareRoundedIcon,
+    summary: "Young golfer following a structured pathway for long-term development.",
+    description:
+      "Developing golfer (kids or teens), typically part of a program or academy. Follows a more structured pathway focused on learning, progression, and long-term development.",
+    connections: [
+      "Connected to Coaches or Academy Coaches",
+      "Often part of an academy or structured program",
+      "(Future) Can include parent connection for tracking and communication",
+    ],
+  },
+];
+
 function Features() {
   const sectionRefs = useRef([]);
+  const rolesSliderRef = useRef(null);
   const [visibleSections, setVisibleSections] = useState([false, false]);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [openSchedulingDialog, setOpenSchedulingDialog] = useState(false);
-  const [openLessonDialog, setOpenLessonDialog] = useState(false);
+  const [openRoleDialog, setOpenRoleDialog] = useState(false);
+  const [selectedRole, setSelectedRole] = useState(userRoles[0]);
+  const [rolesIntroPlayed, setRolesIntroPlayed] = useState(false);
+  const [showRolesHint, setShowRolesHint] = useState(true);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -38,8 +97,69 @@ function Features() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (!visibleSections[1] || rolesIntroPlayed || typeof window === "undefined") return;
+    if (window.innerWidth >= 900) return;
+
+    const slider = rolesSliderRef.current;
+    if (!slider) return;
+
+    const maxScroll = slider.scrollWidth - slider.clientWidth;
+    if (maxScroll <= 0) return;
+
+    const timeoutId = window.setTimeout(() => {
+      slider.scrollLeft = maxScroll;
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+          slider.scrollTo({ left: 0, behavior: "smooth" });
+          setRolesIntroPlayed(true);
+        });
+      });
+    }, 220);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [visibleSections, rolesIntroPlayed]);
+
+  useEffect(() => {
+    const slider = rolesSliderRef.current;
+    if (!slider || typeof window === "undefined") return;
+
+    const updateHint = () => {
+      if (window.innerWidth >= 900) {
+        setShowRolesHint(false);
+        return;
+      }
+
+      const maxScroll = slider.scrollWidth - slider.clientWidth;
+      const isAtEnd = slider.scrollLeft >= maxScroll - 8;
+      setShowRolesHint(!isAtEnd);
+    };
+
+    updateHint();
+    slider.addEventListener("scroll", updateHint, { passive: true });
+    window.addEventListener("resize", updateHint);
+
+    return () => {
+      slider.removeEventListener("scroll", updateHint);
+      window.removeEventListener("resize", updateHint);
+    };
+  }, [visibleSections]);
+
   const handleComingSoon = () => {
     setOpenSnackbar(true);
+  };
+
+  const handleRolesHintClick = () => {
+    const slider = rolesSliderRef.current;
+    if (!slider) return;
+
+    const firstCard = slider.firstElementChild;
+    const step = firstCard ? firstCard.getBoundingClientRect().width + 20 : slider.clientWidth * 0.82;
+
+    slider.scrollTo({
+      left: Math.min(slider.scrollLeft + step, slider.scrollWidth - slider.clientWidth),
+      behavior: "smooth",
+    });
   };
 
   const overviewCards = [
@@ -111,7 +231,10 @@ function Features() {
               <Box className="features-showcase__overview-line" />
             </Box>
 
-            <Box className="features-showcase__overview-grid">
+            <Box
+              className="features-showcase__overview-grid"
+              sx={{ mt: { xs: "56px", sm: 0, md: 0 } }}
+            >
               {overviewCards.map((card, index) => (
                 <Box
                   key={card.title}
@@ -161,56 +284,240 @@ function Features() {
         <Box
           ref={(el) => { sectionRefs.current[1] = el; }}
           data-feature-index="1"
-          className={`features-showcase__secondary features-showcase__secondary--reverse ${visibleSections[1] ? "features-showcase__reveal is-visible from-right" : "features-showcase__reveal from-right"}`}
-          sx={{ pb: { xs: "10px", md: 0 } }}
+          sx={{
+            background: 'url("/fondo-18.png") center/cover no-repeat',
+            borderRadius: { xs: "28px", md: "34px" },
+            px: { xs: 2, md: 3 },
+            py: { xs: 2.2, md: 3 },
+            mb: { xs: 2, md: 2.8 },
+          }}
         >
-          <Box className="features-showcase__secondary-image-wrap">
-            <img
-              src="/comunication.png"
-              alt="Golf courses preview"
-              className="features-showcase__secondary-image features-showcase__secondary-image--full"
-              style={{
-                transform: "translateY(-8px)",
-                maxWidth: "72%",
-                width: "60%",
-                maxHeight: "330px",
-                height: "auto",
-                objectFit: "contain",
-                margin: "0 auto",
-                display: "block",
-              }}
-            />
-          </Box>
+          <Box className={visibleSections[1] ? "features-showcase__reveal is-visible from-left" : "features-showcase__reveal from-left"}>
+            <Box sx={{ maxWidth: "1180px", mx: "auto" }}>
+              <Box sx={{ textAlign: "center", mb: { xs: 2.2, md: 3.1 } }}>
+                <Box
+                  sx={{
+                    display: "grid",
+                    gridTemplateColumns: { xs: "1fr", md: "minmax(40px, 1fr) auto minmax(40px, 1fr)" },
+                    alignItems: "center",
+                    gap: { xs: "10px", md: "16px" },
+                    margin: "0 auto 14px",
+                    maxWidth: "980px",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      height: "2px",
+                      borderRadius: "999px",
+                      maxWidth: { xs: "160px", md: "none" },
+                      width: "100%",
+                      justifySelf: { xs: "center", md: "stretch" },
+                      background:
+                        "linear-gradient(90deg, rgba(35, 191, 76, 0) 0%, rgba(49, 212, 82, 0.9) 100%)",
+                    }}
+                  />
+                  <Typography
+                    component="h2"
+                    sx={{
+                      color: "#0f231b",
+                      fontWeight: 900,
+                      fontSize: { xs: "1.34rem", sm: "2.5rem", md: "3.2rem" },
+                      lineHeight: { xs: 1.06, sm: 0.96, md: 0.96 },
+                      letterSpacing: { xs: "-0.015em", sm: "-0.03em", md: "-0.03em" },
+                      textShadow: "0 8px 24px rgba(255,255,255,0.16)",
+                      fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+                      maxWidth: "900px",
+                      mx: "auto",
+                      px: { xs: 1, sm: 0 },
+                    }}
+                  >
+                    USER ROLES - GOLF COACH LOG
+                  </Typography>
+                  <Box
+                    sx={{
+                      height: "2px",
+                      borderRadius: "999px",
+                      maxWidth: { xs: "160px", md: "none" },
+                      width: "100%",
+                      justifySelf: { xs: "center", md: "stretch" },
+                      background:
+                        "linear-gradient(90deg, rgba(49, 212, 82, 0.9) 0%, rgba(35, 191, 76, 0) 100%)",
+                    }}
+                  />
+                </Box>
 
-          <Box className="features-showcase__secondary-copy">
-            <Typography
-              component="h2"
-              className="features-showcase__secondary-title"
-              sx={{
-                fontWeight: 900,
-                fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
-                fontSize: { xs: "1.8rem", sm: "2.15rem", md: "2.6rem" },
-                lineHeight: 1.08,
-              }}
-            >
-              GOLF LESSON MANAGEMENT
-            </Typography>
+                <Typography
+                  sx={{
+                    mt: -0.55,
+                    color: "rgba(12, 28, 22, 0.6)",
+                    lineHeight: 1.55,
+                    fontSize: { xs: "0.84rem", md: "0.9rem" },
+                    fontWeight: 500,
+                    maxWidth: "680px",
+                    mx: "auto",
+                  }}
+                >
+                  <Box component="span" sx={{ display: { xs: "none", sm: "inline" } }}>
+                    "Tap a role to explore responsibilities, role scope, and how each profile connects inside the platform."
+                  </Box>
+                  <Box component="span" sx={{ display: { xs: "inline", sm: "none" } }}>
+                    "Tap a role to explore each profile."
+                  </Box>
+                </Typography>
+              </Box>
 
-            <Typography component="p" className="features-showcase__secondary-description">
-              Plan lessons across every area of the game, keep session records
-              organized, and follow each client&apos;s progress with a clear,
-              structured coaching system.
-            </Typography>
+              <Box
+                onClick={handleRolesHintClick}
+                sx={{
+                  display: { xs: "flex", md: "none" },
+                  visibility: showRolesHint ? "visible" : "hidden",
+                  opacity: showRolesHint ? 1 : 0,
+                  alignItems: "center",
+                  justifyContent: "flex-end",
+                  gap: 0.5,
+                  mb: 0.9,
+                  pr: 0.2,
+                  color: "rgba(12, 28, 22, 0.66)",
+                  transition: "opacity 180ms ease",
+                  cursor: "pointer",
+                  WebkitTapHighlightColor: "transparent",
+                  userSelect: "none",
+                  outline: "none",
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: "0.72rem",
+                    fontWeight: 700,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+                  }}
+                >
+                  Swipe
+                </Typography>
+                <ArrowForwardRoundedIcon sx={{ fontSize: "1rem" }} />
+              </Box>
 
-            <Button
-              className="features-showcase__button"
-              variant="contained"
-              onClick={() => setOpenLessonDialog(true)}
-            >
-              Explore More
-            </Button>
+              <Box
+                ref={rolesSliderRef}
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: { xs: "repeat(4, minmax(220px, 1fr))", md: "repeat(4, minmax(0, 1fr))" },
+                  gap: { xs: 1.25, md: 1.6 },
+                  overflowX: { xs: "auto", md: "visible" },
+                  scrollSnapType: { xs: "x mandatory", md: "none" },
+                  pb: 0.7,
+                  px: { xs: 0.2, md: 0 },
+                  "&::-webkit-scrollbar": { display: "none" },
+                }}
+              >
+                {userRoles.map((role) => {
+                  const RoleIcon = role.icon;
+                  return (
+                    <Box
+                      key={role.title}
+                      onClick={() => {
+                        setSelectedRole(role);
+                        setOpenRoleDialog(true);
+                      }}
+                      sx={{
+                        minWidth: { xs: "220px", md: "auto" },
+                        minHeight: { xs: "228px", md: "auto" },
+                        scrollSnapAlign: { xs: "center", md: "none" },
+                        borderRadius: "22px",
+                        border: "1px solid rgba(18, 56, 40, 0.72)",
+                        background:
+                          "linear-gradient(180deg, rgba(16,36,28,0.92) 0%, rgba(9,22,16,0.86) 100%)",
+                        boxShadow: "0 10px 18px rgba(0,0,0,0.14)",
+                        p: { xs: 1.55, md: 1.8 },
+                        cursor: "pointer",
+                        display: "flex",
+                        flexDirection: "column",
+                        transition: "transform 180ms ease",
+                        "&:hover": { transform: { md: "translateY(-2px)" } },
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          width: { xs: 44, md: 50 },
+                          height: { xs: 44, md: 50 },
+                          borderRadius: "14px",
+                          display: "grid",
+                          placeItems: "center",
+                          mb: 1.2,
+                          background: "linear-gradient(180deg, rgba(39,176,86,0.28) 0%, rgba(12,40,24,0.56) 100%)",
+                          border: "1px solid rgba(123, 230, 138, 0.5)",
+                        }}
+                      >
+                        <RoleIcon sx={{ color: "#7be68a", fontSize: { xs: "1.4rem", md: "1.55rem" } }} />
+                      </Box>
+
+                      <Typography
+                        sx={{
+                          color: "#ffffff",
+                          fontWeight: 800,
+                          fontSize: { xs: "1rem", md: "1.08rem" },
+                          lineHeight: 1.1,
+                          fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+                          textAlign: "left",
+                          width: "100%",
+                        }}
+                      >
+                        {role.title}
+                      </Typography>
+
+                      <Typography
+                        sx={{
+                          mt: 0.85,
+                          color: "rgba(255,255,255,0.72)",
+                          fontSize: { xs: "0.84rem", md: "0.9rem" },
+                          lineHeight: 1.55,
+                          minHeight: { xs: "78px", md: "66px" },
+                          textAlign: "left",
+                          width: "100%",
+                        }}
+                      >
+                        {role.summary}
+                      </Typography>
+
+                      <Box sx={{ display: "flex", justifyContent: "flex-end", mt: "auto", pt: 1.2 }}>
+                        <Box
+                          sx={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            minHeight: "32px",
+                            px: 1.2,
+                            borderRadius: "999px",
+                            border: "1px solid rgba(123, 230, 138, 0.38)",
+                            background: "linear-gradient(180deg, rgba(39,176,86,0.16) 0%, rgba(12,40,24,0.3) 100%)",
+                            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04)",
+                          }}
+                        >
+                          <Typography
+                            sx={{
+                              color: "#7be68a",
+                              fontSize: "0.74rem",
+                              fontWeight: 800,
+                              letterSpacing: "0.08em",
+                              textTransform: "uppercase",
+                              fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+                              lineHeight: 1,
+                            }}
+                          >
+                            Role Details
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Box>
+                  );
+                })}
+              </Box>
+            </Box>
           </Box>
         </Box>
+
       </Container>
 
       <Snackbar
@@ -356,8 +663,8 @@ function Features() {
       </Dialog>
 
       <Dialog
-        open={openLessonDialog}
-        onClose={() => setOpenLessonDialog(false)}
+        open={openRoleDialog}
+        onClose={() => setOpenRoleDialog(false)}
         maxWidth="sm"
         fullWidth
         PaperProps={{
@@ -381,7 +688,7 @@ function Features() {
             }}
           >
             <IconButton
-              onClick={() => setOpenLessonDialog(false)}
+              onClick={() => setOpenRoleDialog(false)}
               sx={{
                 position: "absolute",
                 top: 14,
@@ -419,7 +726,7 @@ function Features() {
                   fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
                 }}
               >
-                Golf Lesson Management
+                User Roles
               </Typography>
             </Box>
 
@@ -427,7 +734,7 @@ function Features() {
               component="h3"
               sx={{
                 mt: 1,
-                mb: 1.5,
+                mb: 1.4,
                 color: "#0c1c22",
                 fontSize: { xs: "1.8rem", md: "2.2rem" },
                 lineHeight: 1,
@@ -437,7 +744,7 @@ function Features() {
                 fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
               }}
             >
-              Golf Lesson Management
+              {selectedRole?.title}
             </Typography>
 
             <Typography
@@ -449,13 +756,44 @@ function Features() {
                 lineHeight: 1.82,
               }}
             >
-              Plan, structure, and track your lessons across all areas of the
-              game, including swing, fundamentals, short game, putting, and
-              course management. Create personalized coaching plans, keep
-              detailed session records, and follow each client&apos;s progress,
-              ensuring a more organized, consistent, and effective coaching
-              experience.
+              {selectedRole?.description}
             </Typography>
+
+            <Typography
+              sx={{
+                mt: 1.5,
+                color: "#1fbf75",
+                fontSize: "0.78rem",
+                fontWeight: 800,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                fontFamily: '"Roboto Condensed", "Roboto-BoldCondensed", sans-serif',
+              }}
+            >
+              Connections
+            </Typography>
+
+            <Box sx={{ mt: 1, display: "grid", gap: 0.75 }}>
+              {selectedRole?.connections.map((connection) => (
+                <Typography
+                  key={connection}
+                  sx={{
+                    m: 0,
+                    color: "#5f6f76",
+                    fontSize: "0.98rem",
+                    lineHeight: 1.72,
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: 0.75,
+                  }}
+                >
+                  <Box component="span" sx={{ color: "#1fbf75" }}>
+                    •
+                  </Box>
+                  <Box component="span">{connection}</Box>
+                </Typography>
+              ))}
+            </Box>
           </Box>
         </DialogContent>
       </Dialog>

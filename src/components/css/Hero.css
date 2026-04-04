@@ -18,7 +18,6 @@
     radial-gradient(circle at 83% 14%, rgba(255, 213, 120, 0.34), transparent 16%),
     radial-gradient(circle at 76% 76%, rgba(104, 230, 88, 0.12), transparent 22%),
     linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.22));
-  backdrop-filter: blur(3px);
 }
 
 .hero-coach__container {
@@ -291,6 +290,15 @@
   padding: 0;
   height: calc(100% - 82px);
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  outline: none;
+}
+
+.hero-coach__dashboard-image-wrap:focus,
+.hero-coach__dashboard-image-wrap:focus-visible,
+.hero-coach__dashboard-image-wrap:active {
+  outline: none;
 }
 
 .hero-coach__dashboard-image {
@@ -462,7 +470,7 @@
   .hero-coach__meta {
     flex-direction: column;
     gap: 12px;
-    align-items: flex-start;
+    align-items: center;
     margin-top: 22px;
   }
 
@@ -472,7 +480,7 @@
 
   .hero-coach__phone-shell {
     width: 332px;
-    height: 540px;
+    height: 605px;
     border-radius: 38px;
   }
 
@@ -554,5 +562,11 @@
   .hero-coach__card-title {
     font-size: 0.74rem;
     line-height: 1.15;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero-coach__phone-shell {
+    height: 590px;
   }
 }
