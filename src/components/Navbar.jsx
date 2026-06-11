@@ -149,7 +149,7 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
 
   return (
     <>
-      {isMobile && !isScrolled && (
+      {false && isMobile && !isScrolled && (
         <Box
           sx={{
             position: "fixed",
@@ -254,7 +254,7 @@ function Navbar({ contactoRef, informationsRef, videoReady }) {
           zIndex: 1100,
           borderRadius: "50px",
           overflow: "hidden",
-          marginTop: { xs: isScrolled ? "8px" : "52px", md: "15px" },
+          marginTop: { xs: "8px", md: "15px" },
           transition: "margin-top 0.28s ease",
         }}
       >
