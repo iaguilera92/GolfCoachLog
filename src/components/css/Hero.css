@@ -230,13 +230,14 @@
   justify-content: space-between;
   align-items: center;
   padding: 0;
-  margin-bottom: 10px;
+  margin-bottom: 2px;
 }
 
 .hero-coach__time {
   color: #f7fbf7;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 700;
+  margin-left: 8px;
 }
 
 .hero-coach__status-icons {
@@ -244,6 +245,7 @@
   gap: 4px;
   align-items: center;
   color: rgba(255, 255, 255, 0.92);
+  margin-right: 8px;
 }
 
 .hero-coach__brand {
@@ -252,7 +254,7 @@
   margin-top: 0;
   margin-left: 0;
   margin-right: 0;
-  padding: 16px 18px 10px;
+  padding: 4px 14px 2px;
   border-radius: 0;
   background: hsl(212.73deg 54.1% 23.92%);
 }
@@ -271,10 +273,10 @@
 
 .hero-coach__brand-logo {
   display: block;
-  width: 190px;
+  width: 150px;
   max-width: 100%;
   height: auto;
-  margin: -4px auto 0;
+  margin: 2px auto 0;
 }
 
 .hero-coach__screen-topline {
@@ -303,7 +305,7 @@
 .hero-coach__dashboard-image-wrap {
   position: absolute;
   z-index: 1;
-  top: 99px;
+  top: 58px;
   left: 0;
   right: 0;
   bottom: 0;

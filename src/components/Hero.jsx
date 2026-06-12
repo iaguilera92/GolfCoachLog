@@ -142,11 +142,11 @@ function Hero({ informationsRef, setVideoReady }) {
                     <Box className="hero-coach__statusbar">
                       <Typography className="hero-coach__time">10:30</Typography>
                       <Box className="hero-coach__status-icons">
-                        <SignalCellularAltRoundedIcon sx={{ fontSize: 17 }} />
-                        <WifiRoundedIcon sx={{ fontSize: 17 }} />
+                        <SignalCellularAltRoundedIcon sx={{ fontSize: 13 }} />
+                        <WifiRoundedIcon sx={{ fontSize: 13 }} />
                         <BatteryFullRoundedIcon
                           sx={{
-                            fontSize: 18,
+                            fontSize: 14,
                             transform: "rotate(90deg)",
                           }}
                         />
