@@ -86,14 +86,14 @@
 }
 
 .hero-coach__title {
-  margin: 0;
-  color: #fff;
-  font-family: "Poppins", sans-serif;
+  margin: 0 !important;
+  color: #fff !important;
+  font-family: "Poppins", sans-serif !important;
   font-size: clamp(3.9rem, 6.6vw, 4.7rem);
-  line-height: 0.9;
-  font-weight: 900;
-  letter-spacing: -0.05em;
-  text-shadow: 0 10px 24px rgba(0, 0, 0, 0.26);
+  line-height: 0.9 !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.05em !important;
+  text-shadow: 0 10px 24px rgba(0, 0, 0, 0.26) !important;
 }
 
 .hero-coach__title-accent {
@@ -103,10 +103,10 @@
 .hero-coach__description {
   max-width: 470px;
   margin-top: 18px;
-  color: rgba(244, 249, 244, 0.72);
-  font-family: "Poppins", sans-serif;
+  color: rgba(244, 249, 244, 0.72) !important;
+  font-family: "Poppins", sans-serif !important;
   font-size: 1.08rem;
-  line-height: 1.5;
+  line-height: 1.5 !important;
   font-weight: 400;
 }
 
@@ -210,6 +210,8 @@
   overflow: hidden;
   border-radius: 40px;
   background: linear-gradient(180deg, rgba(7, 17, 10, 0.96), rgba(6, 10, 12, 0.98));
+  display: flex;
+  flex-direction: column;
 }
 
 .hero-coach__screen-bg {
@@ -234,9 +236,12 @@
 }
 
 .hero-coach__time {
-  color: #f7fbf7;
-  font-size: 0.7rem;
-  font-weight: 700;
+  color: #f7fbf7 !important;
+  font-family: "Poppins", sans-serif !important;
+  font-size: 0.7rem !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  letter-spacing: 0 !important;
   margin-left: 8px;
 }
 
@@ -303,12 +308,10 @@
 }
 
 .hero-coach__dashboard-image-wrap {
-  position: absolute;
+  position: relative;
+  flex: 1;
+  min-height: 0;
   z-index: 1;
-  top: 58px;
-  left: 0;
-  right: 0;
-  bottom: 0;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   user-select: none;

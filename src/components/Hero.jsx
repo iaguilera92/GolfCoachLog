@@ -68,11 +68,18 @@ function Hero({ informationsRef, setVideoReady }) {
                   letterSpacing: { xs: "-0.04em", md: "-0.055em" },
                   maxWidth: { xs: "100%", md: "11ch" },
                 }}
+                style={{
+                  margin: 0,
+                  color: "#fff",
+                  fontFamily: '"Poppins", sans-serif',
+                  fontWeight: 900,
+                  textShadow: "0 10px 24px rgba(0,0,0,0.26)",
+                }}
               >
                 <Box component="span" display="block">
                   Coach more.
                 </Box>
-                <Box component="span" display="block" className="hero-coach__title-accent">
+                <Box component="span" display="block" style={{ color: "#41d94c" }}>
                   Organize less.
                 </Box>
                 <Box component="span" display="block">
@@ -86,6 +93,12 @@ function Hero({ informationsRef, setVideoReady }) {
                   fontSize: { xs: "1.02rem", sm: "1.12rem", md: "0.88rem", lg: "1.02rem", xl: "1.08rem" },
                   lineHeight: { xs: 1.55, md: 1.58 },
                   maxWidth: { xs: "100%", md: "34rem" },
+                }}
+                style={{
+                  fontFamily: '"Poppins", sans-serif',
+                  fontWeight: 400,
+                  color: "rgba(244,249,244,0.72)",
+                  marginTop: "18px",
                 }}
               >
                 The all-in-one platform to manage your schedule, analyze swings,
@@ -138,9 +151,21 @@ function Hero({ informationsRef, setVideoReady }) {
                 <Box className="hero-coach__screen">
                   <Box className="hero-coach__screen-bg" />
 
-                  <Box className="hero-coach__brand">
-                    <Box className="hero-coach__statusbar">
-                      <Typography className="hero-coach__time">10:30</Typography>
+                  <Box className="hero-coach__brand" style={{ background: "hsl(212.73deg 54.1% 23.92%)", padding: "4px 14px 2px", flexShrink: 0 }}>
+                    <Box className="hero-coach__statusbar" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2px" }}>
+                      <Box
+                        component="span"
+                        className="hero-coach__time"
+                        style={{
+                          color: "#f7fbf7",
+                          fontFamily: '"Poppins", sans-serif',
+                          fontSize: "0.7rem",
+                          fontWeight: 700,
+                          lineHeight: 1,
+                          letterSpacing: 0,
+                          marginLeft: "8px",
+                        }}
+                      >10:30</Box>
                       <Box className="hero-coach__status-icons">
                         <SignalCellularAltRoundedIcon sx={{ fontSize: 13 }} />
                         <WifiRoundedIcon sx={{ fontSize: 13 }} />
@@ -157,6 +182,7 @@ function Hero({ informationsRef, setVideoReady }) {
                       src="/logo-golfcoachlog.png"
                       alt="Golf Coach Log"
                       className="hero-coach__brand-logo"
+                      style={{ display: "block", width: "150px", maxWidth: "100%", height: "auto", margin: "2px auto 0" }}
                     />
                   </Box>
 
@@ -170,6 +196,7 @@ function Hero({ informationsRef, setVideoReady }) {
                       src={heroDashboardImages[dashboardImageIndex]}
                       alt="Golf coach dashboard preview"
                       className="hero-coach__dashboard-image"
+                      style={{ display: "block", width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center", borderRadius: "0 0 40px 40px" }}
                     />
                   </Box>
                 </Box>
