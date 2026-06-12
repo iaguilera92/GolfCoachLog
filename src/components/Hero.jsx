@@ -7,7 +7,7 @@ import BatteryFullRoundedIcon from "@mui/icons-material/BatteryFullRounded";
 import { motion } from "framer-motion";
 import "./css/Hero.css";
 
-const heroDashboardImages = ["/hero-1.jpeg", "/hero-0.jpeg", "/hero-2.jpeg"];
+const heroDashboardImages = ["/hero1.jpeg", "/hero2.jpeg", "/hero3.jpeg"];
 
 function Hero({ informationsRef, setVideoReady }) {
   const [dashboardImageIndex, setDashboardImageIndex] = useState(0);
@@ -56,14 +56,14 @@ function Hero({ informationsRef, setVideoReady }) {
               className="hero-coach__copy"
               sx={{
                 position: { md: "relative" },
-                left: { xs: 0, md: "150px" },
+                left: { xs: 0, md: "80px", lg: "110px", xl: "150px" },
               }}
             >
               <Typography
                 component="h1"
                 className="hero-coach__title"
                 sx={{
-                  fontSize: { xs: "3rem", sm: "3.7rem", md: "4rem", lg: "4.4rem" },
+                  fontSize: { xs: "3rem", sm: "3.7rem", md: "3rem", lg: "3.8rem", xl: "4.4rem" },
                   lineHeight: { xs: 0.98, md: 0.92 },
                   letterSpacing: { xs: "-0.04em", md: "-0.055em" },
                   maxWidth: { xs: "100%", md: "11ch" },
@@ -83,7 +83,7 @@ function Hero({ informationsRef, setVideoReady }) {
               <Typography
                 className="hero-coach__description"
                 sx={{
-                  fontSize: { xs: "1.02rem", sm: "1.12rem", md: "1.02rem", lg: "1.08rem" },
+                  fontSize: { xs: "1.02rem", sm: "1.12rem", md: "0.88rem", lg: "1.02rem", xl: "1.08rem" },
                   lineHeight: { xs: 1.55, md: 1.58 },
                   maxWidth: { xs: "100%", md: "34rem" },
                 }}
@@ -123,14 +123,14 @@ function Hero({ informationsRef, setVideoReady }) {
               className="hero-coach__visual"
               sx={{
                 position: { md: "relative" },
-                right: { xs: 0, md: "28px" },
+                right: { xs: 0, md: "30px", lg: "45px", xl: "60px" },
               }}
             >
               <Box
                 className="hero-coach__phone-shell"
                 sx={{
-                  width: { xs: "332px", md: "clamp(290px, 30vw, 290px)" },
-                  height: { xs: "640px", md: "clamp(540px, 58vw, 540px)" },
+                  width: { xs: "332px", md: "230px", lg: "260px", xl: "290px" },
+                  height: { xs: "620px", md: "444px", lg: "502px", xl: "560px" },
                 }}
               >
                 <Box className="hero-coach__notch" />
@@ -170,12 +170,6 @@ function Hero({ informationsRef, setVideoReady }) {
                       src={heroDashboardImages[dashboardImageIndex]}
                       alt="Golf coach dashboard preview"
                       className="hero-coach__dashboard-image"
-                      sx={{
-                        transform:
-                          heroDashboardImages[dashboardImageIndex] === "/hero-2.jpeg"
-                            ? "translateY(-18px)"
-                            : "translateY(-10px)",
-                      }}
                     />
                   </Box>
                 </Box>
